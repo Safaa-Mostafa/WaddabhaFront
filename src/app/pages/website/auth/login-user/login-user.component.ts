@@ -48,6 +48,7 @@ form!: FormGroup;
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
           this.service.setToken(res.token);
+          localStorage.setItem("token",res.token);
           Swal.fire({
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح',
@@ -55,8 +56,7 @@ form!: FormGroup;
             confirmButtonText: 'موافق'
           });
             this.router.navigateByUrl('/layout');
-        },
-        error: (err) => {
+        },error: (err) => {
           Swal.fire({
             title: 'An error occurred',
             text: 'Please try again later.',
