@@ -1,0 +1,15 @@
+<!-- src/app/category/category.component.html -->
+<div class="container mx-auto my-10  px-20 ">
+    <h2 class="text-center text-2xl font-bold mb-8  mx-15">كافة الخدمات الاحترافية لتطوير أعمالك</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for(category of categories; track $index)  {
+
+        <div class="category-card mx-5 relative overflow-hidden rounded-lg h-56 shadow-md transform transition-transform hover:scale-105 cursor-pointer">
+                <img [src]="category.imageUrl" [alt]="category.name" class="w-full h-full object-cover transition-transform duration-300 hover:opacity-80">
+                <div class="category-title absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white px-4 py-2 text-center text-lg font-semibold">
+                    {{ category.name }}
+                </div>
+            </div>
+      }
+    </div>
+  </div>

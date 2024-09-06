@@ -7,22 +7,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private urlPath = 'https://localhost:7116/api/';
+  private urlPath = 'https://localhost:7116/api/Auth/';
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   Login(obj: any): Observable<any> {
-    return this.http.post(`${this.urlPath}Auth/login`, obj);
+    return this.http.post(`${this.urlPath}login`, obj);
   }
 
   register(obj: any): Observable<any> {
-    return this.http.post(`${this.urlPath}Auth/register`, obj);
+    return this.http.post(`${this.urlPath}register`, obj);
   }
 
   resetPassword(obj: any): Observable<any> {
-    return this.http.post(`${this.urlPath}user/reset_password`, obj);
+    return this.http.post(`${this.urlPath}reset_password`, obj);
   }
   isLoggedIn() {
     return this.getToken() !== null;

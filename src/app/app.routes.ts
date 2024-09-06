@@ -9,7 +9,7 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { authGuard } from './pages/core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/layout', pathMatch: 'full' },
   {path:'login',component:LoginUserComponent},
   {path:'signup',component:RegisterUserComponent},
   {path:'reset_password',component:ResetPasswordComponent},

@@ -162,14 +162,20 @@
                   <!-- Error Messages -->
                   <div class="text-end">
                     @if(form.get('password')?.hasError('required') && form.get('password')?.dirty){
-                      <p class="mt-2 text-sm text-red-600">كلمة المرور مطلوبة</p>
-                    }
+                    <p class="mt-2 text-sm text-red-600">
+                      كلمة المرور مطلوبة
+                    </p>}
                     @if(form.get('password')?.hasError('pattern') && form.get('password')?.dirty){
-                      <p class="mt-2 text-sm text-red-600">يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، ورقم واحد على الأقل</p>
-                    }
+                    <p class="mt-2 text-sm text-red-600">
+                      يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، رقم، ورمز واحد على الأقل
+                    </p>
+                  }
+                  </div>
+
+
                   </div>
                 </div>
-              </div>
+         
 
               <!-- Terms and Conditions Checkbox -->
               <div class="w-full px-3" dir="rtl">
