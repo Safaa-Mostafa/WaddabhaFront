@@ -1,4 +1,3 @@
-import { AboutUsComponent } from './pages/website/about-us/about-us.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/navbars/navbar/navbar.component';
@@ -10,7 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, UsernavbarComponent,AboutUsComponent],
+  imports: [RouterOutlet, NavbarComponent, UsernavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

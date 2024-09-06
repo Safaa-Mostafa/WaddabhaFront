@@ -42,7 +42,7 @@ export class RegisterUserComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^[\u0600-\u06FF\\s]+$')
+          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_])[\u0600-\u06FF\\sA-Za-z\\d]+$')
         ]
       ],
       lName: [
@@ -90,14 +90,7 @@ export class RegisterUserComponent implements OnInit {
   private registerUser(user: User): void {
     this.service.register(user).subscribe({
       next: (res) => {
-        if (res.apiStatus === false) {
-          Swal.fire({
-            title: 'حصل خطأ',
-            text: res.message || 'حاول مرة تانية بعد شوية.',
-            icon: 'error',
-            confirmButtonText: 'موافق'
-          });
-        } else {
+
           Swal.fire({
             title: 'تم إضافة المستخدم بنجاح',
             text: 'مرحبا بك، يمكنك الآن المتابعة.',
@@ -105,7 +98,7 @@ export class RegisterUserComponent implements OnInit {
             confirmButtonText: 'موافق'
           }).then(() => this.router.navigateByUrl('/login'));
         }
-      },
+      ,
       error: (err) => {
         Swal.fire({
           title: 'حصل خطأ',
