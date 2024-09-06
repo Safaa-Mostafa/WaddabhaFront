@@ -1,0 +1,202 @@
+<div class="bg-gray-100 flex h-screen items-start justify-center px-4 sm:px-6 lg:px-2 pt-4 ">
+  <div class="w-full max-w-2xl space-y-4 mt-20">
+    <div class="bg-[#ffffff] shadow-md p-4 flex flex-col items-center">
+      <h2 class="text-center text-3xl font-bold text-gray-900 fw-medium" style="font-size: 24px; line-height: 1.6em;">
+        إنشاء حساب جديد
+      </h2>
+
+      <!-- Social Login Buttons -->
+      <div class="flex justify-center space-x-4 w-4/6">
+        <button class="flex items-center justify-center w-5/6 py-2 px-4 text-xs font-medium text-white shadow-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          <i class="fab fa-microsoft mr-2"></i>
+          <span>باستخدام مايكروسوفت</span>
+        </button>
+        <button class="flex items-center justify-center w-5/6 py-2 px-4 text-xs font-medium text-white shadow-sm bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          <i class="fab fa-google mr-2"></i>
+          <span>باستخدام جوجل</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative w-full mt-2">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="p-1 bg-[#fff] text-gray-500">أو</span>
+        </div>
+      </div>
+
+      <div class="w-full max-w-3xl space-y-4">
+        <div class="bg-[#ffffff] pb-4 flex flex-col items-center">
+
+          <!-- Form -->
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="flex flex-wrap -mx-3">
+              <!-- Username -->
+              <div class="w-full px-3">
+                <div class="mb-4">
+                  <label for="username" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('username')?.invalid && form.get('username')?.dirty}">
+                    <span>*</span> اسم المستخدم
+                  </label>
+                  <input type="text" formControlName="username" name="username" id="username" dir="rtl"
+                    placeholder="أدخل اسم المستخدم الخاص بك" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+
+                  <!-- Error Messages -->
+                  @if(form.get('username')?.hasError('required') && form.get('username')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم مطلوب</p>
+                  }
+                  @if(form.get('username')?.hasError('minlength') && form.get('username')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم يجب أن يكون طوله 2 أحرف على الأقل</p>
+                  }
+                  @if(form.get('username')?.hasError('pattern') && form.get('username')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم يجب أن يكون باللغة العربية فقط</p>
+                  }
+                </div>
+              </div>
+
+              <!-- Last Name -->
+              <div class="w-full lg:w-1/2 px-3">
+                <div class="mb-4">
+                  <label for="lName" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('lName')?.invalid && form.get('lName')?.dirty}">
+                    <span>*</span> اسم العائلة
+                  </label>
+                  <input formControlName="lName" type="text" name="lName" id="lName"
+                    placeholder="أكتب اسم العائلة هنا باللغة العربية" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    dir="rtl" />
+
+                  <!-- Error Messages -->
+                  @if(form.get('lName')?.hasError('required') && form.get('lName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة مطلوب</p>
+                  }
+                  @if(form.get('lName')?.hasError('minlength') && form.get('lName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة يجب أن يكون طوله 2 أحرف على الأقل</p>
+                  }
+                  @if(form.get('lName')?.hasError('pattern') && form.get('lName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة يجب أن يكون باللغة العربية فقط</p>
+                  }
+                </div>
+              </div>
+
+              <!-- First Name -->
+              <div class="w-full lg:w-1/2 px-3">
+                <div class="mb-4">
+                  <label for="fName" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('fName')?.invalid && form.get('fName')?.dirty}">
+                    <span>*</span> الاسم
+                  </label>
+                  <input type="text" formControlName="fName" name="fName" id="fName" dir="rtl"
+                    placeholder="أكتب اسمك باللغة العربية" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+
+                  <!-- Error Messages -->
+                  @if(form.get('fName')?.hasError('required') && form.get('fName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 text-end">الاسم مطلوب</p>
+                  }
+                  @if(form.get('fName')?.hasError('minlength') && form.get('fName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 text-end">الاسم يجب أن يكون طوله 2 أحرف على الأقل</p>
+                  }
+                  @if(form.get('fName')?.hasError('pattern') && form.get('fName')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 text-end">الاسم يجب أن يكون باللغة العربية فقط</p>
+                  }
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="w-full px-3">
+                <div class="mb-4">
+                  <label for="email" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('email')?.invalid && form.get('email')?.dirty}">
+                    <span>*</span> البريد الإلكتروني
+                  </label>
+                  <input type="email" formControlName="email" name="email" id="email"
+                    placeholder="أدخل البريد الإلكتروني الخاص بك" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    dir="rtl"/>
+
+                  <!-- Error Messages -->
+                  @if(form.get('email')?.hasError('required') && form.get('email')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 text-end">البريد الإلكتروني مطلوب</p>
+                  }
+                  @if(form.get('email')?.hasError('email') && form.get('email')?.dirty){
+                    <p class="mt-2 text-sm text-red-600 text-end">يجب إدخال بريد إلكتروني صحيح</p>
+                  }
+                </div>
+              </div>
+              <div class="w-full px-3">
+                <div class="mb-4">
+                  <label for="role" class="block text-right text-xs font-medium text-gray-700 py-2">
+                    <span>*</span> اختر دورك
+                  </label>
+                  <select formControlName="role" name="role" id="role" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    dir="rtl">
+                    <option value="">-- اختر دورك --</option>
+                    <option value="buyer">مشتري</option>
+                    <option value="seller">بائع</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Password -->
+              <div class="w-full px-3">
+                <div class="mb-4">
+                  <label for="password" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('password')?.invalid && form.get('password')?.dirty}">
+                    <span>*</span> كلمة المرور
+                  </label>
+                  <div class="relative">
+                    <input type="password" formControlName="password" name="password" id="password"
+                      placeholder="أدخل كلمة المرور الخاصة بك" required [type]="hidePassword ? 'password' : 'text'"
+                      class="w-full border border-gray-300 bg-gray-50 py-2 pl-10 pr-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      dir="rtl" />
+                    <button type="button" (click)="togglePasswordVisibility()"
+                      class="absolute inset-y-0 left-0 flex items-center px-3">
+                      <i [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                    </button>
+                  </div>
+
+                  <!-- Error Messages -->
+                  <div class="text-end">
+                    @if(form.get('password')?.hasError('required') && form.get('password')?.dirty){
+                      <p class="mt-2 text-sm text-red-600">كلمة المرور مطلوبة</p>
+                    }
+                    @if(form.get('password')?.hasError('pattern') && form.get('password')?.dirty){
+                      <p class="mt-2 text-sm text-red-600">يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، ورقم واحد على الأقل</p>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <!-- Terms and Conditions Checkbox -->
+              <div class="w-full px-3" dir="rtl">
+                <div class="flex items-center">
+                  <input id="terms" formControlName="terms" name="terms" type="checkbox" required
+                    class="h-4 w-4 px-2 border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                  <label for="terms" class="ml-2 block text-xs text-gray-900 py-2">
+                    قرأت وأوافق على <a href="#" class="text-blue-500">شروط الاستخدام</a> و<a href="#"
+                      class="text-blue-500">بيان الخصوصية</a>
+                  </label>
+                </div>
+              </div>
+
+              <!-- CAPTCHA -->
+              <div class="w-full px-3">
+                <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="form.invalid"
+              class="w-full bg-[#2caae2] py-1 px-4 text-xs font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-gray-700">
+              تسجيل
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<header class="flex flex-wrap justify-between items-center p-2 bg-[#444444] text-white shadow-md">
+  <!-- Left Section -->
+  <div class="flex items-center space-x-4 rtl:space-x-reverse">
+    <!-- Profile Photo -->
+    <a href="#" class="cursor-pointer">
+      <img src="profile.jpg" alt="Profile-Photo" class="w-10 h-10 rounded-full border-2 border-white">
+    </a>
+
+    <!-- Icons (Hidden on mobile) -->
+    <div class="hidden sm:flex space-x-4 rtl:space-x-reverse">
+      <i class="fas fa-bell w-6 h-6 cursor-pointer"></i>
+      <i class="fas fa-envelope w-6 h-6 cursor-pointer"></i>
+      <i class="fas fa-shopping-cart w-6 h-6 cursor-pointer"></i>
+    </div>
+  </div>
+
+  <!-- Right Section (Navigation Links) -->
+  <div class="hidden sm:flex items-center space-x-4 rtl:space-x-reverse">
+    <ul class="flex space-x-4 rtl:space-x-reverse">
+      <li><a routerLink="/" class="cursor-pointer">التصنيفات</a></li>
+      <li><a routerLink="/Service/new" class="cursor-pointer">أضف خدمات</a></li>
+      <li><a routerLink="/" class="cursor-pointer">المشتريات</a></li>
+      <li><a routerLink="/" class="cursor-pointer">الطلبات الواردة</a></li>
+    </ul>
+  </div>
+
+  <!-- Search Section (Visible on Mobile) -->
+  <div class="flex items-center space-x-4 rtl:space-x-reverse">
+    <i class="fas fa-search text-gray-400 block sm:hidden cursor-pointer"></i>
+    <input type="search" class="hidden sm:block border rounded px-2 py-1 text-gray-700" placeholder="Search...">
+  </div>
+
+  <!-- Hamburger Menu (Visible on Mobile) -->
+  <div class="flex items-center space-x-4 sm:hidden">
+    <button (click)="toggleMenu()" class="cursor-pointer">
+      <i class="fas fa-bars text-gray-400"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Dropdown Menu -->
+@if(isMenuOpen) {
+  <div class="sm:hidden flex flex-col space-y-2 p-4 bg-[#444444] text-white">
+    <a routerLink="/" class="hover:underline cursor-pointer">التصنيفات</a>
+    <a routerLink="/service/new" class="hover:underline cursor-pointer">أضف خدمات</a>
+    <a routerLink="/" class="hover:underline cursor-pointer">المشتريات</a>
+    <a routerLink="/" class="hover:underline cursor-pointer">الطلبات الواردة</a>
+  </div>
+}

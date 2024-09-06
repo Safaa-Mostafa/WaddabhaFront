@@ -1,0 +1,91 @@
+<div class="bg-gray-100 flex h-screen items-start justify-center px-4 sm:px-6 lg:px-2 pt-4">
+  <div class="w-full max-w-md space-y-4 mt-20">
+    <div class="bg-[#ffffff] shadow-md p-4 flex flex-col items-center">
+      <h2 class="text-center text-2xl font-bold text-gray-900 mb-4">
+        تسجيل الدخول
+      </h2>
+      <div class="flex justify-center space-x-4 w-full">
+        <button
+          class="flex items-center justify-center w-full max-w-[250px] py-2 px-4 text-xs font-medium text-white shadow-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          <i class="fab fa-microsoft mr-2"></i>
+          <span>باستخدام مايكروسوفت</span>
+        </button>
+        <button
+          class="flex items-center justify-center w-full max-w-[250px] py-2 px-4 text-xs font-medium text-white shadow-sm bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          <i class="fab fa-google mr-2"></i>
+          <span>باستخدام جوجل</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative w-full mt-2">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="p-1 bg-[#fff] text-gray-500">أو</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full space-y-4">
+        <!-- Email -->
+        <div class="w-full">
+          <div class="mb-4">
+            <label for="email" class="block text-right text-xs font-medium text-gray-700 py-2">
+              <span>*</span> البريد الإلكتروني
+            </label>
+            <input type="email" formControlName="email" name="email" id="email"
+              placeholder="أدخل البريد الإلكتروني الخاص بك" required
+              class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              dir="rtl"/>
+            <p *ngIf="form.get('email')?.hasError('required') && form.get('email')?.dirty"
+              class="mt-2 text-sm text-red-600 text-end">البريد الإلكتروني مطلوب</p>
+            <p *ngIf="form.get('email')?.hasError('email') && form.get('email')?.dirty"
+              class="mt-2 text-sm text-red-600 text-end">يجب إدخال بريد إلكتروني صحيح</p>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="w-full">
+          <div class="mb-4">
+            <label for="password" class="block text-right text-xs font-medium text-gray-700 py-2">
+              <span>*</span> كلمة المرور
+            </label>
+            <div class="relative">
+              <input type="password" formControlName="password" name="password" id="password"
+                placeholder="أدخل كلمة المرور الخاصة بك" required [type]="hidePassword ? 'password' : 'text'"
+                class="w-full border border-gray-300 bg-gray-50 py-2 pl-10 pr-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                dir="rtl"/>
+              <button type="button" (click)="togglePasswordVisibility()"
+                class="absolute inset-y-0 left-0 flex items-center px-3">
+                <i [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+              </button>
+            </div>
+            <p *ngIf="form.get('password')?.hasError('required') && form.get('password')?.dirty"
+              class="mt-2 text-sm text-red-600 text-end">كلمة المرور مطلوبة</p>
+            <p *ngIf="form.get('password')?.hasError('pattern') && form.get('password')?.dirty"
+              class="mt-2 text-sm text-red-600 text-end">يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، ورقم واحد على الأقل</p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="w-full bg-[#2caae2] py-1 px-4 text-xs font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-gray-700"
+        >
+          تسجيل
+        </button>
+      </form>
+
+      <!-- Additional Links -->
+      <div class="mt-4 text-center text-xs text-gray-600 w-full text-end">
+        <p><a href="#" class="text-blue-500 hover:underline">مساعدة</a></p>
+        <p><a routerLink="/signup" class="text-blue-500 hover:underline">لا أملك حساب بعد</a></p>
+        <p><a routerLink="/reset_password" class="text-blue-500 hover:underline">فقدت كلمة المرور</a></p>
+        <p><a routerLink="/reset_password" class="text-blue-500 hover:underline">لم يصلني رمز التفعيل</a></p>
+      </div>
+    </div>
+  </div>
+</div>
