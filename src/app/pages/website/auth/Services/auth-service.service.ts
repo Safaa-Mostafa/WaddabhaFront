@@ -9,8 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthServiceService {
   private urlPath = 'https://localhost:7116/api/Auth/';
   constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private http: HttpClient
   ) {}
 
   Login(obj: any): Observable<any> {
@@ -28,16 +27,13 @@ export class AuthServiceService {
     return this.getToken() !== null;
   }
   setToken(token: string): void {
-    if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('token', token);
-    }
+
   }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem('token');
-    }
-    return null;
+
   }
 
   private checkToken(): boolean {
@@ -45,8 +41,7 @@ export class AuthServiceService {
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
-    }
+    
   }
 }
