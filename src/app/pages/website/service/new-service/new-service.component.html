@@ -40,65 +40,62 @@
                   </p>
               </div>
           </div>
-      </div>
-
+    </div>
       <!-- right side -->
       <div class="flex-grow mx-0 lg:mx-8 p-7 bg-white rounded-lg shadow" dir="rtl">
           <h1
               class="text-xl bg-white text-green-600 border border-green-600 rounded-md px-4 py-2 inline-flex items-center mb-5">
               أضف خدمة</h1>
-          <div class="space-y-6">
-              <form>
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
               <div>
-                  <label class="block font-semibold mb-1">عنوان الخدمة</label>
-                  <input type="text" name="title"
-                      class="bg-white text-black-600 border border-gray-300 rounded-md px-4 py-2 w-full lg:w-1/2">
-                  <p class="mt-2 text-gray-700">أدخل عنواناً واضحاً باللغة العربية يصف الخدمة التي تريد أن تقدمها. لا
+                  <label class="block font-semibold mb-1" for="title">عنوان الخدمة</label>
+                  <input type="text" name="title" id="title" formControlName="title" required 
+                      class="bg-white text-black-600 border border-gray-300 rounded-md px-4 py-2 w-full">
+                  <p class="mt-2 text-gray-700 mb-10">أدخل عنواناً واضحاً باللغة العربية يصف الخدمة التي تريد أن تقدمها. لا
                       تدخل رموزاً أو كلمات مثل
                       "حصرياً"، "لأول مرة"، "لفترة محدود".. الخ.</p>
               </div>
               <div>
-                  <label class="block font-semibold mb-1">التصنيف</label>
-                  <select name="type" id="type"
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full lg:w-1/2">
-                      <option value=""></option>
-                      <option value="new">سباكة</option>
-                      <option value="old">نجارة</option>
-                      <option value="old">كهرباء</option>
-                      <option value="old">حدادة</option>
+                  <label class="block font-semibold mb-1" for="type">التصنيف</label>
+                  <select name="type" id="type" formControlName="type"
+                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full mb-10">
+                      <!-- @for (item of categories; track item) 
+                      {
+                          <option>item</option>
+                      } -->
                   </select>
               </div>
               <div>
                   <label class="block font-semibold mb-1">وصف الخدمة</label>
                   <textarea
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full lg:w-1/2"></textarea>
-                  <p class="mt-2 text-gray-700">أدخل وصف الخدمة بدقة يتضمن جميع المعلومات والشروط. يمنع وضع البريد
+                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full h-40"></textarea>
+                  <p class="mt-2 text-gray-700 mb-10">أدخل وصف الخدمة بدقة يتضمن جميع المعلومات والشروط. يمنع وضع البريد
                       الالكتروني، رقم الهاتف أو أي
                       معلومات اتصال أخرى.</p>
               </div>
               <div>
                   <label class="block font-semibold mb-1">معرض الخدمة</label>
-                  <div class="relative w-full lg:w-1/2">
+                  <div class="relative w-full">
                       <input type="file" id="file-upload" class="hidden">
                       <label for="file-upload"
                           class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md cursor-pointer inline-flex items-center justify-center w-full lg:w-auto">
-                          أضف صورة أو فيديو
+                          أضف صورة
                       </label>
-                  </div>
-                  <p class="mt-2 text-gray-700">أضف صور أو فيديو مصمم بشكل جيد لتظهر خدمتك بشكل احترافي وتزيد من
-                      مبيعاتك.</p>
+                    </div>
+                    <p class="mt-2 text-gray-700 mb-10">أضف صور أو فيديو مصمم بشكل جيد لتظهر خدمتك بشكل احترافي وتزيد من
+                        مبيعاتك.</p>
               </div>
               <div>
                   <label class="block font-semibold mb-1">سعر الخدمة يبدأ من </label>
                   <input type="number"
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full lg:w-1/2" value="50">
+                      class="border border-gray-300 rounded-md px-4 mb-10 py-2 text-gray-700 w-full" value="50">
               </div>
 
               <div>
                   <label class="block font-semibold mb-1">تعليمات للمشترى</label>
                   <textarea
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full lg:w-1/2"></textarea>
-                  <p class="mt-2 text-gray-700">المعلومات التي تحتاجها من المشتري لتنفيذ الخدمة.</p>
+                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full"></textarea>
+                  <p class="mt-2 mb-30 text-gray-700">المعلومات التي تحتاجها من المشتري لتنفيذ الخدمة.</p>
               </div>
           
           <div class="bg-gray-50 p-6 rounded-lg shadow space-y-6 mt-10">
@@ -106,7 +103,7 @@
               <div class="flex items-center">
                   <input id="in-progress" type="checkbox"
                       class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                  <label for="in-progress" class="ml-2 text-gray-700">جميع الأعمال بمعرض الخدمة نفذتها بنفسي ولدي
+                  <label for="in-progress" class="ml-2 mb-30 text-gray-700">جميع الأعمال بمعرض الخدمة نفذتها بنفسي ولدي
                       الصلاحية لنشرها</label>
               </div>
           </div>
@@ -115,7 +112,6 @@
               أضف الخدمة
           </button>
       </form>
-      </div>
-  </div>
-   </div>
+</div>
+</div>
 </div>
