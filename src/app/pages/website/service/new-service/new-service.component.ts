@@ -7,21 +7,20 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-new-service',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './new-service.component.html',
-  styleUrl: './new-service.component.css'
+  styleUrl: './new-service.component.css',
 })
 export class NewServiceComponent {
-  urlPath = 'https://localhost:7116/api/Auth/';
-  
-form!: FormGroup;
-constructor(private formBuilder: FormBuilder) {
+  urlPath = 'https://localhost:7116/api/service/';
+
+  form!: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({});
   }
-  categories! : string;
-onSubmit(){
-  if (this.form.valid){
 
+  onSubmit() {
+    if (this.form.valid) {
+    }
   }
-}
 }
