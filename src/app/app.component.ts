@@ -5,12 +5,13 @@ import { UsernavbarComponent } from "./shared/navbars/usernavbar/usernavbar.comp
 import { AuthServiceService } from './pages/website/auth/Services/auth-service.service';
 import { Subscription } from 'rxjs';
 import { FooterComponent } from "./shared/footer/footer.component";
+import { NewServiceComponent } from "./pages/website/service/new-service/new-service.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, UsernavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, UsernavbarComponent, FooterComponent, NewServiceComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
