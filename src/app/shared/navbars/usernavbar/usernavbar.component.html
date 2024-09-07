@@ -2,10 +2,18 @@
   <!-- Left Section -->
   <div class="flex items-center space-x-4 rtl:space-x-reverse">
     <!-- Profile Photo -->
-    <a  class="cursor-pointer">
+    <a (click)="toggleMenu()" class="cursor-pointer">
       <img src="profile.jpg" alt="Profile-Photo" class="w-10 h-10 rounded-full border-2 border-white">
     </a>
+@if(isMenuOpen){
+  <ul class="absolute top-[52px] z-[1000] bg-white text-gray-700 p-2 left-0">
+    <li><a href="">اسم المستخدم</a></li>
+    <li><a href="">الاعدادات</a></li>
+    <li><a href="">الرصيد</a></li>
+    <li><a (click)="logout()" class="cursor-pointer">تسجيل الخروج</a></li>
+  </ul>
 
+}
     <!-- Icons (Hidden on mobile) -->
     <div class="hidden sm:flex space-x-4 rtl:space-x-reverse">
       <i class="fas fa-bell w-6 h-6 cursor-pointer"></i>
@@ -36,6 +44,9 @@
       <i class="fas fa-bars text-gray-400"></i>
     </button>
   </div>
+  <div class="flex items-center space-x-4">
+    <img src="" alt="logo" class="h-8">
+    </div>
 </header>
 
 <!-- Mobile Dropdown Menu -->

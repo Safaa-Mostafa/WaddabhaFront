@@ -1,9 +1,13 @@
+@if("!authService.isLoggedIn()"){
+<ng-container>
+  <app-navbar></app-navbar>
+</ng-container>
+}
+@else{
 <ng-container>
   <app-usernavbar></app-usernavbar>
 </ng-container>
-
-<ng-template>
-  <app-navbar></app-navbar>
-</ng-template>
-
+}
 <router-outlet></router-outlet>
+
+<app-footer></app-footer>

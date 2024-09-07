@@ -6,6 +6,7 @@ body {
 }
 
 .hero-section {
+  /* src\assets\Background3.jpg */
   background-image: url('/assets/Background3.jpg');
   background-size: cover;
   background-position: center;
