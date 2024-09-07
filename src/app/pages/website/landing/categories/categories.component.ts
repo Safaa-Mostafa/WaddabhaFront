@@ -1,21 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoriesService } from './services/categories.service';
+import { Category } from './models/category';
+import { CategoryComponent } from './category/category.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [],
+  imports: [CategoryComponent],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css'
+  styleUrl: './categories.component.css',
 })
-export class CategoriesComponent {
-  categories = [
-    { name: 'كهرباء', imageUrl: 'assets/Electricity.jpg' },
-    { name: 'تسويق رقمي', imageUrl: 'assets/DigitalMarketing.jpg' },
-    { name: 'كتابة وترجمة', imageUrl: 'assets/WritingTranslation.jpg' },
-    { name: 'تصميم', imageUrl: 'assets/Design.jpg' },
-    { name: 'صوتيات', imageUrl: 'assets/Audio.jpg' },
-    { name: 'أعمال', imageUrl: 'assets/Business.jpg' },
-    { name: 'هندسة وعمارة', imageUrl: 'assets/EngineeringArchitecture.jpg' },
-    { name: 'فيديو وأنيميشن', imageUrl: 'assets/VideoAnimation.jpg' }
-  ];
+export class CategoriesComponent implements OnInit {
+  constructor(private categoriesService: CategoriesService) {}
+  categories!: Category[];
+
+  ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  loadCategories(): void {
+    this.categoriesService.getAllCategories().subscribe({
+      next: (res) => {
+        this.categories = res.data;
+      },
+      error: (err) => {},
+    });
+  }
 }

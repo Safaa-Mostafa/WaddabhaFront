@@ -16,55 +16,50 @@ import { AuthServiceService } from '../Services/auth-service.service';
 @Component({
   selector: 'app-login-user',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login-user.component.html',
-  styleUrl: './login-user.component.css'
+  styleUrl: './login-user.component.css',
 })
 export class LoginUserComponent {
   hidePassword: boolean = true;
   constructor(
-    private formBuilder: FormBuilder,private service:AuthServiceService,private router:Router
+    private formBuilder: FormBuilder,
+    private service: AuthServiceService,
+    private router: Router
   ) {}
 
-form!: FormGroup;
+  form!: FormGroup;
   ngOnInit() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6)
-                ],
-      ]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
-
   }
   togglePasswordVisibility(): void {
-      this.hidePassword = !this.hidePassword;
+    this.hidePassword = !this.hidePassword;
   }
   onSubmit() {
-        if (this.form.valid) {
+    if (this.form.valid) {
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
-          this.service.setToken(res.token);
+          this.service.setToken(res.data.token);
           Swal.fire({
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح',
             icon: 'success',
-            confirmButtonText: 'موافق'
+            confirmButtonText: 'موافق',
           });
-            this.router.navigateByUrl('/layout');
-        },error: (err) => {
+          this.router.navigateByUrl('/layout');
+        },
+        error: (err) => {
           Swal.fire({
             title: 'An error occurred',
             text: 'Please try again later.',
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
           });
-        }
+        },
       });
     }
   }
-
 }
