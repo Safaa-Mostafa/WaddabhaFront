@@ -1,4 +1,4 @@
-@if("!authService.isLoggedIn()"){
+@if(!this.authService.getToken()){
 <ng-container>
   <app-navbar></app-navbar>
 </ng-container>

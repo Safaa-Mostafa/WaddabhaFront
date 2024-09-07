@@ -16,11 +16,9 @@ import { FooterComponent } from "./shared/footer/footer.component";
 })
 export class AppComponent  {
   title = 'Waddabha';
+  constructor(public authService: AuthServiceService) {
 
-  constructor(public authService: AuthServiceService) {}
-
-  ngOnInit(): void {
-    this.authService.LoggedIn = !!this.authService.getToken();
   }
+
 
 }
