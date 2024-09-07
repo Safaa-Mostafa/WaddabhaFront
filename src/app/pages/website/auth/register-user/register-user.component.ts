@@ -62,7 +62,7 @@ export class RegisterUserComponent implements OnInit {
         ]
       ],
       terms: [false, Validators.requiredTrue],
-      role: ['buyer', Validators.required]
+      role: ['Buyer', Validators.required]
     });
   }
 
