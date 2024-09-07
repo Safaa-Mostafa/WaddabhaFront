@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './pages/website/auth/reset-password/rese
 import { NewServiceComponent } from './pages/website/service/new-service/new-service.component';
 import { LandingComponent } from './pages/website/landing/landing.component';
 import { authGuard } from './pages/core/guards/auth.guard';
+import { ServiceDetailsComponent } from './pages/website/service/service-details/service-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/layout', pathMatch: 'full' },
@@ -15,10 +16,13 @@ export const routes: Routes = [
   {path:'reset_password',component:ResetPasswordComponent},
   {path:'layout',component:LandingComponent},
 
+
  {
     path: 'Service',
     children: [
-      { path: 'new', component: NewServiceComponent ,canActivate: [authGuard]}
+      {path: 'service-details', component: ServiceDetailsComponent ,canActivate: [authGuard]}
+,
+      { path: 'new', component: NewServiceComponent ,canActivate: [authGuard]},
     ]
   },
 

@@ -42,7 +42,7 @@ export class RegisterUserComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_])[\u0600-\u06FF\\sA-Za-z\\d]+$')
+          Validators.pattern('^[\u0600-\u06FF\\s]+$')
         ]
       ],
       lName: [

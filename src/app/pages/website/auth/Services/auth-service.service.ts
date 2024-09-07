@@ -8,9 +8,18 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthServiceService {
   private urlPath = 'https://localhost:7116/api/Auth/';
+  LoggedIn: boolean = false;
+
+  private platformId: Object;
+
   constructor(
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    //checking if the code is running on the browser and then try accessing sessionStorage
+    this.platformId = platformId;
+
+  }
 
   Login(obj: any): Observable<any> {
     return this.http.post(`${this.urlPath}login`, obj);
@@ -23,25 +32,30 @@ export class AuthServiceService {
   resetPassword(obj: any): Observable<any> {
     return this.http.post(`${this.urlPath}reset_password`, obj);
   }
-  isLoggedIn() {
+
+  isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
-  setToken(token: string): void {
-      localStorage.setItem('token', token);
 
+  setToken(token: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.LoggedIn = true;
+      sessionStorage.setItem('token', JSON.stringify(token));
+    }
   }
 
   getToken(): string | null {
-      return localStorage.getItem('token');
-
-  }
-
-  private checkToken(): boolean {
-    return this.getToken() !== null;
+    if (isPlatformBrowser(this.platformId)) {
+      return sessionStorage.getItem('token');
+    }
+    return null;
   }
 
   logout(): void {
-      localStorage.removeItem('token');
-    
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem('token');
+      this.LoggedIn = false;
+      sessionStorage.clear();
+    }
   }
 }

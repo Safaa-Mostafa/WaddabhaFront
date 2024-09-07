@@ -48,7 +48,6 @@ form!: FormGroup;
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
           this.service.setToken(res.token);
-          localStorage.setItem("token",res.token);
           Swal.fire({
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح',
