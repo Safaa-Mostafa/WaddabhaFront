@@ -38,36 +38,27 @@ export class LoginUserComponent {
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
-
   onSubmit() {
     if (this.form.valid) {
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
-          this.service.saveToken(res.data.token);
+          this.service.setToken(res.data.token);
           Swal.fire({
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح',
             icon: 'success',
             confirmButtonText: 'موافق',
           });
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl('/layout');
         },
         error: (err) => {
-          console.log(err);
           Swal.fire({
-            title: 'حدث خطأ',
-            text: 'يرجى المحاولة مرة أخرى في وقت لاحق.',
+            title: 'An error occurred',
+            text: 'Please try again later.',
             icon: 'error',
-            confirmButtonText: 'موافق',
+            confirmButtonText: 'OK',
           });
         },
-      });
-    }else{
-      Swal.fire({
-        title: 'تنبيه',
-        text: 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح.',
-        icon: 'warning',
-        confirmButtonText: 'موافق',
       });
     }
   }

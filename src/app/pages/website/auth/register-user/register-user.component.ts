@@ -42,27 +42,27 @@ export class RegisterUserComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^[\u0600-\u06FF\\s]+$'),
-        ],
+          Validators.pattern('^[\u0600-\u06FF\\s]+$')
+        ]
       ],
       lName: [
         '',
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^[\u0600-\u06FF\\s]+$'),
-        ],
+          Validators.pattern('^[\u0600-\u06FF\\s]+$')
+        ]
       ],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
-        ],
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
+        ]
       ],
       terms: [false, Validators.requiredTrue],
-      role: ['Buyer', Validators.required],
+      role: ['Buyer', Validators.required]
     });
   }
 
@@ -81,30 +81,32 @@ export class RegisterUserComponent implements OnInit {
         title: 'تحقق من المعلومات',
         text: 'يرجى التأكد من صحة جميع الحقول.',
         icon: 'warning',
-        confirmButtonText: 'موافق',
+        confirmButtonText: 'موافق'
       });
     }
   }
 
+  // Calls the registration service and handles responses
   private registerUser(user: User): void {
     this.service.register(user).subscribe({
       next: (res) => {
-        this.service.saveToken(res.data.token);
-        Swal.fire({
-          title: 'تم إضافة المستخدم بنجاح',
-          text: 'مرحبا بك، يمكنك الآن المتابعة.',
-          icon: 'success',
-          confirmButtonText: 'موافق',
-        }).then(() => this.router.navigateByUrl('/login'));
-      },
+
+          Swal.fire({
+            title: 'تم إضافة المستخدم بنجاح',
+            text: 'مرحبا بك، يمكنك الآن المتابعة.',
+            icon: 'success',
+            confirmButtonText: 'موافق'
+          }).then(() => this.router.navigateByUrl('/login'));
+        }
+      ,
       error: (err) => {
         Swal.fire({
           title: 'حصل خطأ',
           text: 'حاول مرة تانية بعد شوية.',
           icon: 'error',
-          confirmButtonText: 'موافق',
+          confirmButtonText: 'موافق'
         });
-      },
+      }
     });
   }
 }
