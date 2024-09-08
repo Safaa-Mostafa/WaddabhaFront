@@ -6,88 +6,108 @@
     <a (click)="toggleMenu()" class="cursor-pointer">
       <img src="profile.jpg" alt="Profile-Photo" class="w-10 h-10 rounded-full border-2">
     </a>
-@if(isMenuOpen){
-  <ul class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-65 rounded-lg shadow-lg border border-gray-200" dir="rtl">
-    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-      <i class="fa-solid fa-user text-gray-500"></i>
-      <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اسم المستخدم</a>
-    </li>
-    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-      <i class="fa-solid fa-gear text-gray-500"></i>
-      <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">الاعدادات</a>
-    </li>
-    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-      <i class="fa-solid fa-pen-to-square text-gray-500"></i>
-      <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">تعديل الحساب</a>
-    </li>
-    <li class="flex items-center space-x-2 rtl:space-x-reverse">
-      <i class="fa-solid fa-right-from-bracket text-gray-500"></i>
-      <a (click)="logout()" class="cursor-pointer mr-2 text-gray-700 hover:text-red-500 transition duration-200">تسجيل الخروج</a>
-    </li>
-  </ul>
-  
-}
+    @if(isMenuOpen){
+    <ul
+      class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-65 rounded-lg shadow-lg border border-gray-200"
+      dir="rtl">
+      <li class="flex items-center space-x-2 rtl:space-x-reverse">
+        <i class="fa-solid fa-user text-gray-500"></i>
+        <a routerLink="/" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">الملف الشخصي</a>
+      </li>
+      <li class="flex items-center space-x-2 rtl:space-x-reverse">
+        <i class="fa-solid fa-gear text-gray-500"></i>
+        <a routerLink="/" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">الاعدادات</a>
+      </li>
+      <li class="flex items-center space-x-2 rtl:space-x-reverse">
+        <i class="fa-solid fa-pen-to-square text-gray-500"></i>
+        <a routerLink="/" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">تعديل الحساب</a>
+      </li>
+      <li class="flex items-center space-x-2 rtl:space-x-reverse">
+        <i class="fa-solid fa-right-from-bracket text-gray-500"></i>
+        <a (click)="logout()" class="cursor-pointer mr-2 text-gray-700 hover:text-red-500 transition duration-200">تسجيل
+          الخروج</a>
+      </li>
+    </ul>
+
+    }
     <!-- Icons (Hidden on mobile) -->
     <div class="hidden sm:flex space-x-4 rtl:space-x-reverse ">
       <i class="fas fa-bell w-6 h-6 cursor-pointer" (click)="alertMenu()"></i>
       @if(isalertOpen)
       {
-        <ul class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-96 rounded-lg shadow-lg border border-gray-200" dir="rtl">
-          <li class="flex items-center space-x-2 rtl:space-x-reverse">
-            <i class="fas fa-bell text-gray-500"></i>
-            <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اشعار</a>
-          </li>
-          <li class="flex items-center space-x-2 rtl:space-x-reverse">
-            <i class="fas fa-bell text-gray-500"></i>
-            <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اشعار</a>
-          </li>
-          <hr class="border-t border-gray-200">
-          <li class="text-center">
-            <i class="fas fa-envelope text-blue-500 mb-2"></i>
-            <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الاشعارات</a>
-          </li>
-        </ul>
-        
+      <ul
+        class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-96 rounded-lg shadow-lg border border-gray-200"
+        dir="rtl">
+        <li class="flex items-center space-x-2 rtl:space-x-reverse">
+          <i class="fa-solid fa-comment"></i>
+          <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اشعار</a>
+        </li>
+        <li class="flex items-center space-x-2 rtl:space-x-reverse">
+          <i class="fas fa-bell text-gray-500"></i>
+          <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اشعار</a>
+        </li>
+        <hr class="border-t border-gray-200">
+        <li class="text-center">
+          <i class="fas fa-bell text-blue-500 mb-2"></i>
+          <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الاشعارات</a>
+        </li>
+      </ul>
+
       }
-      <i class="fas fa-envelope w-6 h-6 cursor-pointer" (click)="msgMenue()"></i>
+      <i class="fas fa-envelope w-6 h-6 cursor-pointer " (click)="msgMenue()"></i>
       @if(ismsgOpen)
       {
-        <ul class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-96 rounded-lg shadow-lg border border-gray-200" dir="rtl">
-          <li class="flex items-center space-x-2 rtl:space-x-reverse">
-            <i class="fas fa-envelope text-gray-500"></i>
-            <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">رسالة</a>
-          </li>
-          <li class="flex items-center space-x-2 rtl:space-x-reverse">
-            <i class="fas fa-envelope text-gray-500"></i>
-            <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">رسالة</a>
-          </li>
-          <hr class="border-t border-gray-200">
-          <li class="text-center">
-            <i class="fas fa-envelope text-blue-500 mb-2"></i>
-            <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الرسائل</a>
-          </li>
-        </ul>
-        
+      <ul
+        class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-96 rounded-lg shadow-lg border border-gray-200"
+        dir="rtl">
+        <li class="flex items-center space-x-2 rtl:space-x-reverse">
+          <i class="fas fa-envelope text-gray-500"></i>
+          <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">رسالة</a>
+        </li>
+        <li class="flex items-center space-x-2 rtl:space-x-reverse">
+          <i class="fas fa-envelope text-gray-500"></i>
+          <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">رسالة</a>
+        </li>
+        <hr class="border-t border-gray-200">
+        <li class="text-center">
+          <i class="fas fa-envelope text-blue-500 mb-2"></i>
+          <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الرسائل</a>
+        </li>
+      </ul>
+
       }
       <i class="fas fa-shopping-cart w-6 h-6 cursor-pointer"></i>
     </div>
   </div>
 
-  <!-- Right Section (Navigation Links) -->
-  <div class="hidden sm:flex items-center space-x-4 rtl:space-x-reverse">
-    <ul class="flex space-x-4 rtl:space-x-reverse">
-      <li><a routerLink="/" class="cursor-pointer">التصنيفات</a></li>
-      <li><a routerLink="/Service/new" class="cursor-pointer">أضف خدمات</a></li>
-      <li><a routerLink="/" class="cursor-pointer">المشتريات</a></li>
-      <li><a routerLink="/" class="cursor-pointer">الطلبات الواردة</a></li>
-    </ul>
-  </div>
-
   <!-- Search Section (Visible on Mobile) -->
   <div class="flex items-center space-x-4 rtl:space-x-reverse">
     <i class="fas fa-search text-amber-900 block sm:hidden cursor-pointer"></i>
-    <input type="search" class="hidden sm:block border rounded px-2 py-1 text-gray-700" placeholder="ابحث عن" dir="rtl">
+    <input type="search" class="hidden sm:block border rounded px-2 py-1 text-gray-700" placeholder="ابحث عن . . ."
+      dir="rtl">
   </div>
+
+  <!-- Right Section (Navigation Links) -->
+  <div class="hidden sm:flex items-center space-x-4 rtl:space-x-reverse" dir="rtl">
+    <ul class="flex space-x-4 rtl:space-x-reverse">
+      <li>
+        <i class="fa-solid fa-sitemap"></i>
+        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">التصنيفات</a>
+      </li>
+      <li>
+        <i class="fa-solid fa-plus"></i>
+        <a routerLink="/Service/new" class="cursor-pointer mr-1 hover:text-amber-900">أضف خدمات</a>
+      </li>
+      <li>
+        <i class="fa-solid fa-basket-shopping"></i>
+        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">المشتريات</a></li>
+      <li>
+        <i class="fa-solid fa-paper-plane"></i>
+        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">الطلبات الواردة</a>
+      </li>
+    </ul>
+  </div>
+
 
   <!-- Hamburger Menu (Visible on Mobile) -->
   <div class="flex items-center space-x-4 sm:hidden">
@@ -97,16 +117,16 @@
   </div>
   <div class="flex items-center space-x-4 mr-10">
     <img src="assets/logo.png" alt="logo" class="w-24 cursor-pointer" routerLink="/">
-    </div>
-  
+  </div>
+
 </header>
 
 <!-- Mobile Dropdown Menu -->
 @if(isMenuOpen) {
-  <div class="sm:hidden flex flex-col space-y-2 p-4 bg-[#444444] text-white">
-    <a routerLink="/" class="hover:underline cursor-pointer">التصنيفات</a>
-    <a routerLink="/service/new" class="hover:underline cursor-pointer">أضف خدمات</a>
-    <a routerLink="/" class="hover:underline cursor-pointer">المشتريات</a>
-    <a routerLink="/" class="hover:underline cursor-pointer">الطلبات الواردة</a>
-  </div>
+<div class="sm:hidden flex flex-col space-y-2 p-4 bg-[#444444] text-white">
+  <a routerLink="/" class="hover:underline cursor-pointer">التصنيفات</a>
+  <a routerLink="/service/new" class="hover:underline cursor-pointer">أضف خدمات</a>
+  <a routerLink="/" class="hover:underline cursor-pointer">المشتريات</a>
+  <a routerLink="/" class="hover:underline cursor-pointer">الطلبات الواردة</a>
+</div>
 }

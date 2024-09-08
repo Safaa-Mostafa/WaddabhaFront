@@ -49,26 +49,25 @@
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
               <div>
                   <label class="block font-semibold mb-1" for="title">عنوان الخدمة</label>
-                  <input type="text" name="title" id="title" formControlName="title" required 
+                  <input type="text" name="title" id="title"  required formControlName="name"
                       class="bg-white text-black-600 border border-gray-300 rounded-md px-4 py-2 w-full">
-                  <p class="mt-2 text-gray-700 mb-10">أدخل عنواناً واضحاً باللغة العربية يصف الخدمة التي تريد أن تقدمها. لا
-                      تدخل رموزاً أو كلمات مثل
-                      "حصرياً"، "لأول مرة"، "لفترة محدود".. الخ.</p>
+                  <p class="mt-2 text-gray-700 mb-10">أدخل عنواناً واضحاً باللغة العربية يصف الخدمة التي تريد أن تقدمها.</p>
               </div>
               <div>
                   <label class="block font-semibold mb-1" for="type">التصنيف</label>
                   <select name="type" id="type" formControlName="type"
                       class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full mb-10">
-                      <!-- @for (item of categories; track item) 
+                      @for (item of categories; track $index) 
                       {
-                          <option>item</option>
-                      } -->
+                          <option>{{item.name}}</option>
+                      }
                   </select>
               </div>
               <div>
                   <label class="block font-semibold mb-1">وصف الخدمة</label>
-                  <textarea
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full h-40"></textarea>
+                  <textarea formControlName="description"
+                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full h-40">
+                    </textarea>
                   <p class="mt-2 text-gray-700 mb-10">أدخل وصف الخدمة بدقة يتضمن جميع المعلومات والشروط. يمنع وضع البريد
                       الالكتروني، رقم الهاتف أو أي
                       معلومات اتصال أخرى.</p>
@@ -76,32 +75,33 @@
               <div>
                   <label class="block font-semibold mb-1">معرض الخدمة</label>
                   <div class="relative w-full">
-                      <input type="file" id="file-upload" class="hidden">
+                      <input type="file" id="file-upload" class="hidden" formControlName="images">
                       <label for="file-upload"
                           class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md cursor-pointer inline-flex items-center justify-center w-full lg:w-auto">
                           أضف صورة
                       </label>
                     </div>
-                    <p class="mt-2 text-gray-700 mb-10">أضف صور أو فيديو مصمم بشكل جيد لتظهر خدمتك بشكل احترافي وتزيد من
+                    <p class="mt-2 text-gray-700 mb-10">أضف صور مصممة بشكل جيد لتظهر خدمتك بشكل احترافي وتزيد من
                         مبيعاتك.</p>
               </div>
               <div>
                   <label class="block font-semibold mb-1">سعر الخدمة يبدأ من </label>
-                  <input type="number"
+                  <input type="number" formControlName="price"
                       class="border border-gray-300 rounded-md px-4 mb-10 py-2 text-gray-700 w-full" value="50">
               </div>
 
               <div>
                   <label class="block font-semibold mb-1">تعليمات للمشترى</label>
-                  <textarea
-                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full"></textarea>
+                  <textarea formControlName="info"
+                      class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full">
+                    </textarea>
                   <p class="mt-2 mb-30 text-gray-700">المعلومات التي تحتاجها من المشتري لتنفيذ الخدمة.</p>
               </div>
           
           <div class="bg-gray-50 p-6 rounded-lg shadow space-y-6 mt-10">
               <h1 class="text-lg font-semibold">تأكيد الشروط</h1>
               <div class="flex items-center">
-                  <input id="in-progress" type="checkbox"
+                  <input id="in-progress" type="checkbox" formControlName="condition"
                       class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
                   <label for="in-progress" class="ml-2 mb-30 text-gray-700">جميع الأعمال بمعرض الخدمة نفذتها بنفسي ولدي
                       الصلاحية لنشرها</label>
