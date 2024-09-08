@@ -9,7 +9,7 @@ const cookieService = inject(CookieService);
     if (token) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
+          Authorization: `bearer ${token}`
         }
       });
     }

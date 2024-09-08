@@ -12,6 +12,7 @@ import {
 import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../Services/auth-service.service';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
   selector: 'app-login-user',
@@ -25,7 +26,8 @@ export class LoginUserComponent {
   constructor(
     private formBuilder: FormBuilder,
     private service: AuthServiceService,
-    private router: Router
+    private router: Router,
+    private userService:UserService
   ) {}
 
   form!: FormGroup;
@@ -43,6 +45,7 @@ export class LoginUserComponent {
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
           this.service.setToken(res.data.token);
+          this.userService.saveData();
           Swal.fire({
             title: 'نجاح',
             text: 'تم تسجيل الدخول بنجاح',

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../../pages/website/auth/Services/auth-service.service';
+import { UserService } from '../../../pages/website/users/services/user.service';
+import { User } from '../../../pages/website/auth/Models/user';
 
 @Component({
   selector: 'app-usernavbar',
@@ -9,8 +11,17 @@ import { AuthServiceService } from '../../../pages/website/auth/Services/auth-se
   templateUrl: './usernavbar.component.html',
   styleUrl: './usernavbar.component.css',
 })
-export class UsernavbarComponent {
-  constructor(private service: AuthServiceService, private router: Router) {}
+export class UsernavbarComponent implements OnInit {
+  user: User | null = null;
+  constructor(
+    private service: AuthServiceService,
+    private router: Router,
+    private userServcie: UserService
+  ) {}
+  ngOnInit() {
+    this.user = this.userServcie.getStoredUserData();
+    console.log(this.user);
+  }
   isMenuOpen: boolean = false;
   toggleMenu() {
     this.isalertOpen = false;
@@ -28,17 +39,16 @@ export class UsernavbarComponent {
   }
 
   isalertOpen: boolean = false;
-  alertMenu(){
+  alertMenu() {
     this.isMenuOpen = false;
     this.ismsgOpen = false;
-    this.isalertOpen = !this.isalertOpen
+    this.isalertOpen = !this.isalertOpen;
   }
 
-  ismsgOpen: boolean = false; 
-  msgMenue(){
+  ismsgOpen: boolean = false;
+  msgMenue() {
     this.isalertOpen = false;
     this.isMenuOpen = false;
-    this.ismsgOpen = !this.ismsgOpen
+    this.ismsgOpen = !this.ismsgOpen;
   }
-
 }
