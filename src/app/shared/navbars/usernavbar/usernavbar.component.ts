@@ -34,7 +34,7 @@ export class UsernavbarComponent {
     this.isalertOpen = !this.isalertOpen
   }
 
-  ismsgOpen: boolean = false; 
+  ismsgOpen: boolean = false;
   msgMenue(){
     this.isalertOpen = false;
     this.isMenuOpen = false;
