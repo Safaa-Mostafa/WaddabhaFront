@@ -9,9 +9,11 @@ export class ServiceService {
 
   constructor(private http : HttpClient) { }
   private apiUrl = "https://localhost:7116/api/Services";
-
+  
   getAllServices() : Observable<any>{
     return this.http.get(this.apiUrl);
   }
-
+  getId(id : number) : Observable<any>{
+    return this.http.get(this.apiUrl + '/'+id)
+  }
 }

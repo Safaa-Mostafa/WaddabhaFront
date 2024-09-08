@@ -11,7 +11,7 @@ import { ServiceDetailsComponent } from './pages/website/service/service-details
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/layout', pathMatch: 'full' },
+  { path: '', redirectTo: '/AllServices', pathMatch: 'full' },
   { path: 'login', component: LoginUserComponent },
   { path: 'signup', component: RegisterUserComponent },
   { path: 'reset_password', component: ResetPasswordComponent },
@@ -22,7 +22,7 @@ export const routes: Routes = [
   {
     path: 'Service',
     children: [
-      { path: 'service-details', component: ServiceDetailsComponent, canActivate: [authGuard] },
+      { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
 
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
     ]
