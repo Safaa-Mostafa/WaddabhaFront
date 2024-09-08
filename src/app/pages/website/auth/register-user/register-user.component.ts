@@ -90,7 +90,8 @@ export class RegisterUserComponent implements OnInit {
   private registerUser(user: User): void {
     this.service.register(user).subscribe({
       next: (res) => {
-this.service.setToken(res.data.token);
+          this.service.setToken(res.data.token);
+          
           Swal.fire({
             title: 'تم إضافة المستخدم بنجاح',
             text: 'مرحبا بك، يمكنك الآن المتابعة.',
