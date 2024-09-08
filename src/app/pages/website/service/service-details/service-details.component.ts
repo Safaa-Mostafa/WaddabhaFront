@@ -1,24 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../services/service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-service-details',
   standalone: true,
-  imports: [],
   templateUrl: './service-details.component.html',
-  styleUrl: './service-details.component.css'
+  styleUrls: ['./service-details.component.css']
 })
-export class ServiceDetailsComponent {
-  images = [
-    'assets/images/img1.jpg',
-    'assets/images/img2.jpg',
-    './assets/images/img3.jpg'
-  ];
-  currentImage = this.images[0];
-  currentIndex = 0;
+export class ServiceDetailsComponent implements OnInit {
+  service: any = {};  // This will hold the service details
+  images: string[] = ["/assets/daman.png"];
+  currentImage: string = '';
+  currentIndex: number = 0;
   intervalId: any;
 
+  constructor(private serviceService: ServiceService, private activeRouter: ActivatedRoute) { }
+
   ngOnInit(): void {
-    this.startAutoSwitch();
+    this.activeRouter.paramMap.subscribe({
+      next: (params) => {
+        const id: any = params.get('id');
+        this.serviceService.getId(id).subscribe({
+          next: (response) => {
+            this.service = response.data;
+            this.images = this.service.images;  // Assuming `images` is an array in your API response
+            this.currentImage = this.images[0];
+            this.startAutoSwitch();
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -38,6 +53,6 @@ export class ServiceDetailsComponent {
   startAutoSwitch(): void {
     this.intervalId = setInterval(() => {
       this.nextImage();
-    }, 4000); // Switch image every 3 seconds
+    }, 4000); // Switch image every 4 seconds
   }
 }
