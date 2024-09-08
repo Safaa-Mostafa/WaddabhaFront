@@ -49,7 +49,7 @@ export class LoginUserComponent {
             icon: 'success',
             confirmButtonText: 'موافق',
           });
-          this.router.navigateByUrl('/layout');
+          this.router.navigateByUrl('');
         },
         error: (err) => {
           Swal.fire({

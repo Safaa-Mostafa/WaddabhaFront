@@ -1,14 +1,11 @@
 import { PLATFORM_ID, inject } from '@angular/core';
 import { HttpInterceptorFn } from '@angular/common/http';
 import {  isPlatformBrowser } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const platformId = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(platformId);
-
-  if (isBrowser) {
-    const token = sessionStorage.getItem('token');
-
+const cookieService = inject(CookieService);
+  const token =  cookieService.get('token');
     if (token) {
       req = req.clone({
         setHeaders: {
@@ -16,7 +13,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         }
       });
     }
-  }
+
 
   return next(req);
-};
+}
