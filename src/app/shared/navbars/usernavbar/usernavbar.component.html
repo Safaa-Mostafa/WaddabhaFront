@@ -10,7 +10,7 @@
   <ul class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-65 rounded-lg shadow-lg border border-gray-200" dir="rtl">
     <li class="flex items-center space-x-2 rtl:space-x-reverse">
       <i class="fa-solid fa-user text-gray-500"></i>
-      <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">اسم المستخدم</a>
+      <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">{{this.user?.fname}} {{this.user?.lname}}</a>
     </li>
     <li class="flex items-center space-x-2 rtl:space-x-reverse">
       <i class="fa-solid fa-gear text-gray-500"></i>
@@ -25,7 +25,7 @@
       <a (click)="logout()" class="cursor-pointer mr-2 text-gray-700 hover:text-red-500 transition duration-200">تسجيل الخروج</a>
     </li>
   </ul>
-  
+
 }
     <!-- Icons (Hidden on mobile) -->
     <div class="hidden sm:flex space-x-4 rtl:space-x-reverse ">
@@ -47,7 +47,7 @@
             <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الاشعارات</a>
           </li>
         </ul>
-        
+
       }
       <i class="fas fa-envelope w-6 h-6 cursor-pointer" (click)="msgMenue()"></i>
       @if(ismsgOpen)
@@ -67,7 +67,7 @@
             <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الرسائل</a>
           </li>
         </ul>
-        
+
       }
       <i class="fas fa-shopping-cart w-6 h-6 cursor-pointer"></i>
     </div>
@@ -98,7 +98,7 @@
   <div class="flex items-center space-x-4 mr-10">
     <img src="assets/logo.png" alt="logo" class="w-24 cursor-pointer" routerLink="/">
     </div>
-  
+
 </header>
 
 <!-- Mobile Dropdown Menu -->

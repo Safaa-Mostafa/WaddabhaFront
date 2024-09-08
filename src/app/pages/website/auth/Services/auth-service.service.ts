@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthServiceService {
   private urlPath = 'https://localhost:7116/api/Auth/';
   LoggedIn: boolean = false;
+  userData!: User;
 
   constructor(
     private http: HttpClient,
@@ -30,7 +32,6 @@ export class AuthServiceService {
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
-
   setToken(token: string): void {
     this.LoggedIn = true;
     const expiryDate = new Date();
@@ -44,7 +45,9 @@ export class AuthServiceService {
 
   logout(): void {
     this.cookieService.delete('token');
+    this.cookieService.delete('userData');
+
     this.LoggedIn = false;
   }
-  
+
 }
