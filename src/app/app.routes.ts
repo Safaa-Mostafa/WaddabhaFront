@@ -14,7 +14,8 @@ export const routes: Routes = [
   {path:'login',component:LoginUserComponent},
   {path:'signup',component:RegisterUserComponent},
   {path:'reset_password',component:ResetPasswordComponent},
-  {path:'layout',component:LandingComponent},
+  {path:'layout',component:LandingComponent}, 
+
 
 
  {

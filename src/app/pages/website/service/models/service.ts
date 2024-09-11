@@ -2,9 +2,8 @@ export interface Service {
   id: number;
   name: string;
   description: string;
-  type: string;
+  category: string;
   images: [];
   price: number;
-  info: string;
-  condition: boolean;
+  buyerInstruction: string;
 }

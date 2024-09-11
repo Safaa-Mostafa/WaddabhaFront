@@ -16,24 +16,24 @@ export class NewServiceComponent implements OnInit {
   form!: FormGroup;
   categories!: Category[];
 
-  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {}
+  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {
+    this.form = this.formBuilder.group({
+      name : [''],
+      description: [''],
+      category: [''],
+      images: [],
+      price: [],
+      buyerInstruction: [''],
+      condition: [],   
+   })
+  }
+  
 
   ngOnInit(): void {
     this.getCategory();
-    this.initializeForm();
   }
 
-  private initializeForm(): void {
-    this.form = this.formBuilder.group({
-       name : [''],
-       description: [''],
-       type: [''],
-       images: [],
-       price: [],
-       info: [''],
-       condition: [],   
-    });
-  }
+
 
  getCategory (){
   this.serviceCategory.getAllCategories().subscribe(

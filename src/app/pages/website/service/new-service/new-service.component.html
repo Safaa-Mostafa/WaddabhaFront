@@ -55,7 +55,7 @@
               </div>
               <div>
                   <label class="block font-semibold mb-1" for="type">التصنيف</label>
-                  <select name="type" id="type" formControlName="type"
+                  <select name="type" id="type" formControlName="category"
                       class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full mb-10">
                       @for (item of categories; track $index) 
                       {
@@ -92,7 +92,7 @@
 
               <div>
                   <label class="block font-semibold mb-1">تعليمات للمشترى</label>
-                  <textarea formControlName="info"
+                  <textarea formControlName="buyerInstruction"
                       class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full">
                     </textarea>
                   <p class="mt-2 mb-30 text-gray-700">المعلومات التي تحتاجها من المشتري لتنفيذ الخدمة.</p>
