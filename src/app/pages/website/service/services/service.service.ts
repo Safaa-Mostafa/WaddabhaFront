@@ -3,14 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Service } from '../models/service';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceService {
-  private urlPath = 'https://localhost:7116/api/Services';
-  constructor(private http: HttpClient) {}
+  constructor(private http : HttpClient) { }
+  private apiUrl = "https://localhost:7116/api/Services";
   
-   addService () : Observable<any>{
-    return this.http.post<Service>(this.urlPath , null)
+  getAllServices() : Observable<any>{
+    return this.http.get(this.apiUrl);
+  }
+  getId(id : number) : Observable<any>{
+    return this.http.get(this.apiUrl + '/'+id)
+  }
+  addService (service:Service) : Observable<any>{
+    return this.http.post<Service>(this.urlPath , service)
    }
 }
