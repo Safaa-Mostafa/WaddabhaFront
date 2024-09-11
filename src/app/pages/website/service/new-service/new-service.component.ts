@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../landing/categories/services/categories.service';
 import { Category } from '../../landing/categories/models/category';
+import { ServiceService } from '../services/service.service';
 
 @Component({
   selector: 'app-new-service',
@@ -16,36 +17,38 @@ export class NewServiceComponent implements OnInit {
   form!: FormGroup;
   categories!: Category[];
 
-  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private serviceCategory: CategoriesService,
+    private newService: ServiceService
+  ) {
     this.form = this.formBuilder.group({
-      name : [''],
-      description: [''],
-      category: [''],
+      name: '',
+      description: '',
+      category: '',
       images: [],
-      price: [],
-      buyerInstruction: [''],
-      condition: [],   
-   })
+      price: '',
+      buyerInstruction: '',
+    });
   }
-  
 
   ngOnInit(): void {
     this.getCategory();
   }
 
-
-
- getCategory (){
-  this.serviceCategory.getAllCategories().subscribe(
-    {
-    next: (res) => {
-      this.categories = res.data;
-    },
-    error: (err) => {},
+  getCategory() {
+    this.serviceCategory.getAllCategories().subscribe({
+      next: (res) => {
+        this.categories = res.data;
+      },
+      error: (err) => {},
+    });
   }
-  );}
-  
-  onSubmit() {
 
+  onSubmit() {
+    this.newService.addService(this.form.value).subscribe({
+      next: (res) => {},
+      error: (err) => {},
+    });
   }
 }
