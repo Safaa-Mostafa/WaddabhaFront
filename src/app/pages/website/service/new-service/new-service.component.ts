@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpContext } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CategoriesService } from '../../landing/categories/services/categories.service';
+import { Category } from '../../landing/categories/models/category';
 
 @Component({
   selector: 'app-new-service',
@@ -11,16 +12,40 @@ import { RouterLink } from '@angular/router';
   templateUrl: './new-service.component.html',
   styleUrl: './new-service.component.css',
 })
-export class NewServiceComponent {
-  urlPath = 'https://localhost:7116/api/service/';
-
+export class NewServiceComponent implements OnInit {
   form!: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({});
+  categories!: Category[];
+
+  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {
+    this.form = this.formBuilder.group({
+      name : [''],
+      description: [''],
+      category: [''],
+      images: [],
+      price: [],
+      buyerInstruction: [''],
+      condition: [],   
+   })
+  }
+  
+
+  ngOnInit(): void {
+    this.getCategory();
   }
 
+
+
+ getCategory (){
+  this.serviceCategory.getAllCategories().subscribe(
+    {
+    next: (res) => {
+      this.categories = res.data;
+    },
+    error: (err) => {},
+  }
+  );}
+  
   onSubmit() {
-    if (this.form.valid) {
-    }
+
   }
 }
