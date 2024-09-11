@@ -7,9 +7,9 @@ import { Service } from '../models/service';
   providedIn: 'root',
 })
 export class ServiceService {
-  // private urlPath = 'https://localhost:7116/api/Services';
+  private urlPath = 'https://localhost:7116/api/Services';
   constructor(private http: HttpClient) {}
-  //  addService () : Observable<any>{
-  //   return this.http.post<Service>(this.urlPath)
-  //  }
+   addService () : Observable<any>{
+    return this.http.post<Service>(this.urlPath , null)
+   }
 }

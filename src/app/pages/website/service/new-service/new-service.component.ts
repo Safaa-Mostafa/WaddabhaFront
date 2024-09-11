@@ -14,13 +14,15 @@ import { Category } from '../../landing/categories/models/category';
 })
 export class NewServiceComponent implements OnInit {
   form!: FormGroup;
+  categories!: Category[];
 
-  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {
-  }
+  constructor(private formBuilder: FormBuilder,public serviceCategory:CategoriesService) {}
+
   ngOnInit(): void {
     this.getCategory();
     this.initializeForm();
   }
+
   private initializeForm(): void {
     this.form = this.formBuilder.group({
        name : [''],
@@ -32,7 +34,6 @@ export class NewServiceComponent implements OnInit {
        condition: [],   
     });
   }
-  categories!: Category[];
 
  getCategory (){
   this.serviceCategory.getAllCategories().subscribe(
@@ -43,6 +44,7 @@ export class NewServiceComponent implements OnInit {
     error: (err) => {},
   }
   );}
+  
   onSubmit() {
 
   }
