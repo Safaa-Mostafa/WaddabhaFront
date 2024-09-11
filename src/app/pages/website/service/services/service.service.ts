@@ -18,6 +18,6 @@ export class ServiceService {
     return this.http.get(this.apiUrl + '/'+id)
   }
   addService (service:Service) : Observable<any>{
-    return this.http.post<Service>(this.urlPath , service)
+    return this.http.post<Service>(this.apiUrl , service)
    }
 }
