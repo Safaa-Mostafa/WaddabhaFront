@@ -4,5 +4,10 @@ export interface User {
   fname:string,
   lname: string,
   username:string,
-  role:string
+  role:string,
+  image :{
+    imageUrl:string,
+    publicId:string
+  },
+  gender:string
 }

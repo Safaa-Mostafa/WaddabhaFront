@@ -28,6 +28,8 @@ export class UserService {
 
   getStoredUserData(): User | null {
     const userData = this.CookieService.get('userData');
+    console.log(userData);
+    
     return userData ? JSON.parse(userData) : null;
   }
   private handleError(error: HttpErrorResponse) {

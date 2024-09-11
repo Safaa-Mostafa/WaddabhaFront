@@ -4,7 +4,7 @@
   <div class="flex items-center space-x-4 rtl:space-x-reverse ml-10">
     <!-- Profile Photo -->
     <a (click)="toggleMenu()" class="cursor-pointer">
-      <img src="profile.jpg" alt="Profile-Photo" class="w-10 h-10 rounded-full border-2">
+      <img src={{this.user?.image?.imageUrl}} alt="Profile-Photo" class="w-10 h-10 rounded-full border-2">
     </a>
     @if(isMenuOpen){
     <ul
