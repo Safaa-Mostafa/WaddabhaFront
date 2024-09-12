@@ -9,14 +9,16 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { authGuard } from './pages/core/guards/auth.guard';
 import { ServiceDetailsComponent } from './pages/website/service/service-details/service-details.component';
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
+import { ContractComponent } from './pages/website/contract/contract/contract.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/AllServices', pathMatch: 'full' },
+  { path: '', redirectTo: '/layout', pathMatch: 'full' },
   { path: 'login', component: LoginUserComponent },
   { path: 'signup', component: RegisterUserComponent },
   { path: 'reset_password', component: ResetPasswordComponent },
-  { path: 'AllServices', component: AllServicesComponent },
+  { path: 'services', component: AllServicesComponent },
   { path: 'layout', component: LandingComponent },
+  { path: 'contract', component: ContractComponent },
 
 
   {

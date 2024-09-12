@@ -12,7 +12,8 @@
       dir="rtl">
       <li class="flex items-center space-x-2 rtl:space-x-reverse">
         <i class="fa-solid fa-user text-gray-500"></i>
-        <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">{{this.user?.fname}} {{this.user?.lname}}</a>
+        <a href="" class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200">{{this.user?.fname}}
+          {{this.user?.lname}}</a>
       </li>
       <li class="flex items-center space-x-2 rtl:space-x-reverse">
         <i class="fa-solid fa-gear text-gray-500"></i>
@@ -53,7 +54,7 @@
           <a class="cursor-pointer text-blue-500 hover:text-blue-600 transition duration-200">جميع الاشعارات</a>
         </li>
       </ul>
-    }
+      }
       <i class="fas fa-envelope w-6 h-6 cursor-pointer " (click)="msgMenue()"></i>
       @if(ismsgOpen)
       {
@@ -92,19 +93,25 @@
     <ul class="flex space-x-4 rtl:space-x-reverse">
       <li>
         <i class="fa-solid fa-sitemap"></i>
-        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">التصنيفات</a>
+        <a routerLink="/services" class="cursor-pointer mr-1  hover:text-amber-900">التصنيفات</a>
       </li>
       <li>
         <i class="fa-solid fa-plus"></i>
         <a routerLink="/Service/new" class="cursor-pointer mr-1 hover:text-amber-900">أضف خدمات</a>
       </li>
+      @if(this.user?.role == 'Buyer'){
+
       <li>
         <i class="fa-solid fa-basket-shopping"></i>
-        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">المشتريات</a></li>
+        <a routerLink="/contract" class="cursor-pointer mr-1  hover:text-amber-900">المشتريات</a>
+      </li>
+      }
+      @else {
       <li>
         <i class="fa-solid fa-paper-plane"></i>
-        <a routerLink="/" class="cursor-pointer mr-1  hover:text-amber-900">الطلبات الواردة</a>
+        <a routerLink="/contract" class="cursor-pointer mr-1  hover:text-amber-900">الطلبات الواردة</a>
       </li>
+      }
     </ul>
   </div>
 
@@ -116,7 +123,7 @@
     </button>
   </div>
   <div class="flex items-center space-x-4 mr-10">
-    <img src="assets/logo.png" alt="logo" class="w-24 cursor-pointer" routerLink="/">
+    <img src="assets/logo.png" alt="logo" class="w-24 cursor-pointer" routerLink="">
   </div>
 
 
