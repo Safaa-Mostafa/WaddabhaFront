@@ -20,4 +20,7 @@ export class ServiceService {
   addService (service:Service) : Observable<any>{
     return this.http.post<Service>(this.apiUrl , service)
    }
+   updateService (service:Service): Observable<any>{
+    return this.http.put<Service>(this.apiUrl , service)
+   }
 }
