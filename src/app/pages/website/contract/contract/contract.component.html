@@ -1,1 +1,54 @@
-<p>contract works!</p>
+<div class="bg-gray-100 min-h-screen p-6">
+    <div class="flex justify-between items-start">
+        <!-- Left Section (Dropdown) -->
+        <div class="flex flex-col space-y-4">
+            <div class="relative">
+                <select name="type" id="type" class="border border-black rounded-md px-4 py-2 text-gray-700">
+                    <option value=""></option>
+                    <option value="new">الأحدث</option>
+                    <option value="old">الأقدم</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Center Section (Orders Table) -->
+        <div class="flex-grow mx-8 p-10">
+            <div class="bg-white rounded-lg shadow p-6">
+            <img src="" alt="icon-image">
+            <h2></h2>
+            <p></p>
+            </div>
+        </div>
+
+        <!-- Right Section (Order Status Filters) -->
+        <div class="w-1/4 space-y-4" dir="rtl">
+            <h1 class="text-lg font-bold text-gray-800 mb-4">الطلبات الواردة</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">حالة الطلب</h2>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input id="pending" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="pending" class="ml-2 text-gray-700">بانتظار التعليمات</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="in-progress" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="in-progress" class="ml-2 text-gray-700">جاري تنفيذها</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="awaiting-pickup" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="awaiting-pickup" class="ml-2 text-gray-700">بانتظار الاستلام</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="delivered" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="delivered" class="ml-2 text-gray-700">تم تسليمها</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="completed" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="completed" class="ml-2 text-gray-700">ملغية</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
