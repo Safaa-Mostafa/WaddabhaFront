@@ -1,9 +1,9 @@
 export interface Service {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  category: string;
+  categoryId: string;
   images: [];
-  price: number;
+  initialPrice: number;
   buyerInstruction: string;
 }

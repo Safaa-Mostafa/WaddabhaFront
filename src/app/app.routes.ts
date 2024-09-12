@@ -12,12 +12,11 @@ import { AllServicesComponent } from './pages/website/service/all-services/all-s
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/layout', pathMatch: 'full' },
+  { path: '', component: LandingComponent , pathMatch: 'full' },
   { path: 'login', component: LoginUserComponent },
   { path: 'signup', component: RegisterUserComponent },
   { path: 'reset_password', component: ResetPasswordComponent },
   { path: 'services', component: AllServicesComponent },
-  { path: 'layout', component: LandingComponent },
   { path: 'contract', component: ContractComponent },
 
 
