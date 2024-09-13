@@ -4,5 +4,11 @@ export interface User {
   fname:string,
   lname: string,
   username:string,
+<<<<<<< Updated upstream
   role:string
+=======
+  role:string,
+  image:any ,
+  gender:string
+>>>>>>> Stashed changes
 }
