@@ -1,16 +1,19 @@
-@if(!this.authService.getToken()){
+@if(!isLoading && !isAuthenticated){
 <ng-container>
-  <app-navbar></app-navbar>
+    <app-navbar></app-navbar>
 </ng-container>
 }
-@else{
-<ng-container>
-  <app-usernavbar></app-usernavbar>
-</ng-container>
- }
+@if(!isLoading && isAuthenticated){
+  <ng-container>
+    <app-usernavbar></app-usernavbar>
+  </ng-container>
+}
+
 <router-outlet></router-outlet>
 
-<app-footer></app-footer> 
 
+  <app-footer>
+
+  </app-footer>
 
 

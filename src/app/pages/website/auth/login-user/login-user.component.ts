@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../Services/auth-service.service';
 import { UserService } from '../../users/services/user.service';
+import { handleValidationErrors } from '../Validations/Validation';
 
 @Component({
   selector: 'app-login-user',
@@ -55,11 +56,12 @@ export class LoginUserComponent {
           this.router.navigateByUrl('');
         },
         error: (err) => {
+          const errorMessages = handleValidationErrors(err.error.errors);
           Swal.fire({
-            title: 'An error occurred',
-            text: 'Please try again later.',
+            title: 'حصل خطأ',
+            text: `${errorMessages}`,
             icon: 'error',
-            confirmButtonText: 'OK',
+            confirmButtonText: 'موافق',
           });
         },
       });

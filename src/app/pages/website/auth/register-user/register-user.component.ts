@@ -10,6 +10,8 @@ import {
 import { AuthServiceService } from '../Services/auth-service.service';
 import Swal from 'sweetalert2';
 import { User } from '../Models/user';
+import { fileExtensionValidator, handleValidationErrors } from '../Validations/Validation';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
   selector: 'app-register-user',
@@ -22,92 +24,122 @@ export class RegisterUserComponent implements OnInit {
   hidePassword = true;
   form!: FormGroup;
   userInfo!: User;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private fb: FormBuilder,
     private service: AuthServiceService,
-    private router: Router
+    private router: Router,
+    private userService:UserService
   ) {}
-
-  ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  // Initializes the form with validation rules
+ngOnInit(): void {
+  this.initializeForm();
+}
   private initializeForm(): void {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2)]],
-      fName: [
+      fname: [
         '',
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^[\u0600-\u06FF\\s]+$')
-        ]
+          Validators.pattern('^[\u0600-\u06FF\\s]+$'),
+        ],
       ],
-      lName: [
+      lname: [
         '',
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern('^[\u0600-\u06FF\\s]+$')
-        ]
+          Validators.pattern('^[\u0600-\u06FF\\s]+$'),
+        ],
       ],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
         [
           Validators.required,
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
-        ]
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
+        ],
       ],
+      role: ['Buyer', Validators.required],
+      image:[null,[Validators.required,fileExtensionValidator(['jpg','png'])]],
       terms: [false, Validators.requiredTrue],
-      role: ['Buyer', Validators.required]
     });
   }
 
-  // Toggles password visibility
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 
-  // Handles form submission
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.form.patchValue({
+        image: file
+      });
+      this.form.get('image')?.updateValueAndValidity();
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+
+
   onSubmit(): void {
     if (this.form.valid) {
-      this.userInfo = this.form.value as User;
-      this.registerUser(this.userInfo);
+      const formData = new FormData();
+      formData.append('role', this.form.get('role')?.value);
+      formData.append('email', this.form.get('email')?.value);
+      formData.append('fname', this.form.get('fname')?.value);
+      formData.append('lname', this.form.get('lname')?.value);
+      formData.append('password', this.form.get('password')?.value);
+      formData.append('username', this.form.get('username')?.value);
+
+      const imageFile = this.form.get('image')?.value;
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+this.registerUser(formData);
+
     } else {
       Swal.fire({
         title: 'تحقق من المعلومات',
         text: 'يرجى التأكد من صحة جميع الحقول.',
         icon: 'warning',
-        confirmButtonText: 'موافق'
+        confirmButtonText: 'موافق',
       });
     }
   }
 
-  // Calls the registration service and handles responses
-  private registerUser(user: User): void {
+  private registerUser(user:any): void {
     this.service.register(user).subscribe({
       next: (res) => {
-          this.service.setToken(res.data.token);
-          
-          Swal.fire({
-            title: 'تم إضافة المستخدم بنجاح',
-            text: 'مرحبا بك، يمكنك الآن المتابعة.',
-            icon: 'success',
-            confirmButtonText: 'موافق'
-          }).then(() => this.router.navigateByUrl(''));
-        }
-      ,
-      error: (err) => {
+        this.service.setToken(res.data.token);
+        this.userService.saveData();
+        Swal.fire({
+          title: 'تم إضافة المستخدم بنجاح',
+          text: 'مرحبا بك، يمكنك الآن المتابعة.',
+          icon: 'success',
+          confirmButtonText: 'موافق',
+        }).then(() =>{
+          this.router.navigateByUrl('');
+      });
+      },
+      error :(err)=> {
+        const errorMessages = handleValidationErrors(err.error.errors);
         Swal.fire({
           title: 'حصل خطأ',
-          text: 'حاول مرة تانية بعد شوية.',
+          text: `${errorMessages}`,
           icon: 'error',
-          confirmButtonText: 'موافق'
+          confirmButtonText: 'موافق',
         });
-      }
+      },
     });
   }
+
 }

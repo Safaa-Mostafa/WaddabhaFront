@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../Models/user';
 
 @Injectable({
@@ -9,13 +9,15 @@ import { User } from '../Models/user';
 })
 export class AuthServiceService {
   private urlPath = 'https://localhost:7116/api/Auth/';
-  LoggedIn: boolean = false;
-  userData!: User;
+  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this._isAuthenticated.asObservable();
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService
-  ) {}
+  ) {
+    this.checkAuthStatus(); // Initialize authentication status
+  }
 
   Login(obj: any): Observable<any> {
     return this.http.post(`${this.urlPath}login`, obj);
@@ -30,24 +32,28 @@ export class AuthServiceService {
   }
 
   isLoggedIn(): boolean {
-    return this.getToken() !== null;
+    return !!this.getToken(); // Simplified check
   }
+
   setToken(token: string): void {
-    this.LoggedIn = true;
     const expiryDate = new Date();
     expiryDate.setDate(expiryDate.getDate() + 7); // Set expiry date to 7 days
     this.cookieService.set('token', token, expiryDate);
+    this._isAuthenticated.next(true); // Update authentication status
   }
 
   getToken(): string | null {
     return this.cookieService.get('token') || null;
   }
 
+  private checkAuthStatus(): void {
+    const token = this.getToken();
+    this._isAuthenticated.next(!!token); // Set authentication status
+  }
+
   logout(): void {
     this.cookieService.delete('token');
     this.cookieService.delete('userData');
-
-    this.LoggedIn = false;
+    this._isAuthenticated.next(false); // Update authentication status
   }
-
 }
