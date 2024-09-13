@@ -10,6 +10,7 @@ import { authGuard } from './pages/core/guards/auth.guard';
 import { ServiceDetailsComponent } from './pages/website/service/service-details/service-details.component';
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
+import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent , pathMatch: 'full' },
@@ -18,10 +19,11 @@ export const routes: Routes = [
   { path: 'reset_password', component: ResetPasswordComponent },
   { path: 'services', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
+  { path: 'addcontract', component: CreateContractComponent },
 
 
   {
-    path: 'Service',
+    path: 'service',
     children: [
       { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
 
