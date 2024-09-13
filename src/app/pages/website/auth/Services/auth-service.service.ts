@@ -28,9 +28,11 @@ export class AuthServiceService {
   }
 
   resetPassword(obj: any): Observable<any> {
-    return this.http.post(`${this.urlPath}reset_password`, obj);
+    return this.http.post(`${this.urlPath}forgot-password`, obj);
   }
-
+  verify(obj: any): Observable<any> {
+    return this.http.post(`${this.urlPath}verify`, obj);
+  }
   isLoggedIn(): boolean {
     return !!this.getToken(); // Simplified check
   }
