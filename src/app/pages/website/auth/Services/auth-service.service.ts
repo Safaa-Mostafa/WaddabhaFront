@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -34,14 +33,14 @@ export class AuthServiceService {
     return this.http.post(`${this.urlPath}verify`, obj);
   }
   isLoggedIn(): boolean {
-    return !!this.getToken(); // Simplified check
+    return !!this.getToken();
   }
 
   setToken(token: string): void {
     const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + 7); // Set expiry date to 7 days
+    expiryDate.setDate(expiryDate.getDate() + 7);
     this.cookieService.set('token', token, expiryDate);
-    this._isAuthenticated.next(true); // Update authentication status
+    this._isAuthenticated.next(true);
   }
 
   getToken(): string | null {
@@ -50,12 +49,12 @@ export class AuthServiceService {
 
   private checkAuthStatus(): void {
     const token = this.getToken();
-    this._isAuthenticated.next(!!token); // Set authentication status
+    this._isAuthenticated.next(!!token);
   }
 
   logout(): void {
     this.cookieService.delete('token');
     this.cookieService.delete('userData');
-    this._isAuthenticated.next(false); // Update authentication status
+    this._isAuthenticated.next(false);
   }
 }
