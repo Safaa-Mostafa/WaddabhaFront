@@ -18,7 +18,7 @@ export class AllServicesComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAllServices().subscribe({
       next: (res) => {
-        this.services = res.data; // Assuming `res.data` contains the array of services
+        this.services = res.data; 
         console.log(this.services);
       },
       error: (err) => {

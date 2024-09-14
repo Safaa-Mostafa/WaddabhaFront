@@ -26,13 +26,15 @@ export class NewServiceComponent implements OnInit {
     private newService: ServiceService
   ) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(6) ,Validators.pattern('^[\u0600-\u06FF\\s]+$')]],
-      description:  ['', [Validators.required, Validators.minLength(50)]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
-      images: [[], [Validators.required]],
+      images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      buyerInstruction : ['']
+      buyerInstruction: ['', [Validators.required]],
+      termsAccepted: [false, [Validators.requiredTrue]] // For the checkbox
     });
+
   }
 
   ngOnInit(): void {
@@ -50,44 +52,55 @@ export class NewServiceComponent implements OnInit {
 
   onFileChange(event: any) {
     if (event.target.files && event.target.files.length > 0) {
-      this.selectedImages = Array.from(event.target.files); 
+      this.selectedImages = Array.from(event.target.files);
       this.form.patchValue({
-        images: this.selectedImages  
+        images: this.selectedImages // Ensure the patching works
       });
+      console.log(this.form);
+      this.form.get('images')?.updateValueAndValidity(); // Update validation
     }
+
+
+}
+
+
+
+
+onSubmit() {
+  // Check form validity and ensure images are selected
+  if (this.form.valid && this.selectedImages.length > 0) {
+    const formData = new FormData();
+
+    // Append form fields
+    formData.append('name', this.form.get('name')?.value);
+    formData.append('description', this.form.get('description')?.value);
+    formData.append('categoryId', this.form.get('categoryId')?.value);
+    formData.append('initialPrice', this.form.get('initialPrice')?.value);
+    formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
+
+    // Append images
+    this.selectedImages.forEach((file, index) => {
+      formData.append(`Images[${index}]`, file, file.name);
+    });
+
+    this.newService.addService(formData).subscribe({
+      next: (res) => {
+        console.log('Service added successfully', res);
+      },
+      error: (err) => {
+        console.error('Error adding service', err);
+      }
+    });
+  } else {
+    // Handle form invalid scenario
+    Swal.fire({
+      text: 'يرجى ملء جميع الحقول المطلوبة وتحميل الصور',
+      icon: 'error',
+      confirmButtonText: 'موافق'
+    });
   }
+}
 
 
-     
-
-  onSubmit() {
-    if (this.form.valid) {
-
-      const formData = new FormData();
-      formData.append('name', this.form.get('name')?.value);
-      formData.append('description', this.form.get('description')?.value);
-      formData.append('categoryId', this.form.get('categoryId')?.value);
-      formData.append('initialPrice', this.form.get('initialPrice')?.value);
-      formData.append('buyerInstruction', this.form.get('buyerInstruction')?.value);
-
-      this.selectedImages.forEach((file, index) => {
-        formData.append(`images[${index}]`, file, file.name);
-      });
-console.log(formData);
-
-      this.newService.addService(formData).subscribe({
-        next: (res) => {
-        },
-        error: (err) => {
-        }
-      });
-    } else {
-      Swal.fire({
-        text: 'حصل خطأ',
-        icon: 'error',
-        confirmButtonText: 'موافق'
-      });
-    }
-  }
 }
 
