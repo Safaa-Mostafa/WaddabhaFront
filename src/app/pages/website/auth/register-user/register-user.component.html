@@ -32,10 +32,10 @@
                     صورة الملف الشخصي مطلوبة
                   </p>
                 }
-                @if(form.get('image')?.hasError('fileExtensionValidator') && form.get('image')?.dirty){
+                @if(this.imageValidErr){
                   <p
-                  class="mt-2 text-sm text-red-600 text-end">
-                  الملف يجب أن يكون بصيغة JPG أو PNG.
+                  class="mt-2 text-sm text-red-600 text-start" >
+                                    {{this.imageValidErr}}
                 </p>
                 }
                 </div>
