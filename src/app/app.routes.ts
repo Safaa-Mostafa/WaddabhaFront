@@ -20,6 +20,7 @@ export const routes: Routes = [
   { path: 'reset_password', component: ResetPasswordComponent,canActivate:[authLoginGuard]  },
   {path:'verify',component:VerifyComponent,canActivate:[authLoginGuard] },
   { path: 'services', component: AllServicesComponent },
+  { path: 'newService', component: NewServiceComponent },
   { path: 'contract', component: ContractComponent },
   { path: 'addcontract', component: CreateContractComponent },
   {
