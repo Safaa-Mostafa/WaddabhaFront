@@ -24,7 +24,7 @@ export class RegisterUserComponent implements OnInit {
   hidePassword = true;
   form!: FormGroup;
   userInfo!: User;
-  imagePreview: string | ArrayBuffer | null = 'https://avatars.hsoubcdn.com/448646e1b3812caa03abc8adeed99f80?s=128';
+  imagePreview: string | ArrayBuffer | null = 'assets/user.png';
   imageValidErr!:string;
   constructor(
     private fb: FormBuilder,
