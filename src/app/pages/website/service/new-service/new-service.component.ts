@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 export class NewServiceComponent implements OnInit {
   form!: FormGroup;
   categories!: Category[];
+  selectedImages: File[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,20 +48,46 @@ export class NewServiceComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid){
-      const service = this.form.value as Service;
-      this.newService.addService(service).subscribe({
-        next: (res) => {},
-        error: (err) => {},
+  onFileChange(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedImages = Array.from(event.target.files); 
+      this.form.patchValue({
+        images: this.selectedImages  
       });
     }
-    else {
+  }
+
+
+     
+
+  onSubmit() {
+    if (this.form.valid) {
+
+      const formData = new FormData();
+      formData.append('name', this.form.get('name')?.value);
+      formData.append('description', this.form.get('description')?.value);
+      formData.append('categoryId', this.form.get('categoryId')?.value);
+      formData.append('initialPrice', this.form.get('initialPrice')?.value);
+      formData.append('buyerInstruction', this.form.get('buyerInstruction')?.value);
+
+      this.selectedImages.forEach((file, index) => {
+        formData.append(`images[${index}]`, file, file.name);
+      });
+console.log(formData);
+
+      this.newService.addService(formData).subscribe({
+        next: (res) => {
+        },
+        error: (err) => {
+        }
+      });
+    } else {
       Swal.fire({
-        text : 'حصل خطأ',
+        text: 'حصل خطأ',
         icon: 'error',
-          confirmButtonText: 'موافق'
-      })
+        confirmButtonText: 'موافق'
+      });
     }
   }
 }
+
