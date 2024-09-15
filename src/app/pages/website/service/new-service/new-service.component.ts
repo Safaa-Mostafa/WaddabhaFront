@@ -18,6 +18,7 @@ export class NewServiceComponent implements OnInit {
   form!: FormGroup;
   categories!: Category[];
   selectedFiles: File[] = [];
+  router: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,7 +64,6 @@ onFileSelect(event: any): void {
 }
 
 onSubmit() {
-
   if (this.form.valid && this.selectedFiles.length > 0) {
   const formData = new FormData();
   formData.append('name', this.form.get('name')?.value);
@@ -77,6 +77,13 @@ onSubmit() {
 
   this.newService.addService(formData).subscribe(response => {
     console.log('Service added successfully:', response);
+    Swal.fire({
+      title: 'نجاح',
+      text: 'تم ارسال طلب اضافة خدمة بنجاح',
+      icon: 'success',
+      confirmButtonText: 'موافق',
+    });
+    this.router.navigateByUrl('');
   }, error => {
     console.error('Error adding service:', error);
   });

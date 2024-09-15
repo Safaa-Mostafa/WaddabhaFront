@@ -16,23 +16,29 @@
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="inline-flex items-center justify-between">
                     <img src="" alt="icon" class="w-12 h-12 rounded-full border-2">
-                    <p class="mr-2">شرح و حل مسائل جميع فروع الرياضيات بالإنجليزية لجميع المراحل</p>
+                    @for(item of contracts ; track $index){
+                            <a routerLink="/" class="mr-2">
+                            {{item.description}}
+                            </a>
+                        }
                 </div>
                 <div class="flex items-center justify-between text-gray-600 text-sm">
-                    <span>
-                         <i class="fa-solid fa-calendar-days"></i>
-                         منذ عامين
-                    </span>
-                    
-                    <span>
-                        <i class="fa-solid fa-tag"></i>
-                        5.00$
-                    </span>
-                    
-                    <span class="ml-1"> 
-                        <i class="fa-solid fa-tag"></i>
-                        قيد الانتظار
-                    </span>
+                    @for(item of contracts ; track $index){
+                        <span>
+                            <i class="fa-solid fa-calendar-days"></i>
+                             {{item.endDate}}
+                       </span>
+                    }                   
+                    @for(item of contracts ; track $index){
+                        <span>
+                            {{item.price}}$
+                       </span>
+                    }
+                    @for(item of contracts ; track $index){
+                        <span>
+                            <i class="fa-solid fa-tag"></i>
+                           {{item.status}}
+                       </span>   }     
                 </div>
             
         </div>

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ContractService } from '../services/contract.service';
+import { ContractAddDTO } from '../Models/contract';
+import { AllContracts } from '../Models/all-contracts';
 
 @Component({
   selector: 'app-contract',
@@ -7,19 +10,34 @@ import { Component } from '@angular/core';
   templateUrl: './contract.component.html',
   styleUrl: './contract.component.css'
 })
-export class ContractComponent {
+export class ContractComponent implements OnInit{
 
-constructor() {}
+constructor(private allContracts : ContractService) {}
 
-  // sortedOrders = [...this.contracts];
+ contracts !: AllContracts[]
 
-   sortOrders(event: any){
-  //    const sortType = event.target.value;
-  //    if (sortType == 'new'){
-  //     this.sortedOrders = this.contracts.sort((a, b) => b.date.getTime() - a.date.getTime()); // Newest first
-  //   } else if (sortType === 'old') {
-  //     this.sortedOrders = this.contracts.sort((a, b) => a.date.getTime() - b.date.getTime()); // Oldest first
-  //   }
-   }
-
+ ngOnInit(): void {
+  this.loadContracts();
 }
+
+loadContracts(): void {
+  this.allContracts.getAllContracts().subscribe({
+    next: (res) => {
+      this.contracts = res.data;
+    },
+    error: (err) => {},
+  });
+}
+
+
+ sortOrders(event: any){
+   const sortType = event.target.value;
+     if (sortType == 'new'){
+  //     this.sortedOrders = this.contracts.sort((a, b) => );
+      } else if (sortType === 'old') {
+  //     this.sortedOrders = this.contracts.sort((a, b) => //a.date.getTime() - b.date.getTime()//
+  //     );  
+    }
+  }
+  }
+
