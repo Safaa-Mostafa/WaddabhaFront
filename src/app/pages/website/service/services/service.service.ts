@@ -17,7 +17,7 @@ export class ServiceService {
   getId(id : number) : Observable<any>{
     return this.http.get(this.apiUrl + '/'+id)
   }
-  addService (service:Service) : Observable<any>{
+  addService (service :any) : Observable<any>{
     return this.http.post<Service>(this.apiUrl , service)
    }
    updateService (service:Service): Observable<any>{

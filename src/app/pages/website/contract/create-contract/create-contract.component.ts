@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ContractService } from '../services/contract.service';
 import Swal from 'sweetalert2';
-import { ContractAddDTO } from '../../service/models/contract';
+import { ContractAddDTO } from '../Models/contract';
 
 @Component({
   selector: 'app-create-contract',
   standalone: true,
   imports: [ReactiveFormsModule], // Import ReactiveFormsModule here
   templateUrl: './create-contract.component.html',
-  styleUrls: ['./create-contract.component.css'] // Corrected to 'styleUrls'
+  styleUrls: ['./create-contract.component.css'], // Corrected to 'styleUrls'
 })
 export class CreateContractComponent implements OnInit {
   form!: FormGroup;
@@ -26,15 +31,15 @@ export class CreateContractComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(5)]],
       serviceId: ['', [Validators.required]],
       buyerId: ['', [Validators.required]],
-      sellerId: ['', [Validators.required]]
+      sellerId: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
-    console.log('Form Values:', this.form.value); 
-    console.log(this.form.valid);// Debug form values
+    console.log('Form Values:', this.form.value);
+    console.log(this.form.valid); // Debug form values
     if (this.form.valid) {
       const contract = this.form.value as ContractAddDTO;
       this.contractService.addContract(contract).subscribe({

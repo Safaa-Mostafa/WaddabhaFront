@@ -24,8 +24,8 @@ export class RegisterUserComponent implements OnInit {
   hidePassword = true;
   form!: FormGroup;
   userInfo!: User;
-  imagePreview: string | ArrayBuffer | null = null;
-
+  imagePreview: string | ArrayBuffer | null = 'assets/user.png';
+  imageValidErr!:string;
   constructor(
     private fb: FormBuilder,
     private service: AuthServiceService,
@@ -59,6 +59,7 @@ ngOnInit(): void {
         '',
         [
           Validators.required,
+          Validators.minLength(8),
           Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
         ],
       ],
@@ -74,6 +75,7 @@ ngOnInit(): void {
 
   onFileChange(event: any) {
     const file = event.target.files[0];
+    if(file.type == 'image/png' || file.type == 'image/jpg'||file.type == 'image/jpeg'){
     if (file) {
       this.form.patchValue({
         image: file
@@ -84,6 +86,9 @@ ngOnInit(): void {
         this.imagePreview = e.target.result;
       };
       reader.readAsDataURL(file);
+    }}
+    else{
+   this.imageValidErr = "file extension must jpg or png and jpeg";
     }
   }
 
@@ -143,3 +148,20 @@ this.registerUser(formData);
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
