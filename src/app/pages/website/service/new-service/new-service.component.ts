@@ -29,11 +29,10 @@ export class NewServiceComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
-      images: [null, [Validators.required]],
+      Images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      buyerInstruction: ['', [Validators.required]],
-      termsAccepted: [false, [Validators.requiredTrue]] // For the checkbox
-    });
+      BuyerInstructions: ['', [Validators.required]]
+        });
 
   }
 
@@ -57,7 +56,7 @@ export class NewServiceComponent implements OnInit {
         images: this.selectedImages // Ensure the patching works
       });
       console.log(this.form);
-      this.form.get('images')?.updateValueAndValidity(); // Update validation
+      this.form.get('Images')?.updateValueAndValidity(); // Update validation
     }
 
 
@@ -77,12 +76,13 @@ onSubmit() {
     formData.append('categoryId', this.form.get('categoryId')?.value);
     formData.append('initialPrice', this.form.get('initialPrice')?.value);
     formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
-
+    formData.append('SellerId','c835df32-6d27-436a-87da-745952c552bc');
     // Append images
     this.selectedImages.forEach((file, index) => {
-      formData.append(`Images[${index}]`, file, file.name);
+      formData.append(`Images`, file, file.name);
     });
-
+console.log(formData);
+console.log(this.form);
     this.newService.addService(formData).subscribe({
       next: (res) => {
         console.log('Service added successfully', res);
