@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { CategoriesService } from '../../landing/categories/services/categories.service';
 import { Category } from '../../landing/categories/models/category';
 import { ServiceService } from '../services/service.service';
-import { Service } from '../models/service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +17,7 @@ import Swal from 'sweetalert2';
 export class NewServiceComponent implements OnInit {
   form!: FormGroup;
   categories!: Category[];
-  selectedImages: File[] = [];
+  selectedFiles: File[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,9 +30,8 @@ export class NewServiceComponent implements OnInit {
       categoryId: ['', [Validators.required]],
       images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      buyerInstruction: ['', [Validators.required]],
-      termsAccepted: [false, [Validators.requiredTrue]] // For the checkbox
-    });
+      buyerInstruction: ['', [Validators.required]]
+        });
 
   }
 
@@ -44,63 +42,53 @@ export class NewServiceComponent implements OnInit {
   getCategory() {
     this.serviceCategory.getAllCategories().subscribe({
       next: (res) => {
+        
         this.categories = res.data;
       },
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
-  onFileChange(event: any) {
-    if (event.target.files && event.target.files.length > 0) {
-      this.selectedImages = Array.from(event.target.files);
-      this.form.patchValue({
-        images: this.selectedImages // Ensure the patching works
-      });
-      console.log(this.form);
-      this.form.get('images')?.updateValueAndValidity(); // Update validation
+onFileSelect(event: any): void {
+  if (event.target.files && event.target.files.length > 0) {
+    this.selectedFiles = []; 
+    for (let file of event.target.files) {
+      this.selectedFiles.push(file); 
+      console.log(this.selectedFiles);
+
     }
-
-
+  }
 }
-
-
-
 
 onSubmit() {
-  // Check form validity and ensure images are selected
-  if (this.form.valid && this.selectedImages.length > 0) {
-    const formData = new FormData();
+  
+  if (this.form.valid && this.selectedFiles.length > 0) {
+  const formData = new FormData();
+  formData.append('name', this.form.get('name')?.value);
+  formData.append('categoryId', this.form.get('categoryId')?.value);
+  formData.append('description', this.form.get('description')?.value);
+  formData.append('initialPrice', this.form.get('initialPrice')?.value);
+  formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
+  this.selectedFiles.forEach((file, index) => {
+    formData.append(`Images`, file, file.name);
+  });
 
-    // Append form fields
-    formData.append('name', this.form.get('name')?.value);
-    formData.append('description', this.form.get('description')?.value);
-    formData.append('categoryId', this.form.get('categoryId')?.value);
-    formData.append('initialPrice', this.form.get('initialPrice')?.value);
-    formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
-
-    // Append images
-    this.selectedImages.forEach((file, index) => {
-      formData.append(`Images[${index}]`, file, file.name);
-    });
-
-    this.newService.addService(formData).subscribe({
-      next: (res) => {
-        console.log('Service added successfully', res);
-      },
-      error: (err) => {
-        console.error('Error adding service', err);
-      }
-    });
-  } else {
-    // Handle form invalid scenario
-    Swal.fire({
-      text: 'يرجى ملء جميع الحقول المطلوبة وتحميل الصور',
-      icon: 'error',
-      confirmButtonText: 'موافق'
-    });
+  this.newService.addService(formData).subscribe(response => {
+    console.log('Service added successfully:', response);
+  }, error => {
+    console.error('Error adding service:', error);
+  });
+} else {
+      Swal.fire({
+        text: 'يرجى ملء جميع الحقول المطلوبة وتحميل الصور',
+        icon: 'error',
+        confirmButtonText: 'موافق'
+      });
+    }
   }
 }
 
 
-}
 

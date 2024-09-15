@@ -1,9 +1,9 @@
-@if(isLoading && !isAuthenticated){
+@if(!isAuthenticated){
 <ng-container>
     <app-navbar></app-navbar>
 </ng-container>
 }
-@if(!isLoading && isAuthenticated){
+@if(isAuthenticated){
   <ng-container>
     <app-usernavbar></app-usernavbar>
   </ng-container>
