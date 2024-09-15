@@ -10,6 +10,9 @@ import { authGuard } from './pages/core/guards/auth.guard';
 import { ServiceDetailsComponent } from './pages/website/service/service-details/service-details.component';
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
+import { ProfileComponent } from './pages/website/users/profile/profile.component';
+import { EditProfilComponent } from './pages/website/users/edit-profil/edit-profil.component';
+import { SellerProfileComponent } from './pages/website/users/seller-profile/seller-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/layout', pathMatch: 'full' },
@@ -19,6 +22,9 @@ export const routes: Routes = [
   { path: 'services', component: AllServicesComponent },
   { path: 'layout', component: LandingComponent },
   { path: 'contract', component: ContractComponent },
+  {path:'profile',component:ProfileComponent},
+  {path:'edit-profile',component:EditProfilComponent},
+  {path:'seller-profile',component:SellerProfileComponent},
 
 
   {

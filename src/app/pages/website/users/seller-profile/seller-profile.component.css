@@ -4,7 +4,7 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100vh; /* تحديد ارتفاع الصفحة ليغطي الشاشة بالكامل */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,19 +12,19 @@ body {
 }
 
 .profile-container {
-    width: 100%;
-    max-width: 100%;
+    width: 100%; /* جعل العرض يغطي كامل الشاشة */
+    max-width: 100%; /* عدم وجود حد أقصى للعرض */
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 0;
-    border-radius: 0;
+    border-radius: 0; /* إلغاء الحواف المستديرة */
 }
 
 .profile-header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* وضع العناصر في عمود واحد */
+    align-items: center; /* توسيط العناصر */
     margin-bottom: 20px;
 }
 
@@ -39,7 +39,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* إضافة مسافة بين الصورة والنص */
 }
 
 .online-status {
@@ -50,18 +50,19 @@ body {
 .profile-info h2 {
     font-size: 24px; /* تكبير حجم الخط */
     margin: 0;
-    text-align: center;
+    text-align: center; /* توسيط النص */
 }
 
 .profile-info p {
     color: gray;
     margin: 5px 0 0 0;
-    text-align: center;
+    text-align: center; /* توسيط النص */
+    font-size: 0.85rem; /* زيادة حجم الخط */
 }
 
 .tabs {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* توزيع الأزرار على طرفي الصفحة */
     margin-bottom: 20px;
 }
 
@@ -70,28 +71,28 @@ body {
     color: white;
     border: none;
     padding: 10px 20px; /* زيادة التباعد الأفقي */
-    width: 200px;
+    width: 200px; /* تحديد عرض ثابت للزر */
     border-radius: 5px;
     cursor: pointer;
-    margin: 0;
+    margin: 0; /* إزالة الهوامش */
     text-align: center;
-    font-size: 0.85rem; /* تكبير حجم الخط */
-    align-self: center;
+    font-size: 0.85rem; /* زيادة حجم الخط */
+    align-self: center; /* توسيط الزر عمودياً */
 }
 
 .tabs .tab-container {
     display: flex;
-    align-items: center;
+    align-items: center; /* توسيط الأزرار عمودياً */
 }
 
 .tab {
     background-color: #f1f1f1;
     border: none;
-    padding: 10px 20px; /* تكبير التباعد */
+    padding: 10px 20px; /* زيادة التباعد */
     cursor: pointer;
-    margin-left: 5px;
+    margin-left: 5px; /* تصغير المسافة بين الألسنة */
     border-radius: 5px;
-    font-size: 0.85rem; /* تكبير حجم الخط */
+    font-size: 0.85rem; /* زيادة حجم الخط */
 }
 
 .tab.active {
@@ -104,20 +105,20 @@ body {
 }
 
 .left-section, .right-section {
-    width: 48%;
+    width: 48%; /* تقسيم الصفحة إلى قسمين */
 }
 
 .stats-box, .verification-box, .about-box, .services-box {
     background-color: #f1f1f1;
-    padding: 20px; /* تكبير التباعد */
+    padding: 20px; /* زيادة التباعد */
     border-radius: 8px;
     margin-bottom: 20px;
-    text-align: right;
-    font-size: 0.85rem; /* تكبير حجم الخط */
+    text-align: right; /* تعديل توجيه النص داخل الصناديق */
+    font-size: 0.85rem; /* زيادة حجم الخط */
 }
 
 .stats-box h3, .verification-box h3, .about-box h3, .services-box h3 {
-    font-size: 18px; /* تكبير حجم الخط */
+    font-size: 18px; /* زيادة حجم الخط */
     margin-bottom: 10px;
-    text-align: right;
+    text-align: right; /* تعديل توجيه النص داخل العناوين */
 }
