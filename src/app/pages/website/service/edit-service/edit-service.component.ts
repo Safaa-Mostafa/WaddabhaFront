@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 export class EditServiceComponent {
   form!: FormGroup;
   categories!: Category[];
+  selectedFiles: File[] = [];
+  router: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,13 +25,14 @@ export class EditServiceComponent {
     private newService: ServiceService
   ) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(6) ,Validators.pattern('^[\u0600-\u06FF\\s]+$')]],
-      description:  ['', [Validators.required, Validators.minLength(50)]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
-      images: [[], [Validators.required]],
+      images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      buyerInstruction : ['']
-    });
+      buyerInstruction: ['', [Validators.required]]
+        });
+
   }
 
   ngOnInit(): void {
@@ -39,26 +42,56 @@ export class EditServiceComponent {
   getCategory() {
     this.serviceCategory.getAllCategories().subscribe({
       next: (res) => {
+
         this.categories = res.data;
       },
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
-  onSubmit() {
-    if (this.form.valid){
-      const service = this.form.value as Service;
-      this.newService.updateService(service).subscribe({
-        next: (res) => {},
-        error: (err) => {},
-      });
+onFileSelect(event: any): void {
+  if (event.target.files && event.target.files.length > 0) {
+    this.selectedFiles = [];
+    for (let file of event.target.files) {
+      this.selectedFiles.push(file);
+      console.log(this.selectedFiles);
+
     }
-    else {
+  }
+}
+
+onSubmit() {
+  if (this.form.valid && this.selectedFiles.length > 0) {
+  const formData = new FormData();
+  formData.append('name', this.form.get('name')?.value);
+  formData.append('categoryId', this.form.get('categoryId')?.value);
+  formData.append('description', this.form.get('description')?.value);
+  formData.append('initialPrice', this.form.get('initialPrice')?.value);
+  formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
+  this.selectedFiles.forEach((file, index) => {
+    formData.append('Images', file, file.name);
+  });
+
+  this.newService.updateService(formData).subscribe(response => {
+    console.log('Service added successfully:', response);
+    Swal.fire({
+      title: 'نجاح',
+      text: 'تم ارسال طلب اضافة خدمة بنجاح',
+      icon: 'success',
+      confirmButtonText: 'موافق',
+    });
+    this.router.navigateByUrl('');
+  }, error => {
+    console.error('Error adding service:', error);
+  });
+} else {
       Swal.fire({
-        text : 'حصل خطأ',
+        text: 'يرجى ملء جميع الحقول المطلوبة وتحميل الصور',
         icon: 'error',
-          confirmButtonText: 'موافق'
-      })
+        confirmButtonText: 'موافق'
+      });
     }
   }
 }

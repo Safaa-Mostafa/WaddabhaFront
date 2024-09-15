@@ -12,6 +12,7 @@ import { AllServicesComponent } from './pages/website/service/all-services/all-s
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
 import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
+import { ProfileComponent } from './pages/website/users/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent , pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'services', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
   { path: 'addcontract', component: CreateContractComponent },
+  { path: 'profile', component: ProfileComponent },
   {
     path: 'service',
     children: [
