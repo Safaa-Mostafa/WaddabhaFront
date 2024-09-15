@@ -28,9 +28,9 @@ export class NewServiceComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
-      images: [null, [Validators.required]],
+      Images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      buyerInstruction: ['', [Validators.required]]
+      BuyerInstructions: ['', [Validators.required]]
         });
 
   }
@@ -51,6 +51,7 @@ export class NewServiceComponent implements OnInit {
     });
   }
 
+
 onFileSelect(event: any): void {
   if (event.target.files && event.target.files.length > 0) {
     this.selectedFiles = []; 
@@ -63,7 +64,6 @@ onFileSelect(event: any): void {
 }
 
 onSubmit() {
-  
   if (this.form.valid && this.selectedFiles.length > 0) {
   const formData = new FormData();
   formData.append('name', this.form.get('name')?.value);
