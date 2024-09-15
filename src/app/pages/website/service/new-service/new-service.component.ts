@@ -28,9 +28,9 @@ export class NewServiceComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],
-      Images: [null, [Validators.required]],
+      images: [null, [Validators.required]],
       initialPrice: [0, [Validators.required]],
-      BuyerInstructions: ['', [Validators.required]]
+      buyerInstruction: ['', [Validators.required]]
         });
 
   }
@@ -42,7 +42,7 @@ export class NewServiceComponent implements OnInit {
   getCategory() {
     this.serviceCategory.getAllCategories().subscribe({
       next: (res) => {
-        
+
         this.categories = res.data;
       },
       error: (err) => {
@@ -51,12 +51,11 @@ export class NewServiceComponent implements OnInit {
     });
   }
 
-
 onFileSelect(event: any): void {
   if (event.target.files && event.target.files.length > 0) {
-    this.selectedFiles = []; 
+    this.selectedFiles = [];
     for (let file of event.target.files) {
-      this.selectedFiles.push(file); 
+      this.selectedFiles.push(file);
       console.log(this.selectedFiles);
 
     }
@@ -64,6 +63,7 @@ onFileSelect(event: any): void {
 }
 
 onSubmit() {
+
   if (this.form.valid && this.selectedFiles.length > 0) {
   const formData = new FormData();
   formData.append('name', this.form.get('name')?.value);
@@ -72,7 +72,7 @@ onSubmit() {
   formData.append('initialPrice', this.form.get('initialPrice')?.value);
   formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
   this.selectedFiles.forEach((file, index) => {
-    formData.append(`Images`, file, file.name);
+    formData.append('Images', file, file.name);
   });
 
   this.newService.addService(formData).subscribe(response => {
@@ -89,6 +89,3 @@ onSubmit() {
     }
   }
 }
-
-
-
