@@ -63,7 +63,7 @@ ngOnInit(): void {
         ],
       ],
       role: ['Buyer', Validators.required],
-      image:[null,[Validators.required,fileExtensionValidator(['jpg','png'])]],
+      image:[null,[Validators.required,fileExtensionValidator(['jpg','png','jpeg'])]],
       terms: [false, Validators.requiredTrue],
     });
   }
