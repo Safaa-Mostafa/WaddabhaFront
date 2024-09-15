@@ -11,8 +11,8 @@ export class ServiceService {
   constructor(private http : HttpClient) { }
   private apiUrl = "https://localhost:7116/api/Services";
   
-  getAllServices() : Observable<any>{
-    return this.http.get(this.apiUrl);
+  getAllServices(id:any) : Observable<any>{
+    return this.http.get(`${this.apiUrl}?categoryId=${id}`);
   }
   getId(id : number) : Observable<any>{
     return this.http.get(this.apiUrl + '/'+id)

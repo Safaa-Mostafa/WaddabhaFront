@@ -16,9 +16,11 @@ export class AllServicesComponent implements OnInit {
   constructor(private service: ServiceService) { }
 
   ngOnInit(): void {
-    this.service.getAllServices().subscribe({
+    const id = '615dc4cb-556b-47b9-99e3-5fde42b748e8';
+    this.service.getAllServices(id).subscribe({
       next: (res) => {
-        this.services = res.data; 
+        console.log(res);
+        this.services = res.data; // Assuming `res.data` contains the array of services
         console.log(this.services);
       },
       error: (err) => {
