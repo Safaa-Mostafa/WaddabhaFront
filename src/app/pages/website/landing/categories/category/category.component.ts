@@ -13,6 +13,7 @@ export class CategoryComponent {
   @Input({ required: true }) category!: Category;
 
   get imageUrl(): string {
-    return 'assets/' + this.category.imagePath;
+    console.log(this.category?.image?.imageUrl);
+    return this.category?.image?.imageUrl;
   }
 }
