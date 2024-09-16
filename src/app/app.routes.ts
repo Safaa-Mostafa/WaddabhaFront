@@ -10,9 +10,11 @@ import { authGuard, authLoginGuard } from './pages/core/guards/auth.guard';
 import { ServiceDetailsComponent } from './pages/website/service/service-details/service-details.component';
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
+import { ProfileComponent } from './pages/website/users/profile/profile.component';
+import { EditProfilComponent } from './pages/website/users/edit-profil/edit-profil.component';
+import { SellerProfileComponent } from './pages/website/users/seller-profile/seller-profile.component';
 import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
-import { ProfileComponent } from './pages/website/users/profile/profile.component';
 import { CategoriesComponent } from './pages/website/landing/categories/categories.component';
 import { ContractDetailsComponent } from './pages/website/contract/contract-details/contract-details.component';
 
@@ -24,6 +26,9 @@ export const routes: Routes = [
   { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
   { path: 'services/:id', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
+  {path:'profile',component:ProfileComponent},
+  {path:'edit-profile',component:EditProfilComponent},
+  {path:'seller-profile',component:SellerProfileComponent},
 
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
   
