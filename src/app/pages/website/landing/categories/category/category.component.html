@@ -1,7 +1,7 @@
 <div
   class="category-card mx-5 relative overflow-hidden rounded-lg h-56 shadow-md transform transition-transform hover:scale-105 cursor-pointer"
-  [routerLink]="['/services']"
-  >
+  [routerLink]="['/services', category.id]"
+>
   <img
     [src]="imageUrl"
     [alt]="category.name"

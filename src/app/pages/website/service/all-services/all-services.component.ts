@@ -19,8 +19,8 @@ export class AllServicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRouter.paramMap.subscribe(params => {
-      // const id: any = params.get('id');
-const id = 'asb';
+      const id: any = params.get('id');
+// const id = 'asb';
       this.loadCatgeory(id);
       this.loadServices(id);
     });
