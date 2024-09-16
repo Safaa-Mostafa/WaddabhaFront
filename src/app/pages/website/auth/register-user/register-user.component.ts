@@ -104,7 +104,6 @@ ngOnInit(): void {
       formData.append('lname', this.form.get('lname')?.value);
       formData.append('password', this.form.get('password')?.value);
       formData.append('username', this.form.get('username')?.value);
-
       const imageFile = this.form.get('image')?.value;
       if (imageFile) {
         formData.append('image', imageFile);
