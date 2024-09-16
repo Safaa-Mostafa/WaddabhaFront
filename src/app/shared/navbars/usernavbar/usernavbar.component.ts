@@ -20,7 +20,6 @@ export class UsernavbarComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.user = this.userServcie.getStoredUserData();
-    console.log(this.user);
   }
   isMenuOpen: boolean = false;
   toggleMenu() {

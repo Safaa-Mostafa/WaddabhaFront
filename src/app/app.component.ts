@@ -8,7 +8,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NewServiceComponent } from './pages/website/service/new-service/new-service.component';
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 import { User } from './pages/website/auth/Models/user';
-import Swal from 'sweetalert2';
 import { UserService } from './pages/website/users/services/user.service';
 
 @Component({
@@ -23,15 +22,28 @@ import { UserService } from './pages/website/users/services/user.service';
     AllServicesComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'], // Fixed typo 'styleUrl' to 'styleUrls'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Waddabha';
-  user:User | null =null;
-  constructor(public authService:AuthServiceService,private userService:UserService) {}
+  user: User | null = null;
+  isLoading = true;
+  isAuthenticated: boolean = false;
+  private authSubscription: Subscription = new Subscription();
+
+  constructor(public authService: AuthServiceService, private userService: UserService) {}
 
   ngOnInit(): void {
-this.user =  this.userService.getStoredUserData();
+    this.user = this.userService.getStoredUserData();
+    this.authSubscription.add(
+      this.authService.isAuthenticated$.subscribe(isAuth => {
+        this.isAuthenticated = isAuth;
+        this.isLoading = false;
+      })
+    );
   }
 
+  ngOnDestroy(): void {
+    this.authSubscription.unsubscribe(); // Clean up subscriptions
+  }
 }

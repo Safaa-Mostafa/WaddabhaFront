@@ -4,30 +4,6 @@
       <h2 class="text-center text-2xl font-bold text-gray-900 mb-4">
         تسجيل الدخول
       </h2>
-      <div class="flex justify-center space-x-4 w-full">
-        <button
-          class="flex items-center justify-center w-full max-w-[250px] py-2 px-4 text-xs font-medium text-white shadow-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-          <i class="fab fa-microsoft mr-2"></i>
-          <span>باستخدام مايكروسوفت</span>
-        </button>
-        <button
-          class="flex items-center justify-center w-full max-w-[250px] py-2 px-4 text-xs font-medium text-white shadow-sm bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-          <i class="fab fa-google mr-2"></i>
-          <span>باستخدام جوجل</span>
-        </button>
-      </div>
-
-      <!-- Divider -->
-      <div class="relative w-full mt-2">
-        <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-gray-300"></div>
-        </div>
-        <div class="relative flex justify-center text-sm">
-          <span class="p-1 bg-[#fff] text-gray-500">أو</span>
-        </div>
-      </div>
-
-      <!-- Form -->
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full space-y-4">
         <!-- Email -->
         <div class="w-full">
@@ -81,7 +57,6 @@
 
       <!-- Additional Links -->
       <div class="mt-4 text-center text-xs text-gray-600 w-full text-end">
-        <p><a href="#" class="text-blue-500 hover:underline">مساعدة</a></p>
         <p><a routerLink="/signup" class="text-blue-500 hover:underline">لا أملك حساب بعد</a></p>
         <p><a routerLink="/reset_password" class="text-blue-500 hover:underline">فقدت كلمة المرور</a></p>
         <p><a routerLink="/reset_password" class="text-blue-500 hover:underline">لم يصلني رمز التفعيل</a></p>

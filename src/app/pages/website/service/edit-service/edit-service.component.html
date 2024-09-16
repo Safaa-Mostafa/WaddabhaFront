@@ -55,7 +55,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold mb-1" for="type">التصنيف</label>
-                    <select name="type" id="type" formControlName="category"
+                    <select name="type" id="type" formControlName="categoryId"
                         class="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-full mb-10">
                         @for (item of categories; track $index) 
                         {
@@ -86,7 +86,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold mb-1">سعر الخدمة يبدأ من </label>
-                    <input type="number" formControlName="price"
+                    <input type="number" formControlName="initialPrice"
                         class="border border-gray-300 rounded-md px-4 mb-10 py-2 text-gray-700 w-full" value="50">
                 </div>
   

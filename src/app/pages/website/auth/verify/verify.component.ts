@@ -1,53 +1,49 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthServiceService } from '../Services/auth-service.service';
+import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthServiceService } from '../Services/auth-service.service';
 import { handleValidationErrors } from '../Validations/Validation';
 
 @Component({
-  selector: 'app-reset-password',
+  selector: 'app-verify',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css',
+  imports: [ReactiveFormsModule],
+  templateUrl: './verify.component.html',
+  styleUrls: ['./verify.component.css']
 })
-export class ResetPasswordComponent {
+export class VerifyComponent {
   form!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private service: AuthServiceService,
-    private router: Router
+    private fb: FormBuilder,
+    private router: Router,
+    private service: AuthServiceService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.initialForm();
   }
 
   initialForm(): void {
-    this.form = this.formBuilder.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      code: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]], // 6-digit OTP
+      password: ['', [Validators.required]] // Add more validators if needed
     });
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.service.resetPassword(this.form.value).subscribe({
+      this.service.verify(this.form.value).subscribe({
         next: (res) => {
           Swal.fire({
             title: 'نجاح',
-            text: res.data,
+            text: 'تم إعادة تعيين كلمة المرور بنجاح',
             icon: 'success',
             confirmButtonText: 'موافق',
           });
-          this.router.navigateByUrl('verify');
+          this.router.navigateByUrl('/login');
         },
         error: (err) => {
           Swal.fire({
