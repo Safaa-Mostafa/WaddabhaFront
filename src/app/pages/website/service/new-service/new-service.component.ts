@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router} from '@angular/router';
 import { CategoriesService } from '../../landing/categories/services/categories.service';
 import { Category } from '../../landing/categories/models/category';
 import { ServiceService } from '../services/service.service';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-new-service',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './new-service.component.html',
   styleUrl: './new-service.component.css',
 })
