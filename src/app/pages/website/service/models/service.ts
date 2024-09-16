@@ -1,9 +1,20 @@
+
+export interface Image {
+  imageUrl: string;
+  publicId: string;
+}
+
 export interface Service {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  category: string;
-  images: [];
-  price: number;
+  categoryId: string;
+  images: Image[]; // Array of Image objects
+  initialPrice: number;
   buyerInstruction: string;
+  category: Category;
+}
+export interface Category {
+  name: string;
+  description: string;
 }

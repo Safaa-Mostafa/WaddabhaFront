@@ -1,21 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
-import { User } from '../Models/user';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
   private urlPath = 'https://localhost:7116/api/Auth/';
-  LoggedIn: boolean = false;
-  userData!: User;
+  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this._isAuthenticated.asObservable();
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService
-  ) {}
+  ) {
+    this.checkAuthStatus(); // Initialize authentication status
+  }
 
   Login(obj: any): Observable<any> {
     return this.http.post(`${this.urlPath}login`, obj);
@@ -26,28 +27,34 @@ export class AuthServiceService {
   }
 
   resetPassword(obj: any): Observable<any> {
-    return this.http.post(`${this.urlPath}reset_password`, obj);
+    return this.http.post(`${this.urlPath}forgot-password`, obj);
+  }
+  verify(obj: any): Observable<any> {
+    return this.http.post(`${this.urlPath}verify`, obj);
+  }
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 
-  isLoggedIn(): boolean {
-    return this.getToken() !== null;
-  }
   setToken(token: string): void {
-    this.LoggedIn = true;
     const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + 7); // Set expiry date to 7 days
+    expiryDate.setDate(expiryDate.getDate() + 7);
     this.cookieService.set('token', token, expiryDate);
+    this._isAuthenticated.next(true);
   }
 
   getToken(): string | null {
     return this.cookieService.get('token') || null;
   }
 
+  private checkAuthStatus(): void {
+    const token = this.getToken();
+    this._isAuthenticated.next(!!token);
+  }
+
   logout(): void {
     this.cookieService.delete('token');
     this.cookieService.delete('userData');
-
-    this.LoggedIn = false;
+    this._isAuthenticated.next(false);
   }
-
 }

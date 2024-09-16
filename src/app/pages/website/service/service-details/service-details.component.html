@@ -1,8 +1,7 @@
 <div class="container mx-auto mt-10 rtl">
   <!-- Page Title -->
   <div class="flex justify-between items-center mb-8">
-    <!-- Heading -->
-    <a href="#purchase" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 no-underline">
+    <a [routerLink]="['/add-contract',service.id]" routerLinkActive="router-link-active"  class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 no-underline">
       شراء الخدمة
     </a>
     <h3 class="text-4xl font-bold text-right mb-8">
@@ -13,7 +12,7 @@
   <!-- Main container with two sections -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 rtl">
     <!-- Section 1: Service Card and Ratings (1/3 of the width) -->
-    <div class="col-span-1 bg-white shadow-md p-4 text-right rtl" style="height:371px">
+    <div class="col-span-1 bg-white shadow-md p-4 text-right rtl" style="height: 371px;">
       <div class="mb-3">
         <h2 class="text-2xl font-bold">بطاقة الخدمة</h2>
         <hr class="my-2">
@@ -21,11 +20,11 @@
       <div class="flex flex-col">
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:تقييمات</p>
-          <p class="font-semibold">{{ service.ratingsCount }}</p>
+          <p class="font-semibold">{{ service.ratingsCount || 'غير متاح' }}</p>
         </div>
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:متوسط سرعة الرد</p>
-          <p class="font-semibold">{{ service.averageResponseTime }}</p>
+          <p class="font-semibold">{{ service.averageResponseTime || 'غير متاح' }}</p>
         </div>
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:المشترين</p>
@@ -33,7 +32,7 @@
         </div>
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:طلبات جاري تنفيذها</p>
-          <p class="font-semibold">{{ service.pendingOrders }}</p>
+          <p class="font-semibold">{{ service.pendingOrders || 'غير متاح' }}</p>
         </div>
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:سعر الخدمة</p>
@@ -41,20 +40,25 @@
         </div>
         <div class="flex flex-row-reverse justify-between mb-2">
           <p class="font-semibold">:مدة التسليم</p>
-          <p class="font-semibold">{{ service.deliveryTime }}</p>
+          <p class="font-semibold">{{ service.deliveryTime || 'غير متاح' }}</p>
         </div>
       </div>
-      <!-- <div class="mt-6">
-        <img src="/assets/daman.png" alt="Service Image" class="w-full h-auto shadow-md">
-      </div> -->
     </div>
 
     <!-- Section 2: Images and Description (2/3 of the width) -->
     <div class="col-span-2 bg-white shadow-md p-6 relative">
       <!-- Image Display -->
       <div class="relative mb-4">
-        <img [src]="service.imagePath" class="rounded w-full h-auto max-h-96" alt="Service Image">
-
+    <img  [src]="currentImage" class="rounded w-full h-auto max-h-96" alt="Service Image">
+   <!-- @for( item of service.images;track item){
+     <img [src]="item.imageUrl" alt="">
+   } -->
+    <!-- If no images are available -->
+    <ng-template #noImage>
+      <div class="text-gray-500 text-center py-10">
+        <p>لا توجد صور متاحة</p>
+      </div>
+    </ng-template>
         <!-- Previous Button -->
         <a (click)="prevImage()" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white py-2 px-4 rounded-l hover:bg-gray-700 transition duration-300 cursor-pointer">
           &#10094;
@@ -71,9 +75,7 @@
         {{ service.description }}
       </p>
 
-      <p class="text-gray-700 leading-relaxed text-right rtl mt-4">
-        {{ service.additionalInfo }}
-      </p>
+    
     </div>
   </div>
 </div>
