@@ -12,6 +12,9 @@ import { AllServicesComponent } from './pages/website/service/all-services/all-s
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
 import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
+import { ProfileComponent } from './pages/website/users/profile/profile.component';
+import { CategoriesComponent } from './pages/website/landing/categories/categories.component';
+import { ContractDetailsComponent } from './pages/website/contract/contract-details/contract-details.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
@@ -23,6 +26,11 @@ export const routes: Routes = [
   { path: 'contract', component: ContractComponent },
 
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
+  
+  { path: 'profile', component: ProfileComponent },
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'contractdetails', component: ContractDetailsComponent },
+
   {
     path: 'service',
     children: [
