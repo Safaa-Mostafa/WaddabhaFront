@@ -13,4 +13,7 @@ export class CategoriesService {
   getAllCategories(): Observable<any> {
     return this.http.get<any>(this.urlPath);
   }
+  getById(id:string):Observable<any>{
+    return this.http.get<any>(`${this.urlPath}/${id}`);
+  }
 }

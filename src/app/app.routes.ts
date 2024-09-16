@@ -14,14 +14,15 @@ import { CreateContractComponent } from './pages/website/contract/create-contrac
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
 
 export const routes: Routes = [
-  { path: '', component: LandingComponent , pathMatch: 'full' },
-  { path: 'login', component: LoginUserComponent ,canActivate:[authLoginGuard]},
-  { path: 'signup', component: RegisterUserComponent,canActivate:[authLoginGuard] },
-  { path: 'reset_password', component: ResetPasswordComponent,canActivate:[authLoginGuard]  },
-  {path:'verify',component:VerifyComponent,canActivate:[authLoginGuard] },
+  { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginUserComponent, canActivate: [authLoginGuard] },
+  { path: 'signup', component: RegisterUserComponent, canActivate: [authLoginGuard] },
+  { path: 'reset_password', component: ResetPasswordComponent, canActivate: [authLoginGuard] },
+  { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
   { path: 'services', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
-  { path: 'addcontract', component: CreateContractComponent },
+
+  { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
   {
     path: 'service',
     children: [

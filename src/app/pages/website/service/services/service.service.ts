@@ -14,9 +14,11 @@ export class ServiceService {
   getAllServices(id:any) : Observable<any>{
     return this.http.get(`${this.apiUrl}?categoryId=${id}`);
   }
-  getId(id : number) : Observable<any>{
+
+  getId(id : any) : Observable<any>{
     return this.http.get(this.apiUrl + '/'+id)
   }
+  
   addService (service :any) : Observable<any>{
     return this.http.post<Service>(this.apiUrl , service)
    }
