@@ -22,7 +22,7 @@ export const routes: Routes = [
   { path: 'signup', component: RegisterUserComponent, canActivate: [authLoginGuard] },
   { path: 'reset_password', component: ResetPasswordComponent, canActivate: [authLoginGuard] },
   { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
-  { path: 'services', component: AllServicesComponent },
+  { path: 'services/:id', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
 
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
