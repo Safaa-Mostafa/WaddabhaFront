@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CategoriesService } from '../../landing/categories/services/categories.service';
+import { Category } from '../models/service';
 
 @Component({
   selector: 'app-all-services',
@@ -12,22 +14,40 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class AllServicesComponent implements OnInit {
   services: any[] = [];
-
-  constructor(private service: ServiceService) { }
+  cate!: Category;
+  constructor(private service: ServiceService, private category: CategoriesService, private activeRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = '615dc4cb-556b-47b9-99e3-5fde42b748e8';
-    this.service.getAllServices(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.services = res.data; // Assuming `res.data` contains the array of services
-        console.log(this.services);
-      },
-      error: (err) => {
-        console.error(err);
-      }
+    this.activeRouter.paramMap.subscribe(params => {
+      // const id: any = params.get('id');
+const id = 'asb';
+      this.loadCatgeory(id);
+      this.loadServices(id);
     });
+      
+   
   }
+loadServices(id:string){
+  this.service.getAllServices(id).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.services = res.data; // Assuming `res.data` contains the array of services
+      console.log(this.services);
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
+loadCatgeory(id:string){
+  this.category.getById(id).subscribe({
+    next: (res) => {
+      this.cate = res.data;
+    }, error: (err) => {
+      console.log(err);
+    }
+  });
+}
 
   getStarArray(rating: number): string[] {
     const fullStars = Math.floor(rating);

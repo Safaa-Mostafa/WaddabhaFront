@@ -17,17 +17,20 @@ import { CategoriesComponent } from './pages/website/landing/categories/categori
 import { ContractDetailsComponent } from './pages/website/contract/contract-details/contract-details.component';
 
 export const routes: Routes = [
-  { path: '', component: LandingComponent , pathMatch: 'full' },
-  { path: 'login', component: LoginUserComponent ,canActivate:[authLoginGuard]},
-  { path: 'signup', component: RegisterUserComponent,canActivate:[authLoginGuard] },
-  { path: 'reset_password', component: ResetPasswordComponent,canActivate:[authLoginGuard]  },
-  {path:'verify',component:VerifyComponent,canActivate:[authLoginGuard] },
+  { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginUserComponent, canActivate: [authLoginGuard] },
+  { path: 'signup', component: RegisterUserComponent, canActivate: [authLoginGuard] },
+  { path: 'reset_password', component: ResetPasswordComponent, canActivate: [authLoginGuard] },
+  { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
   { path: 'services', component: AllServicesComponent },
   { path: 'contract', component: ContractComponent },
-  { path: 'addcontract', component: CreateContractComponent },
+
+  { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
+  
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'contractdetails', component: ContractDetailsComponent },
+
   {
     path: 'service',
     children: [
