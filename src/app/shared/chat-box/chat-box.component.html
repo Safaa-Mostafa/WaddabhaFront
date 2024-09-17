@@ -1,1 +1,33 @@
-<p>chat-box works!</p>
+<div class="w-full max-w-4xl mx-auto p-4" dir="rtl"> <!-- Increased max width to 4xl for wider chat -->
+
+  <!-- Messages Container -->
+  <div #messagesContainer class="h-[70vh] w-full overflow-y-auto bg-gray-100 border border-gray-300 p-4 rounded-lg mb-4">
+    <!-- Messages will be dynamically added here -->
+    <div *ngFor="let message of messages; trackBy: trackById" class="mb-2" #message>
+      @if (profile?.id == message.senderId) {
+        <div>
+          <div class="bg-blue-100 p-3 rounded-lg inline-block max-w-full break-words">
+    
+            <p class="text-sm">{{ message.body }}</p>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">{{ message.createdAt | date:'shortTime' }}</p>
+        </div>
+    } @else {
+      <div class="text-left">
+        <div class="bg-white p-3 rounded-lg inline-block max-w-full break-words">
+  
+          <p class="text-sm">{{ message.body }}</p>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">{{ message.createdAt | date:'shortTime' }}</p>
+      </div>
+    }
+    </div>
+  </div>
+
+  <!-- Message Input Form -->
+  <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="flex">
+    <input type="text" formControlName="newMessage" placeholder="اكتب رسالة" required
+           class="w-full p-2 border border-gray-300 rounded-lg text-right focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">إرسال</button>
+  </form>
+</div>

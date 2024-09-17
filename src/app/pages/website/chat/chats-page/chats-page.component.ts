@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { MessagesComponent } from "../../../../shared/chat-box/chat-box.component";
+import { UserListComponent } from "../chat-users/chat-users.component";
+import { User } from '../../auth/Models/user';
+import { UserService } from '../../users/services/user.service';
+
+@Component({
+  selector: 'app-chats-page',
+  standalone: true,
+  imports: [MessagesComponent, UserListComponent],
+  templateUrl: './chats-page.component.html',
+  styleUrl: './chats-page.component.css'
+})
+export class ChatsPageComponent implements OnInit {
+  user!: User;
+  chatRoomId: string = "";
+  constructor(private userService: UserService){}
+  
+  ngOnInit(): void {
+    this.loadUser();
+  }
+
+  selectChatRoom(chatRoomId: string): void {
+    this.chatRoomId = chatRoomId;
+    
+  }
+
+  loadUser() : void {
+    this.userService.getProfile().subscribe({next: res => {
+      this.user = res.data;
+    }})
+  }
+
+}

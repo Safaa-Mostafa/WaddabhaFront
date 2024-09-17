@@ -12,6 +12,7 @@ import { AllServicesComponent } from './pages/website/service/all-services/all-s
 import { ContractComponent } from './pages/website/contract/contract/contract.component';
 import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
+import { ChatsPageComponent } from './pages/website/chat/chats-page/chats-page.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent , pathMatch: 'full' },
@@ -29,8 +30,9 @@ export const routes: Routes = [
       { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
 
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
+    
     ]
   },
-
+  {path:'messages',component:ChatsPageComponent,canActivate:[authGuard]},
   { path: '**', component: NotFoundComponent }
 ];
