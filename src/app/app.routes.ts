@@ -17,6 +17,7 @@ import { CreateContractComponent } from './pages/website/contract/create-contrac
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
 import { CategoriesComponent } from './pages/website/landing/categories/categories.component';
 import { ContractDetailsComponent } from './pages/website/contract/contract-details/contract-details.component';
+import { MyServicesComponent } from './pages/website/service/my-services/my-services.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
@@ -29,6 +30,7 @@ export const routes: Routes = [
   {path:'profile',component:ProfileComponent},
   {path:'edit-profile',component:EditProfilComponent},
   {path:'seller-profile',component:SellerProfileComponent},
+  {path:'myServices',component:MyServicesComponent},
 
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
   
