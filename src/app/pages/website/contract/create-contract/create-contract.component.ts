@@ -8,6 +8,7 @@ import {
 import { ContractService } from '../services/contract.service';
 import Swal from 'sweetalert2';
 import { ContractAddDTO } from '../Models/contract';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-contract',
@@ -21,17 +22,15 @@ export class CreateContractComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private contractService: ContractService
+    private contractService: ContractService,
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
       price: [0, [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       workLocation: ['', [Validators.required, Validators.minLength(5)]],
-      description: ['', [Validators.required, Validators.minLength(5)]],
-      serviceId: ['', [Validators.required]],
-      buyerId: ['', [Validators.required]],
-      sellerId: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -42,6 +41,7 @@ export class CreateContractComponent implements OnInit {
     console.log(this.form.valid); // Debug form values
     if (this.form.valid) {
       const contract = this.form.value as ContractAddDTO;
+      contract.serviceId = this.route.snapshot.paramMap.get('id') || "";
       this.contractService.addContract(contract).subscribe({
         next: (res) => {
           Swal.fire({

@@ -5,6 +5,5 @@ export interface ContractAddDTO {
     workLocation: string;
     description: string;
     serviceId: string;
-    buyerId: string;
-    sellerId: string;
+  
 }
