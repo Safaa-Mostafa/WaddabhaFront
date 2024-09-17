@@ -9,6 +9,8 @@ import { NewServiceComponent } from './pages/website/service/new-service/new-ser
 import { AllServicesComponent } from './pages/website/service/all-services/all-services.component';
 import { User } from './pages/website/auth/Models/user';
 import { UserService } from './pages/website/users/services/user.service';
+import { SignalrService } from './signal-r.service'
+import { MessagesComponent } from './shared/chat-box/chat-box.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,9 @@ import { UserService } from './pages/website/users/services/user.service';
     FooterComponent,
     NewServiceComponent,
     AllServicesComponent,
+   MessagesComponent
+
+   
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Fixed typo 'styleUrl' to 'styleUrls'
@@ -31,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   private authSubscription: Subscription = new Subscription();
 
-  constructor(public authService: AuthServiceService, private userService: UserService) {}
+  constructor(public authService: AuthServiceService, private userService: UserService,private SignalrService:SignalrService)  {}
 
   ngOnInit(): void {
     this.user = this.userService.getStoredUserData();

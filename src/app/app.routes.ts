@@ -13,6 +13,7 @@ import { ContractComponent } from './pages/website/contract/contract/contract.co
 import { ProfileComponent } from './pages/website/users/profile/profile.component';
 import { CreateContractComponent } from './pages/website/contract/create-contract/create-contract.component';
 import { VerifyComponent } from './pages/website/auth/verify/verify.component';
+import { ChatsPageComponent } from './pages/website/chat/chats-page/chats-page.component';
 import { CategoriesComponent } from './pages/website/landing/categories/categories.component';
 import { ContractDetailsComponent } from './pages/website/contract/contract-details/contract-details.component';
 import { MyServicesComponent } from './pages/website/service/my-services/my-services.component';
@@ -42,8 +43,9 @@ export const routes: Routes = [
       { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
 
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
+    
     ]
   },
-
+  {path:'messages',component:ChatsPageComponent,canActivate:[authGuard]},
   { path: '**', component: NotFoundComponent }
 ];
