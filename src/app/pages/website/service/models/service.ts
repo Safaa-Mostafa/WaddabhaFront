@@ -1,3 +1,4 @@
+import { User } from "../../auth/Models/user";
 
 export interface Image {
   imageUrl: string;
@@ -13,6 +14,9 @@ export interface Service {
   initialPrice: number;
   buyerInstruction: string;
   category: Category;
+  seller: User;
+  rating: number;
+  status: string;
 }
 export interface Category {
   name: string;

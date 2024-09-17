@@ -8,21 +8,25 @@ import { Service } from '../models/service';
   providedIn: 'root',
 })
 export class ServiceService {
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
   private apiUrl = "https://localhost:7116/api/Services";
-  
-  getAllServices(id:any) : Observable<any>{
+
+  getAllServices(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}?categoryId=${id}`);
   }
 
-  getId(id : any) : Observable<any>{
-    return this.http.get(this.apiUrl + '/'+id)
+  getMyServices(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/myservices`);
   }
-  
-  addService (service :any) : Observable<any>{
-    return this.http.post<Service>(this.apiUrl , service)
-   }
-   updateService (service:any): Observable<any>{
-    return this.http.put<Service>(this.apiUrl , service)
-   }
+
+  getId(id: any): Observable<any> {
+    return this.http.get(this.apiUrl + '/' + id);
+  }
+
+  addService(service: any): Observable<any> {
+    return this.http.post<Service>(this.apiUrl, service);
+  }
+  updateService(service: any): Observable<any> {
+    return this.http.put<Service>(this.apiUrl, service);
+  }
 }

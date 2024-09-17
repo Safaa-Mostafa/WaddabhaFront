@@ -3,6 +3,7 @@ import { MessagesComponent } from "../../../../shared/chat-box/chat-box.componen
 import { UserListComponent } from "../chat-users/chat-users.component";
 import { User } from '../../auth/Models/user';
 import { UserService } from '../../users/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chats-page',
@@ -14,21 +15,29 @@ import { UserService } from '../../users/services/user.service';
 export class ChatsPageComponent implements OnInit {
   user!: User;
   chatRoomId: string = "";
-  constructor(private userService: UserService){}
-  
+  constructor(private userService: UserService, private router: Router) {
+
+    const navigation = this.router.getCurrentNavigation();
+    const roomId = navigation?.extras?.state?.chatRoomId;
+    this.selectChatRoom(roomId);
+  }
+
   ngOnInit(): void {
     this.loadUser();
+
   }
 
   selectChatRoom(chatRoomId: string): void {
     this.chatRoomId = chatRoomId;
-    
+
   }
 
-  loadUser() : void {
-    this.userService.getProfile().subscribe({next: res => {
-      this.user = res.data;
-    }})
+  loadUser(): void {
+    this.userService.getProfile().subscribe({
+      next: res => {
+        this.user = res.data;
+      }
+    });
   }
 
 }

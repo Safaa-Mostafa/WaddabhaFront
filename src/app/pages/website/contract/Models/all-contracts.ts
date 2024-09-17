@@ -1,3 +1,6 @@
+import { User } from "../../auth/Models/user";
+import { Service } from "../../service/models/service";
+
 export interface AllContracts {
   id: string;
   price: number;
@@ -6,13 +9,8 @@ export interface AllContracts {
   workLocation: string;
   description: string;
   status: number;
-  service: {
-    name:string
-  };
-  buyer: {
-    name:string,
-    image:{
-        imageUrl :string
-    }
-  }
+  service: Service;
+  buyer: User;
+  seller: User;
+  chatRoomId: string;
 }

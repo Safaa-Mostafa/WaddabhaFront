@@ -15,10 +15,11 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
 })
 export class UserListComponent implements OnInit {
   chatRooms!: ChatRoom[];
-  @Input({required: true}) user!: User;
+  @Input({ required: true }) user!: User;
+  @Input() chatRoomId!: string;
   @Output() selectRoom = new EventEmitter<string>();
 
-  constructor(private signalrService: SignalrService,public userService:UserService) {}
+  constructor(private signalrService: SignalrService, public userService: UserService) { }
 
   ngOnInit(): void {
     // Add logic here to update user statuses if needed
@@ -29,11 +30,11 @@ export class UserListComponent implements OnInit {
     this.selectRoom.emit(chatRoomId);
   }
 
-  loadChatRooms() : void {
+  loadChatRooms(): void {
     this.signalrService.loadChatRooms().subscribe({
       next: res => {
         this.chatRooms = res.data;
       }
-    })
+    });
   }
 }
