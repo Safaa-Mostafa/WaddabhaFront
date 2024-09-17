@@ -15,11 +15,15 @@
         <div class="flex-grow mx-8 p-10" dir="rtl">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="inline-flex items-center justify-between">
-                    <img src="" alt="icon" class="w-12 h-12 rounded-full border-2">
+                   
+                    @if(this.user?.role == 'Seller'){
+                        <img src="{{user?.image}}" alt="icon" class="w-12 h-12 rounded-full border-2">
+                    }
+                    @else {<img src="{{user?.image}}" alt="icon" class="w-12 h-12 rounded-full border-2"> }
+                    
+                    
                     @for(item of contracts ; track $index){
-                            <a routerLink="/" class="mr-2">
-                            {{item.description}}
-                            </a>
+                        <a [routerLink]="'/contractdetails'" class="mr-2 hover:text-teal-500">{{ item.description }}</a>
                         }
                 </div>
                 <div class="flex items-center justify-between text-gray-600 text-sm">
@@ -38,7 +42,8 @@
                         <span>
                             <i class="fa-solid fa-tag"></i>
                            {{item.status}}
-                       </span>   }     
+                       </span>   
+                    }     
                 </div>
             
         </div>
@@ -52,24 +57,24 @@
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">حالة الطلب</h2>
                 <div class="space-y-2">
                     <div class="flex items-center">
-                        <input id="pending" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="pending" class="ml-2 text-gray-700">بانتظار التعليمات</label>
+                        <input id="pending" type="checkbox" (click)="onFilterWaiting()" 
+                        class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="pending" class="ml-2 text-gray-700">بانتظار القبول أو الرفض</label>
                     </div>
                     <div class="flex items-center">
-                        <input id="in-progress" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="in-progress" class="ml-2 text-gray-700">جاري تنفيذها</label>
+                        <input id="in-progress" type="checkbox" (click)="onFilterAccept()"
+                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="in-progress" class="ml-2 text-gray-700">مقبولة </label>
                     </div>
                     <div class="flex items-center">
-                        <input id="awaiting-pickup" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="awaiting-pickup" class="ml-2 text-gray-700">بانتظار الاستلام</label>
+                        <input id="delivered" type="checkbox"  (click)="onFilterEnd()"
+                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="delivered" class="ml-2 text-gray-700">تم الانتهاء</label>
                     </div>
                     <div class="flex items-center">
-                        <input id="delivered" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="delivered" class="ml-2 text-gray-700">تم تسليمها</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="completed" type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="completed" class="ml-2 text-gray-700">ملغية</label>
+                        <input id="completed" type="checkbox"  (click)="onFilterReject()"
+                        class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="completed" class="ml-2 text-gray-700">مرفوضة</label>
                     </div>
                 </div>
             </div>
