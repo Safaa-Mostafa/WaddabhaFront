@@ -23,7 +23,7 @@
                     
                     
                     @for(item of contracts ; track $index){
-                        <a [routerLink]="'/contractdetails'" class="mr-2 hover:text-teal-500">{{ item.description }}</a>
+                        <a [routerLink]="['/contractdetails',item.id]" routerLink="router-link-active" class="mr-2 hover:text-teal-500">{{item.service.name}}</a>
                         }
                 </div>
                 <div class="flex items-center justify-between text-gray-600 text-sm">
@@ -41,7 +41,7 @@
                     @for(item of contracts ; track $index){
                         <span>
                             <i class="fa-solid fa-tag"></i>
-                           {{item.status}}
+                           {{statusArray[item.status]}}
                        </span>   
                     }     
                 </div>
@@ -57,7 +57,7 @@
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">حالة الطلب</h2>
                 <div class="space-y-2">
                     <div class="flex items-center">
-                        <input id="pending" type="checkbox" (click)="onFilterWaiting()" 
+                        <input id="pending" type="checkbox" (click)="onFilterPending()" 
                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
                         <label for="pending" class="ml-2 text-gray-700">بانتظار القبول أو الرفض</label>
                     </div>
@@ -67,15 +67,15 @@
                         <label for="in-progress" class="ml-2 text-gray-700">مقبولة </label>
                     </div>
                     <div class="flex items-center">
-                        <input id="delivered" type="checkbox"  (click)="onFilterEnd()"
-                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="delivered" class="ml-2 text-gray-700">تم الانتهاء</label>
-                    </div>
-                    <div class="flex items-center">
                         <input id="completed" type="checkbox"  (click)="onFilterReject()"
                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
                         <label for="completed" class="ml-2 text-gray-700">مرفوضة</label>
                     </div>
+                    <!-- <div class="flex items-center">
+                        <input id="delivered" type="checkbox"  (click)="onFilterEnd()"
+                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
+                        <label for="delivered" class="ml-2 text-gray-700">تم الانتهاء</label>
+                    </div> -->
                 </div>
             </div>
         </div>

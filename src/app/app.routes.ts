@@ -36,7 +36,7 @@ export const routes: Routes = [
   
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
-  { path: 'contractdetails', component: ContractDetailsComponent },
+  { path: 'contractdetails/:id', component: ContractDetailsComponent, canActivate: [authGuard] },
 
   {
     path: 'service',

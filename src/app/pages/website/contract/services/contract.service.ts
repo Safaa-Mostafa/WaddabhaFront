@@ -19,7 +19,7 @@ export class ContractService {
     return this.http.get(this.apiUrl);
   }
 
-  getId(id : number) : Observable<any>{
+  getById(id : any) : Observable<any>{
     return this.http.get(this.apiUrl + '/'+id)
   }
   
