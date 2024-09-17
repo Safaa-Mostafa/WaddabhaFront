@@ -1,73 +1,59 @@
-<div class="profile-container">
-    <div class="profile-header">
-        <div class="profile-picture">H</div>
-        <div class="profile-info">
-            
-
-            <div class="profile-info">
-                <h2>
-                    <span class="online-status">•</span>
-               Heba Shahin
-
-                </h2>
-                <p>مستخدم جديد | <span>مبرمج</span></p>
-            </div>
-            
+<div class="w-full max-w-full bg-white p-5 shadow-md m-0 rounded-none">
+    <div class="flex flex-col items-center mb-5">
+        <div class="w-20 h-20 rounded-full mb-3 bg-gray-700 flex justify-center items-center">
+            <img [src]="user?.image?.imageUrl" alt="User Image" class="w-full h-full rounded-full object-cover">
+        </div>
+        <div class="text-center">
+            <h2 class="text-lg font-bold">
+                <span class="text-green-500 text-lg">•</span>
+                {{user?.fname}} {{user?.lname}}
+            </h2>
+            <p class="text-gray-500">مستخدم جديد | <span>مبرمج</span></p>
         </div>
     </div>
 
-    <div class="tabs">
-        <button class="edit-button">تعديل الملف الشخصي</button>
-        <div class="tab-container">
-            <button class="tab">الخدمات</button>
-            <button class="tab active">الملف الشخصي</button>
+    <div class="flex justify-between mb-5">
+        <button class="bg-green-500 text-white py-2 px-5 w-48 rounded-md cursor-pointer text-sm">تعديل الملف الشخصي</button>
+        <div class="flex">
+            <button class="bg-gray-200 py-2 px-5 rounded-md mr-2 cursor-pointer text-sm">الخدمات</button>
+            <button class="bg-gray-300 py-2 px-5 rounded-md cursor-pointer text-sm">الملف الشخصي</button>
         </div>
     </div>
-    
 
-    <div class="profile-stats">
-        <div class="left-section">
-            <div class="stats-box">
-                <h3>إحصائيات</h3>
-                <hr>
-                <br>
-                <p>التقييمات       ★☆☆☆☆(0) </p>
-                <p>معدل إكمال الطلبات      لم يحسب بعد</p>
-                <p>الخدمات المنشورة  0</p>
-                <p>عدد العملاء  0</p>
-                <p>متوسط سرعة الرد   لم يحسب</p>
-                <br>
-                <hr>
-               
-                <p>تاريخ التسجيل 07 سبتمبر 2024</p>
+    <div class="flex justify-between">
+        <div class="w-1/2 pr-2">
+            <div class="bg-gray-200 p-5 rounded-lg mb-5 text-right">
+                <h3 class="text-lg mb-3">إحصائيات</h3>
+                <hr class="mb-3">
+                <p class="mb-2">التقييمات ★☆☆☆☆(0)</p>
+                <p class="mb-2">معدل إكمال الطلبات لم يحسب بعد</p>
+                <p class="mb-2">الخدمات المنشورة 0</p>
+                <p class="mb-2">عدد العملاء 0</p>
+                <p class="mb-3">متوسط سرعة الرد لم يحسب</p>
+                <hr class="mb-3">
+                <p class="mb-2">تاريخ التسجيل 07 سبتمبر 2024</p>
                 <p>آخر تواجد الآن</p>
-                <br> 
             </div>
 
-
-
-         
-            
-
-            <div class="verification-box">
-                <h3>توثيقات</h3>
-                <hr>
-                <p>البريد الإلكتروني: ✘</p>
-                <p>رقم الجوال: ✘</p>
+            <div class="bg-gray-200 p-5 rounded-lg text-right">
+                <h3 class="text-lg mb-3">توثيقات</h3>
+                <hr class="mb-3">
+                <p class="mb-2">{{user?.email}}</p>
+                <p class="mb-2">رقم الجوال: ✘</p>
                 <p>الهوية الشخصية: ✘</p>
             </div>
         </div>
 
-        <div class="right-section">
-            <div class="about-box">
-                <h3>نبذة عني</h3>
-                <hr>
+        <div class="w-1/2 pl-2">
+            <div class="bg-gray-200 p-5 rounded-lg mb-5" dir="rtl"> <!-- هنا تم إضافة dir="rtl" لتغيير اتجاه النص -->
+                <h3 class="text-lg mb-3">نبذة عني</h3>
+                <hr class="mb-3">
                 <p>لم يكتب نبذة شخصية</p>
             </div>
 
-            <div class="services-box">
-                <h3>خدماتي</h3>
-                <hr>
+            <div class="bg-gray-200 p-5 rounded-lg" dir="rtl"> <!-- هنا تم إضافة dir="rtl" لتغيير اتجاه النص -->
+                <h3 class="text-lg mb-3">خدماتي</h3>
+                <hr class="mb-3">
                 <p>لا توجد خدمات بعد</p>
             </div>
         </div>
