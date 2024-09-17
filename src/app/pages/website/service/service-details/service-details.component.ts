@@ -5,7 +5,7 @@ import { Image } from '../models/service';
 
 @Component({
   selector: 'app-service-details',
-  standalone:true,
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.css']
@@ -40,7 +40,8 @@ export class ServiceDetailsComponent implements OnInit, OnDestroy {
           this.currentImage = '';
           console.log('Images loaded:', this.images);
           console.log('Current Image:', this.currentImage);
-          this.startAutoSwitch();
+          //this.startAutoSwitch();
+          this.nextImage();
         } else {
           console.log('No images available');
         }
@@ -52,9 +53,9 @@ export class ServiceDetailsComponent implements OnInit, OnDestroy {
   }
 
   // Auto switch images
-  startAutoSwitch(): void {
-    this.intervalId = setInterval(() => this.nextImage(), 4000);  // Switch every 4 seconds
-  }
+  // startAutoSwitch(): void {
+  //   this.intervalId = setInterval(() => this.nextImage(), 4000);  // Switch every 4 seconds
+  // }
 
   ngOnDestroy(): void {
     // Clear the interval when the component is destroyed

@@ -34,7 +34,7 @@ export class CreateContractComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
     console.log('Form Values:', this.form.value);
@@ -45,7 +45,7 @@ export class CreateContractComponent implements OnInit {
       this.contractService.addContract(contract).subscribe({
         next: (res) => {
           Swal.fire({
-            text: 'Contract added successfully!',
+            text: 'تم إضافة الطلب بنجاح',
             icon: 'success',
             confirmButtonText: 'OK',
           });

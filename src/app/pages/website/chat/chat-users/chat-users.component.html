@@ -1,11 +1,14 @@
-<div class="w-1/4 p-4">
-  <div *ngFor="let chatRoom of chatRooms" (click)="selectChatRoom(chatRoom.id)" class="flex items-center p-2 mb-4 cursor-pointer hover:bg-gray-100 rounded-lg">
+<div class="w-full p-4">
+  <div
+    *ngFor="let chatRoom of chatRooms"
+    (click)="selectChatRoom(chatRoom.id)"
+    class="flex items-center p-2 mb-4 cursor-pointer hover:bg-gray-100 rounded-lg"
+    [class.active]="chatRoomId == chatRoom.id"
+  >
     @if(user.id == chatRoom.seller.id) {
-     <app-chat-room [user]="chatRoom.buyer" />
+    <app-chat-room [user]="chatRoom.buyer" />
+    } @if(user.id == chatRoom.buyer.id) {
+    <app-chat-room [user]="chatRoom.seller" />
     }
-    @if(user.id == chatRoom.buyer.id) {
-     <app-chat-room [user]="chatRoom.seller" />
-    }
-</div>
   </div>
-
+</div>

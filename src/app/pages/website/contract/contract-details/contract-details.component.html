@@ -1,12 +1,5 @@
 <div class="min-h-screen p-7 bg-gray-100">
   <!-- Page Title -->
-  <div class="flex justify-between items-center mb-8">
-    <!-- Button for Contract Management -->
-    <a href="#contract-management"
-       class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 no-underline">
-      إدارة الطلب
-    </a>
-  </div>
 
   <!-- Main container with two sections -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -14,56 +7,92 @@
     <div class="bg-white shadow-md p-5 text-right space-y-4 rounded-lg">
       <div class="mb-3">
         <h2 class="text-xl font-bold">تفاصيل العقد</h2>
-        <hr class="my-2">
+        <hr class="my-2" />
       </div>
       <div class="space-y-2">
         <div class="flex flex-row-reverse justify-between">
           <p class="font-semibold">:حالة الطلب</p>
-            <p class="font-semibold">{{statusArray[contractDetails.status]}}</p>
+          <p class="font-semibold">{{ statusArray[contractDetails.status] }}</p>
         </div>
         <div class="flex flex-row-reverse justify-between">
           <p class="font-semibold">:قيمة الطلب</p>
-            <p class="font-semibold">{{contractDetails.price}}</p>
+          <p class="font-semibold">${{ contractDetails.price }}</p>
         </div>
         <div class="flex flex-row-reverse justify-between">
-          <p class="font-semibold">:تاريخ الشراء</p>
-            <p class="font-semibold">{{contractDetails.startDate}}</p>
+          <p class="font-semibold">:تاريخ البدء في العمل</p>
+          <p class="font-semibold">
+            {{ contractDetails.startDate | date : "shortDate" }}
+          </p>
         </div>
         <div class="flex flex-row-reverse justify-between">
           <p class="font-semibold">:تاريخ التسليم المتوقع</p>
-            <p class="font-semibold">{{contractDetails.endDate}}</p>
+          <p class="font-semibold">
+            {{ contractDetails.endDate | date : "shortDate" }}
+          </p>
         </div>
       </div>
-      <hr class="my-2">
+      <hr class="my-2" />
+      @if(this.user?.role == "Seller") {
+
       <p class="font-semibold">المشتري</p>
       <!-- Buyer Information -->
       <div class="flex items-center space-x-3" dir="rtl">
-        <img [src]="contractDetails.buyer.image.imageUrl" alt="icon" class="w-12 h-12 rounded-full border-2">
-        <p class="text-lg font-medium">{{contractDetails.buyer.name}}</p>
+        <img
+          [src]="contractDetails.buyer.image.imageUrl"
+          alt="icon"
+          class="w-12 h-12 rounded-full border-2 ml-2"
+        />
+        <p class="text-lg font-medium">{{ contractDetails.buyer.userName }}</p>
+      </div>
+      } @if(this.user?.role == "Buyer") {
+      <p class="font-semibold">البائع</p>
+      <!-- Buyer Information -->
+      <div class="flex items-center space-x-3" dir="rtl">
+        <img
+          [src]="contractDetails.service.seller.image.imageUrl"
+          alt="icon"
+          class="w-12 h-12 rounded-full border-2 ml-2"
+        />
+        <p class="text-lg font-medium">
+          {{ contractDetails.service.seller.userName }}
+        </p>
+      </div>
+      }
+      <div>
+        <button
+          (click)="navigateToChatRoom()"
+          class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 no-underline"
+        >
+          اذهب إلى غرفة المحادثة
+        </button>
       </div>
     </div>
 
     <!-- Section 2: Contract Description (2/3 of the width) -->
     <div class="col-span-2 bg-white shadow-md p-6 rounded-lg" dir="rtl">
-      <h2 class="text-xl font-bold">
-        وصف العقد
-      </h2>
-      <hr class="my-2">
+      <h2 class="text-xl font-bold">وصف العقد</h2>
+      <hr class="my-2" />
       <p class="text-gray-700 leading-relaxed text-right">
-        {{contractDetails.description}}
+        {{ contractDetails.description }}
       </p>
     </div>
-
-    <!-- Section 3: Messages -->
-    <div class="col-span-3 mt-6">
-      <h4 class="text-xl font-bold text-right mb-4">الرسائل</h4>
-      <div class="bg-white shadow-md p-6 rounded-lg min-h-48">
-        <!-- Messages go here -->
-        <p class="text-gray-700 text-right">
-          <!-- Loop through messages if needed -->
-          لا توجد رسائل حالياً.
-        </p>
-      </div>
-    </div>
   </div>
+  @if(this.user?.role == "Seller" && this.contractDetails.status == 0) {
+
+  <div class="flex items-center mb-8 mt-4" dir="rtl">
+    <!-- Button for Contract Management -->
+    <button
+      (click)="acceptContract()"
+      class="bg-green-500 ml-3 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 no-underline"
+    >
+      قبول الطلب
+    </button>
+    <button
+      (click)="rejectContract()"
+      class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300 no-underline"
+    >
+      رفض الطلب
+    </button>
+  </div>
+  }
 </div>

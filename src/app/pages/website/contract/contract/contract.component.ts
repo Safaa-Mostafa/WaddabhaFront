@@ -1,19 +1,21 @@
+import { UserService } from './../../users/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ContractService } from '../services/contract.service';
 import { ContractAddDTO } from '../Models/contract';
 import { AllContracts } from '../Models/all-contracts';
 import { User } from '../../auth/Models/user';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contract',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './contract.component.html',
   styleUrl: './contract.component.css',
 })
 export class ContractComponent implements OnInit {
-  constructor(private allContracts: ContractService) {}
+  constructor(private allContracts: ContractService, private userService: UserService) { }
 
   user: User | null = null;
   contracts!: AllContracts[];
@@ -22,15 +24,22 @@ export class ContractComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadContracts();
+    this.loadUser();
   }
 
   loadContracts(): void {
     this.allContracts.getAllContracts().subscribe({
       next: (res) => {
         this.contracts = res.data;
+        console.log(res.data);
+
       },
-      error: (err) => {},
+      error: (err) => { },
     });
+  }
+
+  loadUser(): void {
+    this.user = this.userService.getStoredUserData();
   }
 
   sortOrders(event: any) {
@@ -64,6 +73,6 @@ export class ContractComponent implements OnInit {
   //   this.filteredContracts = this.contracts.filter(
   //     (contract) => contract.status === 
   //   );}
-  
+
 
 }

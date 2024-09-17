@@ -1,4 +1,10 @@
-<!-- <img [src]="user.image.imageUrl" alt="User Avatar" class="w-10 h-10 rounded-full mr-3"> -->
-<div class="ml-2">
+<div class="flex">
+  <img
+    [src]="user.image.imageUrl"
+    alt="User Avatar"
+    class="w-10 h-10 rounded-full mr-3"
+  />
+  <div class="ml-2 self-center">
     <h4 class="font-medium">{{ user.userName }}</h4>
+  </div>
 </div>

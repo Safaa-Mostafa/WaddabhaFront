@@ -1,83 +1,104 @@
 <div class="bg-gray-100 min-h-screen p-6">
-    <div class="flex justify-between items-start">
-        <!-- Left Section (Dropdown) -->
-        <div class="flex flex-col space-y-4">
-            <div class="relative">
-                <select name="type" id="type" 
-                class="bordertext-green-600 border border-green-600 rounded-md px-4 py-2" (change)="sortOrders($event)">
-                    <option value="new">الأحدث</option>
-                    <option value="old">الأقدم</option>
-                </select>
-            </div>
-        </div>
+  <div class="flex justify-between items-start">
+    <!-- Left Section (Dropdown) -->
+    <div class="flex flex-col space-y-4">
+      <div class="relative">
+        <select
+          name="type"
+          id="type"
+          class="bordertext-green-600 border border-green-600 rounded-md px-4 py-2"
+          (change)="sortOrders($event)"
+        >
+          <option value="new">الأحدث</option>
+          <option value="old">الأقدم</option>
+        </select>
+      </div>
+    </div>
 
-        <!-- Center Section (Orders Table) -->
-        <div class="flex-grow mx-8 p-10" dir="rtl">
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="inline-flex items-center justify-between">
-                   
-                    @if(this.user?.role == 'Seller'){
-                        <img src="{{user?.image}}" alt="icon" class="w-12 h-12 rounded-full border-2">
-                    }
-                    @else {<img src="{{user?.image}}" alt="icon" class="w-12 h-12 rounded-full border-2"> }
-                    
-                    
-                    @for(item of contracts ; track $index){
-                        <a [routerLink]="['/contractdetails',item.id]" routerLink="router-link-active" class="mr-2 hover:text-teal-500">{{item.service.name}}</a>
-                        }
-                </div>
-                <div class="flex items-center justify-between text-gray-600 text-sm">
-                    @for(item of contracts ; track $index){
-                        <span>
-                            <i class="fa-solid fa-calendar-days"></i>
-                             {{item.endDate}}
-                       </span>
-                    }                   
-                    @for(item of contracts ; track $index){
-                        <span>
-                            {{item.price}}$
-                       </span>
-                    }
-                    @for(item of contracts ; track $index){
-                        <span>
-                            <i class="fa-solid fa-tag"></i>
-                           {{statusArray[item.status]}}
-                       </span>   
-                    }     
-                </div>
-            
-        </div>
-        </div>
+    <!-- Center Section (Orders Table) -->
+    <div class="flex-grow mx-8 p-10" dir="rtl">
+      @for(item of contracts ; track $index){
+      <div class="bg-white rounded-lg shadow p-6 mb-4">
+        <div class="inline-flex items-center justify-between">
+          @if(this.user?.role == 'Seller'){
+          <img
+            [src]="this.item.buyer.image.imageUrl"
+            alt="icon"
+            class="w-12 h-12 rounded-full border-2"
+          />
+          } @if(this.user?.role == 'Buyer') {
+          <img
+            [src]="this.item.service.seller.image.imageUrl"
+            alt="icon"
+            class="w-12 h-12 rounded-full border-2"
+          />
+          }
 
-        <!-- Right Section (Order Status Filters) -->
-        <div class="w-1/4 space-y-4" dir="rtl">
-            <h1 class="text-lg font-bold text-gray-800 mb-4">الطلبات الواردة</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">حالة الطلب</h2>
-                <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input id="pending" type="checkbox" (click)="onFilterPending()" 
-                        class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="pending" class="ml-2 text-gray-700">بانتظار القبول أو الرفض</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="in-progress" type="checkbox" (click)="onFilterAccept()"
-                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="in-progress" class="ml-2 text-gray-700">مقبولة </label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="completed" type="checkbox"  (click)="onFilterReject()"
-                        class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="completed" class="ml-2 text-gray-700">مرفوضة</label>
-                    </div>
-                    <!-- <div class="flex items-center">
+          <a
+            [routerLink]="['/contractdetails', item.id]"
+            routerLink="router-link-active"
+            class="mr-2 hover:text-teal-500"
+            >{{ item.service.name }}</a
+          >
+        </div>
+        <div class="flex items-center justify-between text-gray-600 text-sm">
+          <span>
+            <i class="fa-solid fa-calendar-days"></i>
+            {{ item.endDate | date : "shortDate" }}
+          </span>
+          <span> ${{ item.price }} </span>
+          <span>
+            <i class="fa-solid fa-tag"></i>
+            {{ statusArray[item.status] }}
+          </span>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Right Section (Order Status Filters) -->
+    <div class="w-1/4 space-y-4" dir="rtl">
+      <h1 class="text-lg font-bold text-gray-800 mb-4">الطلبات الواردة</h1>
+
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">حالة الطلب</h2>
+        <div class="space-y-2">
+          <div class="flex items-center">
+            <input
+              id="pending"
+              type="checkbox"
+              (click)="onFilterPending()"
+              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
+            />
+            <label for="pending" class="ml-2 text-gray-700"
+              >بانتظار القبول أو الرفض</label
+            >
+          </div>
+          <div class="flex items-center">
+            <input
+              id="in-progress"
+              type="checkbox"
+              (click)="onFilterAccept()"
+              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
+            />
+            <label for="in-progress" class="ml-2 text-gray-700">مقبولة </label>
+          </div>
+          <div class="flex items-center">
+            <input
+              id="completed"
+              type="checkbox"
+              (click)="onFilterReject()"
+              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
+            />
+            <label for="completed" class="ml-2 text-gray-700">مرفوضة</label>
+          </div>
+          <!-- <div class="flex items-center">
                         <input id="delivered" type="checkbox"  (click)="onFilterEnd()"
                          class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
                         <label for="delivered" class="ml-2 text-gray-700">تم الانتهاء</label>
                     </div> -->
-                </div>
-            </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

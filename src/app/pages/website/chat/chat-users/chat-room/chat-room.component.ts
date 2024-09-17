@@ -8,10 +8,6 @@ import { User } from '../../../auth/Models/user';
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.css'
 })
-export class ChatRoomComponent implements OnInit {
-  @Input({required: true}) user!: User;
-  
-  ngOnInit(): void {
-console.log(this.user)  
-}
+export class ChatRoomComponent {
+  @Input({ required: true }) user!: User;
 }

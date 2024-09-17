@@ -27,12 +27,12 @@ export const routes: Routes = [
   { path: 'reset_password', component: ResetPasswordComponent, canActivate: [authLoginGuard] },
   { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
   { path: 'services/:id', component: AllServicesComponent },
-  { path: 'contract', component: ContractComponent },
-  {path:'profile',component:ProfileComponent},
-  {path:'edit',component:EditServiceComponent},
-  {path:'myServices',component:MyServicesComponent},
+  { path: 'contracts', component: ContractComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'edit', component: EditServiceComponent },
+  { path: 'myServices', component: MyServicesComponent },
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
-  {path:'user-edit/:id',component:EditUserComponent},
+  { path: 'user-edit/:id', component: EditUserComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'contractdetails/:id', component: ContractDetailsComponent, canActivate: [authGuard] },
@@ -43,9 +43,9 @@ export const routes: Routes = [
       { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
 
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
-    
+
     ]
   },
-  {path:'messages',component:ChatsPageComponent,canActivate:[authGuard]},
+  { path: 'messages', component: ChatsPageComponent, canActivate: [authGuard] },
   { path: '**', component: NotFoundComponent }
 ];
