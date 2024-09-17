@@ -14,4 +14,13 @@ export class ContractService {
   addContract(contract: ContractAddDTO): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, contract);
   }
+
+  getAllContracts():Observable<any>{
+    return this.http.get(this.apiUrl);
+  }
+
+  getById(id : any) : Observable<any>{
+    return this.http.get(this.apiUrl + '/'+id)
+  }
+  
 }

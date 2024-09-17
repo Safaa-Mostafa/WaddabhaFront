@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    border-radius: 0;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    background-color: #4b4b4b;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    overflow: hidden; /* لإخفاء أي جزء من الصورة خارج الدائرة */
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لضمان أن الصورة تغطي المساحة بالكامل */
+    border-radius: 50%; /* لتطبيق الشكل الدائري على الصورة نفسها */
+}
+
+.online-status {
+    color: green;
+    font-size: 20px;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+}
+
+.profile-info p {
+    color: gray;
+    margin: 5px 0 0 0;
+    text-align: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.edit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+    font-size: 0.85rem;
+    align-self: center;
+}
+
+.tabs .tab-container {
+    display: flex;
+    align-items: center;
+}
+
+.tab {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+}
+
+.tab.active {
+    background-color: #e0e0e0;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-section, .right-section {
+    width: 48%;
+}
+
+.stats-box, .verification-box, .about-box, .services-box {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+.stats-box h3, .verification-box h3, .about-box h3, .services-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: right;
+}

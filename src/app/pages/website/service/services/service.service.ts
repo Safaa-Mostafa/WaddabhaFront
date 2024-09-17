@@ -11,16 +11,18 @@ export class ServiceService {
   constructor(private http : HttpClient) { }
   private apiUrl = "https://localhost:7116/api/Services";
   
-  getAllServices() : Observable<any>{
-    return this.http.get(this.apiUrl);
+  getAllServices(id:any) : Observable<any>{
+    return this.http.get(`${this.apiUrl}?categoryId=${id}`);
   }
-  getId(id : number) : Observable<any>{
+
+  getId(id : any) : Observable<any>{
     return this.http.get(this.apiUrl + '/'+id)
   }
+  
   addService (service :any) : Observable<any>{
     return this.http.post<Service>(this.apiUrl , service)
    }
-   updateService (service:Service): Observable<any>{
+   updateService (service:any): Observable<any>{
     return this.http.put<Service>(this.apiUrl , service)
    }
 }

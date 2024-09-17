@@ -3,33 +3,39 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Category } from '../../landing/categories/models/category';
 import { CategoriesService } from '../../landing/categories/services/categories.service';
 import { ServiceService } from '../services/service.service';
-import { Service } from '../models/service';
 import Swal from 'sweetalert2';
+import { Router} from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-service',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-service.component.html',
   styleUrl: './edit-service.component.css'
 })
 export class EditServiceComponent {
   form!: FormGroup;
   categories!: Category[];
+  selectedFiles: File[] = [];
+  imagePreviews: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private serviceCategory: CategoriesService,
-    private newService: ServiceService
+    private newService: ServiceService,
+    private router: Router,
   ) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(6) ,Validators.pattern('^[\u0600-\u06FF\\s]+$')]],
-      description:  ['', [Validators.required, Validators.minLength(50)]],
+      name: ['', [Validators.required,Validators.minLength(6), Validators.pattern('^[\u0600-\u06FF\\s]+$')]],
+      description: ['', [Validators.required,Validators.minLength(20)]],
       categoryId: ['', [Validators.required]],
-      images: [[], [Validators.required]],
-      initialPrice: [0, [Validators.required]],
-      buyerInstruction : ['']
-    });
+      images: [null, [Validators.required]],
+      initialPrice: [50, [Validators.required]],
+      buyerInstruction: ['', [Validators.required]],
+      terms: [false,[Validators.requiredTrue]]
+        });
+
   }
 
   ngOnInit(): void {
@@ -39,26 +45,67 @@ export class EditServiceComponent {
   getCategory() {
     this.serviceCategory.getAllCategories().subscribe({
       next: (res) => {
+
         this.categories = res.data;
       },
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
-  onSubmit() {
-    if (this.form.valid){
-      const service = this.form.value as Service;
-      this.newService.updateService(service).subscribe({
-        next: (res) => {},
-        error: (err) => {},
-      });
+  onFileSelect(event: any): void {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      this.selectedFiles = []; // Reset file array
+      this.imagePreviews = [];  // Reset image previews
+
+      for (let file of files) {
+        this.selectedFiles.push(file);  // Store original file object
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imagePreviews.push(e.target.result); // Store base64 preview
+        };
+        reader.readAsDataURL(file);
+      }
     }
-    else {
+  }
+removeImage(index: number) {
+  this.selectedFiles.splice(index, 1);
+  this.imagePreviews.splice(index, 1);
+}
+
+onSubmit() {
+  if (this.form.valid && this.selectedFiles.length > 0) {
+  const formData = new FormData();
+  formData.append('name', this.form.get('name')?.value);
+  formData.append('categoryId', this.form.get('categoryId')?.value);
+  formData.append('description', this.form.get('description')?.value);
+  formData.append('initialPrice', this.form.get('initialPrice')?.value);
+  formData.append('BuyerInstructions', this.form.get('buyerInstruction')?.value);
+  this.selectedFiles.forEach((file) => {
+    formData.append('Images', file, file.name);
+  });
+
+  this.newService.updateService(formData).subscribe(response => {
+    console.log('Service added successfully:', response);
+    Swal.fire({
+      title: 'نجاح',
+      text: 'تم ارسال طلب اضافة خدمة بنجاح',
+      icon: 'success',
+      confirmButtonText: 'موافق',
+    });
+    this.router.navigateByUrl('profile');
+  }, error => {
+    console.error('Error adding service:', error);
+  });
+} else {
       Swal.fire({
-        text : 'حصل خطأ',
+        text: 'يرجى ملء جميع الحقول المطلوبة وتحميل الصور',
         icon: 'error',
-          confirmButtonText: 'موافق'
-      })
+        confirmButtonText: 'موافق'
+      });
     }
   }
 }

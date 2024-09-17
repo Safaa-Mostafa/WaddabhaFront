@@ -1,31 +1,36 @@
-
-
 <div class="profile-container">
     <div class="profile-header">
-        <div class="profile-picture">H</div>
-        <div class="profile-info">
+        <div class="profile-picture">
+            <img [src]="this.user?.image?.imageUrl" alt="Profile Picture">
+          </div>
+                  <div class="profile-info">
             
 
             <div class="profile-info">
                 <h2>
                     <span class="online-status">•</span>
-                    {{this.user?.fname}}  {{this.user?.lname}}
-
+{{this.user?.fname}} {{this.user?.lname}}
                 </h2>
+           @if(this.user?.role == "Seller"){
                 <p>مستخدم جديد | <span>مبرمج</span></p>
+           }
             </div>
             
         </div>
     </div>
 
     <div class="tabs">
-        <button class="edit-button">تعديل الملف الشخصي</button>
+        <button class="edit-button" (click)="goToEdit()">تعديل الملف الشخصي</button>
         <div class="tab-container">
+        @if(this.user?.role == "Seller"){
+
             <button class="tab">الخدمات</button>
-            <button class="tab active">الملف الشخصي</button>
-        </div>
+        }
+        <button class="tab active">الملف الشخصي</button>
     </div>
-    
+    </div>
+    @if(this.user?.role == "Seller"){
+
 
     <div class="profile-stats">
         <div class="left-section">
@@ -46,35 +51,25 @@
                 <br> 
             </div>
 
-
-
-         
-            
-
-            <div class="verification-box">
-                <h3>توثيقات</h3>
-                <hr>
-                <p>البريد الإلكتروني: ✘</p>
-                <p>رقم الجوال: ✘</p>
-                <p>الهوية الشخصية: ✘</p>
-            </div>
         </div>
-
+    
         <div class="right-section">
             <div class="about-box">
                 <h3>نبذة عني</h3>
                 <hr>
                 <p>لم يكتب نبذة شخصية</p>
             </div>
-
+        
             <div class="services-box">
-                <h3>خدماتي</h3>
+                <h3>
+                    <a routerLink="/myServices" class="cursor-pointer mr-1  hover:text-amber-900"> خدماتي</a>
+                    <!-- <a routerLink="myServices">خدماتي</a> -->
+                </h3>
                 <hr>
                 <p>لا توجد خدمات بعد</p>
             </div>
+            
         </div>
     </div>
+}
 </div>
-
-
-

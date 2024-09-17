@@ -23,4 +23,12 @@ export class ProfileComponent implements OnInit {
     this.user = this.userServcie.getStoredUserData();
     console.log(this.user);
   }
+  goToEdit() {
+    if (this.user && this.user) {
+      this.router.navigate(['/user-edit', this.user.id]);
+    } else {
+      console.error('User ID not found!');
+    }
+  }
+  
 }

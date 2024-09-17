@@ -75,48 +75,7 @@
         <div *ngIf="form.controls['description'].errors?.['minlength']">يجب أن يحتوي الوصف على 50 حرفًا على الأقل.</div>
       </div>
     </div>
-
-    <!-- Service ID -->
-    <div class="mb-4">
-      <label for="serviceId" class="block text-sm font-medium text-gray-700 text-right">رقم الخدمة</label>
-      <input
-        id="serviceId"
-        formControlName="serviceId"
-        type="text"
-        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
-      />
-      <div *ngIf="form.controls['serviceId'].invalid && form.controls['serviceId'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['serviceId'].errors?.['required']">رقم الخدمة مطلوب.</div>
-      </div>
-    </div>
-
-    <!-- Buyer ID -->
-    <div class="mb-4">
-      <label for="buyerId" class="block text-sm font-medium text-gray-700 text-right">رقم المشتري</label>
-      <input
-        id="buyerId"
-        formControlName="buyerId"
-        type="text"
-        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
-      />
-      <div *ngIf="form.controls['buyerId'].invalid && form.controls['buyerId'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['buyerId'].errors?.['required']">رقم المشتري مطلوب.</div>
-      </div>
-    </div>
-
-    <!-- Seller ID -->
-    <div class="mb-4">
-      <label for="sellerId" class="block text-sm font-medium text-gray-700 text-right">رقم البائع</label>
-      <input
-        id="sellerId"
-        formControlName="sellerId"
-        type="text"
-        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
-      />
-      <div *ngIf="form.controls['sellerId'].invalid && form.controls['sellerId'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['sellerId'].errors?.['required']">رقم البائع مطلوب.</div>
-      </div>
-    </div>
+ 
 
     <!-- Submit Button -->
     <div class="mt-6">

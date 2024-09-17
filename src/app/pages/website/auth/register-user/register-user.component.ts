@@ -59,11 +59,12 @@ ngOnInit(): void {
         '',
         [
           Validators.required,
+          Validators.minLength(8),
           Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
         ],
       ],
       role: ['Buyer', Validators.required],
-      image:[null,[Validators.required,fileExtensionValidator(['jpg','png'])]],
+      image:[null,[Validators.required,fileExtensionValidator(['jpg','png','jpeg'])]],
       terms: [false, Validators.requiredTrue],
     });
   }
@@ -103,7 +104,6 @@ ngOnInit(): void {
       formData.append('lname', this.form.get('lname')?.value);
       formData.append('password', this.form.get('password')?.value);
       formData.append('username', this.form.get('username')?.value);
-
       const imageFile = this.form.get('image')?.value;
       if (imageFile) {
         formData.append('image', imageFile);
@@ -147,3 +147,20 @@ this.registerUser(formData);
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
