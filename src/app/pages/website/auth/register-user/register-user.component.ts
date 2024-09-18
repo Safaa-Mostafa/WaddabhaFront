@@ -87,6 +87,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   onFileChange(event: any) {
+    this.imageValidErr = ''; // Reset error message before handling new file
     const file = event.target.files[0];
     if (
       file.type == 'image/png' ||
