@@ -23,9 +23,11 @@ export class UsernavbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Subscribe to user data changes
-    this.userSubscription = this.authService.userData$.subscribe(user => {
-      this.user = user;
+    this.userService.getProfile().subscribe({
+      next: (res) => {
+        this.user = res.data;
+      },
+      error: (err) => {},
     });
   }
 

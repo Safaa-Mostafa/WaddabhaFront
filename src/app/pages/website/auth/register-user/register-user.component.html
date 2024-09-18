@@ -1,50 +1,65 @@
-<div class="bg-gray-100 flex h-screen items-start  justify-center px-4 sm:px-6 lg:px-2 ">
+<div
+  class="bg-gray-100 flex h-screen items-start justify-center px-4 sm:px-6 lg:px-2"
+>
   <div class="w-full max-w-2xl space-y-4 mt-3">
     <div class="bg-[#ffffff] shadow-md p-2 mb-2 flex flex-col items-center">
-      <h2 class="text-center text-3xl font-bold text-gray-900 fw-medium" style="font-size: 24px; line-height: 1.6em;">
+      <h2
+        class="text-center text-3xl font-bold text-gray-900 fw-medium"
+        style="font-size: 24px; line-height: 1.6em"
+      >
         إنشاء حساب جديد
       </h2>
 
-
       <div class="w-full max-w-3xl space-y-4">
         <div class="bg-[#ffffff] pb-4 flex flex-col items-center">
-
           <!-- Form -->
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full">
             <div class="flex flex-wrap -mx-3">
               <div class="w-full px-3">
                 <div class="mb-2">
                   <div class="flex justify-center mb-2">
-                    <div class="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300">
+                    <div
+                      class="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300"
+                    >
                       <!-- Profile Image -->
                       @if(imagePreview){
-                        <img [src]="imagePreview" alt="Profile Image" class="absolute inset-0 object-cover w-full h-full" />
+                      <img
+                        [src]="imagePreview"
+                        alt="Profile Image"
+                        class="absolute inset-0 object-cover w-full h-full"
+                      />
                       }
 
                       <!-- Overlay and Plus Icon -->
-                      <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <div
+                        class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                      >
                         <i class="fa fa-plus text-white text-3xl"></i>
                       </div>
 
                       <!-- Input for Image -->
-                      <input type="file" name="image" id="image" required accept="image/*" (change)="onFileChange($event)"
-                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                      <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        required
+                        accept="image/*"
+                        (change)="onFileChange($event)"
+                        class="absolute inset-0 opacity-0 cursor-pointer"
+                      />
                     </div>
                   </div>
 
-
-                 @if(form.get('image')?.hasError('required') && form.get('image')?.dirty){
-                  <p
-                    class="mt-2 text-sm text-red-600 text-end">
+                  @if(form.get('image')?.hasError('required') &&
+                  form.get('image')?.dirty){
+                  <p class="mt-2 text-sm text-red-600 text-end">
                     صورة الملف الشخصي مطلوبة
                   </p>
-                }
-                @if(this.imageValidErr){
-                  <p
-                  class="mt-2 text-sm text-red-600 text-start" >
-                                    {{this.imageValidErr}}
-                </p>
-                }
+                  } @if(this.imageValidErr){
+                  <p class="mt-2 text-sm text-red-600 text-start">
+                    {{ this.imageValidErr }}
+                  </p>
+                  }
                 </div>
               </div>
 
@@ -52,25 +67,50 @@
 
               <div class="w-full px-3">
                 <div class="mb-4">
-                  <label for="username" class="block text-right text-xs font-medium text-gray-700 py-2"
-                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('username')?.invalid && form.get('username')?.dirty}">
+                  <label
+                    for="username"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{
+                      'text-red-700 dark:text-red-500':
+                        form.get('username')?.invalid &&
+                        form.get('username')?.dirty
+                    }"
+                  >
                     <span>*</span> اسم المستخدم
                   </label>
-                  <input type="text" formControlName="username" name="username" id="username" dir="rtl"
-                    placeholder="أدخل اسم المستخدم الخاص بك" required
-                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+                  <input
+                    type="text"
+                    formControlName="username"
+                    name="username"
+                    id="username"
+                    dir="rtl"
+                    placeholder="أدخل اسم المستخدم الخاص بك"
+                    required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  />
 
                   <!-- Error Messages -->
-                  @if(form.get('username')?.hasError('required') && form.get('username')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم مطلوب</p>
-                  }
-                  @if(form.get('username')?.hasError('minlength') && form.get('username')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم يجب أن يكون طوله 2 أحرف
-                    على الأقل</p>
-                  }
-                  @if(form.get('username')?.hasError('pattern') && form.get('username')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم المستخدم يجب أن يكون باللغة
-                    العربية فقط</p>
+                  @if(form.get('username')?.hasError('required') &&
+                  form.get('username')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم المستخدم مطلوب
+                  </p>
+                  } @if(form.get('username')?.hasError('minlength') &&
+                  form.get('username')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم المستخدم يجب أن يكون طوله 2 أحرف على الأقل
+                  </p>
+                  } @if(form.get('username')?.hasError('pattern') &&
+                  form.get('username')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم المستخدم يجب أن يكون باللغة العربية فقط
+                  </p>
                   }
                 </div>
               </div>
@@ -78,26 +118,49 @@
               <!-- Last Name -->
               <div class="w-full lg:w-1/2 px-3">
                 <div class="mb-4">
-                  <label for="lname" class="block text-right text-xs font-medium text-gray-700 py-2"
-                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('lname')?.invalid && form.get('lname')?.dirty}">
+                  <label
+                    for="lname"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{
+                      'text-red-700 dark:text-red-500':
+                        form.get('lname')?.invalid && form.get('lname')?.dirty
+                    }"
+                  >
                     <span>*</span> اسم العائلة
                   </label>
-                  <input formControlName="lname" type="text" name="lname" id="lname"
-                    placeholder="أكتب اسم العائلة هنا باللغة العربية" required
+                  <input
+                    formControlName="lname"
+                    type="text"
+                    name="lname"
+                    id="lname"
+                    placeholder="أكتب اسم العائلة هنا باللغة العربية"
+                    required
                     class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                    dir="rtl" />
+                    dir="rtl"
+                  />
 
                   <!-- Error Messages -->
-                  @if(form.get('lname')?.hasError('required') && form.get('lname')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة مطلوب</p>
-                  }
-                  @if(form.get('lname')?.hasError('minlength') && form.get('lname')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة يجب أن يكون طوله 2 أحرف
-                    على الأقل</p>
-                  }
-                  @if(form.get('lname')?.hasError('pattern') && form.get('lname')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-end">اسم العائلة يجب أن يكون باللغة العربية
-                    فقط</p>
+                  @if(form.get('lname')?.hasError('required') &&
+                  form.get('lname')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم العائلة مطلوب
+                  </p>
+                  } @if(form.get('lname')?.hasError('minlength') &&
+                  form.get('lname')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم العائلة يجب أن يكون طوله 2 أحرف على الأقل
+                  </p>
+                  } @if(form.get('lname')?.hasError('pattern') &&
+                  form.get('lname')?.dirty){
+                  <p
+                    class="mt-2 text-sm text-red-600 dark:text-red-500 text-end"
+                  >
+                    اسم العائلة يجب أن يكون باللغة العربية فقط
+                  </p>
                   }
                 </div>
               </div>
@@ -105,55 +168,98 @@
               <!-- First Name -->
               <div class="w-full lg:w-1/2 px-3">
                 <div class="mb-4">
-                  <label for="firstName" class="block text-right text-xs font-medium text-gray-700 py-2"
-                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('fname')?.invalid && form.get('fname')?.dirty}">
+                  <label
+                    for="firstName"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{
+                      'text-red-700 dark:text-red-500':
+                        form.get('fname')?.invalid && form.get('fname')?.dirty
+                    }"
+                  >
                     <span>*</span> الاسم
                   </label>
-                  <input type="text" formControlName="fname" name="fname" id="fname" dir="rtl"
-                    placeholder="أكتب اسمك باللغة العربية" required
-                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+                  <input
+                    type="text"
+                    formControlName="fname"
+                    name="fname"
+                    id="fname"
+                    dir="rtl"
+                    placeholder="أكتب اسمك باللغة العربية"
+                    required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  />
 
                   <!-- Error Messages -->
-                  @if(form.get('fname')?.hasError('required') && form.get('fname')?.dirty){
+                  @if(form.get('fname')?.hasError('required') &&
+                  form.get('fname')?.dirty){
                   <p class="mt-2 text-sm text-red-600 text-end">الاسم مطلوب</p>
-                  }
-                  @if(form.get('fname')?.hasError('minlength') && form.get('fname')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 text-end">الاسم يجب أن يكون طوله 2 أحرف على الأقل</p>
-                  }
-                  @if(form.get('fname')?.hasError('pattern') && form.get('fname')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 text-end">الاسم يجب أن يكون باللغة العربية فقط</p>
+                  } @if(form.get('fname')?.hasError('minlength') &&
+                  form.get('fname')?.dirty){
+                  <p class="mt-2 text-sm text-red-600 text-end">
+                    الاسم يجب أن يكون طوله 2 أحرف على الأقل
+                  </p>
+                  } @if(form.get('fname')?.hasError('pattern') &&
+                  form.get('fname')?.dirty){
+                  <p class="mt-2 text-sm text-red-600 text-end">
+                    الاسم يجب أن يكون باللغة العربية فقط
+                  </p>
                   }
                 </div>
               </div>
 
               <div class="w-full px-3">
                 <div class="mb-4">
-                  <label for="email" class="block text-right text-xs font-medium text-gray-700 py-2"
-                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('email')?.invalid && form.get('email')?.dirty}">
+                  <label
+                    for="email"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{
+                      'text-red-700 dark:text-red-500':
+                        form.get('email')?.invalid && form.get('email')?.dirty
+                    }"
+                  >
                     <span>*</span> البريد الإلكتروني
                   </label>
-                  <input type="email" formControlName="email" name="email" id="email"
-                    placeholder="أدخل البريد الإلكتروني الخاص بك" required
+                  <input
+                    type="email"
+                    formControlName="email"
+                    name="email"
+                    id="email"
+                    placeholder="أدخل البريد الإلكتروني الخاص بك"
+                    required
                     class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                    dir="rtl" />
+                    dir="rtl"
+                  />
 
-                  @if(form.get('email')?.hasError('required') && form.get('email')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 text-end">البريد الإلكتروني مطلوب</p>
-                  }
-                  @if(form.get('email')?.hasError('email') && form.get('email')?.dirty){
-                  <p class="mt-2 text-sm text-red-600 text-end">يجب إدخال بريد إلكتروني صحيح</p>
+                  @if(form.get('email')?.hasError('required') &&
+                  form.get('email')?.dirty){
+                  <p class="mt-2 text-sm text-red-600 text-end">
+                    البريد الإلكتروني مطلوب
+                  </p>
+                  } @if(form.get('email')?.hasError('email') &&
+                  form.get('email')?.dirty){
+                  <p class="mt-2 text-sm text-red-600 text-end">
+                    يجب إدخال بريد إلكتروني صحيح
+                  </p>
                   }
                 </div>
               </div>
 
               <div class="w-full px-3">
                 <div class="mb-4">
-                  <label for="role" class="block text-right text-xs font-medium text-gray-700 py-2">
+                  <label
+                    for="role"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                  >
                     <span>*</span> اختر دورك
                   </label>
-                  <select formControlName="role" name="role" id="role" required
+                  <select
+                    formControlName="role"
+                    name="role"
+                    id="role"
+                    required
                     class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                    dir="rtl">
+                    dir="rtl"
+                  >
                     <option value="">-- اختر دورك --</option>
                     <option value="Buyer">مشتري</option>
                     <option value="Seller">بائع</option>
@@ -164,54 +270,84 @@
               <!-- Password -->
               <div class="w-full px-3">
                 <div class="mb-4">
-                  <label for="password" class="block text-right text-xs font-medium text-gray-700 py-2"
-                    [ngClass]="{'text-red-700 dark:text-red-500': form.get('password')?.invalid && form.get('password')?.dirty}">
+                  <label
+                    for="password"
+                    class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{
+                      'text-red-700 dark:text-red-500':
+                        form.get('password')?.invalid &&
+                        form.get('password')?.dirty
+                    }"
+                  >
                     <span>*</span> كلمة المرور
                   </label>
                   <div class="relative">
-                    <input type="password" formControlName="password" name="password" id="password"
-                      placeholder="أدخل كلمة المرور الخاصة بك" required [type]="hidePassword ? 'password' : 'text'"
+                    <input
+                      type="password"
+                      formControlName="password"
+                      name="password"
+                      id="password"
+                      placeholder="أدخل كلمة المرور الخاصة بك"
+                      required
+                      [type]="hidePassword ? 'password' : 'text'"
                       class="w-full border border-gray-300 bg-gray-50 py-2 pl-10 pr-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                      dir="rtl" />
-                    <button type="button" (click)="togglePasswordVisibility()"
-                      class="absolute inset-y-0 left-0 flex items-center px-3">
-                      <i [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                      dir="rtl"
+                    />
+                    <button
+                      type="button"
+                      (click)="togglePasswordVisibility()"
+                      class="absolute inset-y-0 left-0 flex items-center px-3"
+                    >
+                      <i
+                        [ngClass]="
+                          hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'
+                        "
+                      ></i>
                     </button>
                   </div>
 
                   <!-- Error Messages -->
                   <div class="text-end">
-                    @if(form.get('password')?.hasError('required') && form.get('password')?.dirty){
-                    <p class="mt-2 text-sm text-red-600">
-                      كلمة المرور مطلوبة
-                    </p>
-                  }
-                  @if(form.get('password')?.hasError('minlength') && form.get('password')?.dirty){
+                    @if(form.get('password')?.hasError('required') &&
+                    form.get('password')?.dirty){
+                    <p class="mt-2 text-sm text-red-600">كلمة المرور مطلوبة</p>
+                    } @if(form.get('password')?.hasError('minlength') &&
+                    form.get('password')?.dirty){
                     <p class="mt-2 text-sm text-red-600">
                       يجب أن تكون كلمة المرور 8 أحرف على الأقل
                     </p>
-                  }
-                    @if(form.get('password')?.hasError('pattern') && form.get('password')?.dirty){
+                    } @if(form.get('password')?.hasError('pattern') &&
+                    form.get('password')?.dirty){
                     <p class="mt-2 text-sm text-red-600">
-                      يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، رقم، ورمز واحد على الأقل
+                      يجب أن تحتوي كلمة المرور على حرف صغير، حرف كبير، رقم، ورمز
+                      واحد على الأقل
                     </p>
                     }
                   </div>
-
-
                 </div>
               </div>
-
-
 
               <!-- Terms and Conditions Checkbox -->
               <div class="w-full px-3" dir="rtl">
                 <div class="flex items-center">
-                  <input id="terms" formControlName="terms" name="terms" type="checkbox" required
-                    class="h-4 w-4 px-2 border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                  <label for="terms" class="ml-2 block text-xs text-gray-900 py-2">
-                    قرأت وأوافق على <a href="#" class="text-blue-500">شروط الاستخدام</a> و<a href="#"
-                      class="text-blue-500">بيان الخصوصية</a>
+                  <input
+                    id="terms"
+                    formControlName="terms"
+                    name="terms"
+                    type="checkbox"
+                    required
+                    class="h-4 w-4 px-2 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label
+                    for="terms"
+                    class="ml-2 block text-xs text-gray-900 py-2 pr-1"
+                  >
+                    قرأت وأوافق على
+                    <a href="#" class="text-blue-500">شروط الاستخدام</a> و<a
+                      href="#"
+                      class="text-blue-500"
+                      >بيان الخصوصية</a
+                    >
                   </label>
                 </div>
               </div>
@@ -223,8 +359,11 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" [disabled]="form.invalid"
-              class="w-full bg-[#2caae2] py-1 px-4 text-xs font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-gray-700">
+            <button
+              type="submit"
+              [disabled]="form.invalid"
+              class="w-full bg-[#2caae2] py-1 px-4 text-xs font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-gray-700"
+            >
               تسجيل
             </button>
           </form>
@@ -233,4 +372,3 @@
     </div>
   </div>
 </div>
-

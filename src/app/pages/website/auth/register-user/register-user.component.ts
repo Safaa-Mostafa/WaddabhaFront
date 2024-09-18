@@ -114,8 +114,6 @@ export class RegisterUserComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.loadingService.startLoading();
-
       const formData = new FormData();
       formData.append('role', this.form.get('role')?.value);
       formData.append('email', this.form.get('email')?.value);
@@ -128,7 +126,6 @@ export class RegisterUserComponent implements OnInit {
         formData.append('image', imageFile);
       }
       this.registerUser(formData);
-      this.loadingService.stopLoading();
     } else {
       Swal.fire({
         title: 'تحقق من المعلومات',
@@ -140,6 +137,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   private registerUser(user: any): void {
+    this.loadingService.startLoading();
     this.service.register(user).subscribe({
       next: (res) => {
         this.service.setToken(res.data.token);
@@ -150,6 +148,7 @@ export class RegisterUserComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'موافق',
         }).then(() => {
+          this.loadingService.stopLoading();
           this.router.navigateByUrl('');
         });
       },

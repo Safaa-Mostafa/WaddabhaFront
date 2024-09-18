@@ -2,7 +2,7 @@
   class="flex flex-wrap justify-between items-center p-2 bg-[#fff] text-[#444] shadow-md"
 >
   <!-- Left Section -->
-  <div class="flex items-center space-x-4 rtl:space-x-reverse ml-10">
+  <div class="flex items-center rtl:space-x-reverse ml-10">
     <!-- Profile Photo -->
     <a (click)="toggleMenu()" class="cursor-pointer">
       <img
@@ -11,6 +11,7 @@
         class="w-10 h-10 rounded-full border-2"
       />
     </a>
+    <span class="ml-1">{{ this.user?.userName }}</span>
     @if(isMenuOpen){
     <ul
       class="absolute top-[59px] z-[1000] bg-white text-gray-700 p-4 left-0 space-y-4 w-65 rounded-lg shadow-lg border border-gray-200"
@@ -25,17 +26,9 @@
         >
       </li>
       <li class="flex items-center space-x-2 rtl:space-x-reverse">
-        <i class="fa-solid fa-gear text-gray-500"></i>
-        <a
-          routerLink="/"
-          class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200"
-          >الاعدادات</a
-        >
-      </li>
-      <li class="flex items-center space-x-2 rtl:space-x-reverse">
         <i class="fa-solid fa-pen-to-square text-gray-500"></i>
         <a
-          routerLink="/"
+          routerLink="/user-edit"
           class="mr-2 text-gray-700 hover:text-blue-500 transition duration-200"
           >تعديل الحساب</a
         >
@@ -87,7 +80,7 @@
       </ul>
       } -->
       <i
-        class="fas fa-envelope w-6 h-6 cursor-pointer"
+        class="fas fa-envelope w-6 h-6 cursor-pointer mt-6 ml-4 fa-lg"
         routerLink="/messages"
       ></i>
       @if(ismsgOpen) {
