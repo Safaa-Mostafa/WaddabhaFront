@@ -24,7 +24,7 @@ import { MessagesComponent } from './shared/chat-box/chat-box.component';
     AllServicesComponent,
    MessagesComponent
 
-   
+
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Fixed typo 'styleUrl' to 'styleUrls'
