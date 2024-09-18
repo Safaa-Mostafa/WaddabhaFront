@@ -1,3 +1,8 @@
+<!-- Loading spinner -->
+<div *ngIf="loading$ | async" class="loading-container flex-content-center">
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</div>
 <div class="flex-grow">
   @if(!isAuthenticated){
   <ng-container>
