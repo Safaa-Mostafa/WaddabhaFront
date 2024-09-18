@@ -36,7 +36,7 @@ export class AllServicesComponent implements OnInit {
     this.service.getAllServices(id).subscribe({
       next: (res) => {
         this.services = res.data; // Assuming `res.data` contains the array of services
-        this.loadingService.stopLoading();
+        
       },
       error: (err) => {
         console.error(err);
@@ -48,6 +48,7 @@ export class AllServicesComponent implements OnInit {
     this.category.getById(id).subscribe({
       next: (res) => {
         this.cate = res.data;
+        this.loadingService.stopLoading();
       },
       error: (err) => {
         console.log(err);
