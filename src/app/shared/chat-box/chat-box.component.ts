@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { Message } from './models/message';
 import { User } from '../../pages/website/auth/Models/user';
 import { UserService } from '../../pages/website/users/services/user.service';
+import { LoadingService } from '../services/loading/loading.service';
 
 @Component({
   selector: 'app-messages',
@@ -42,7 +43,8 @@ export class MessagesComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private signalrService: SignalrService,
-    private userService: UserService
+    private userService: UserService,
+    private loadingService: LoadingService
   ) {
     // Initialize the form in the constructor or in ngOnInit
     this.messageForm = this.fb.group({
@@ -59,6 +61,7 @@ export class MessagesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // this.loadingService.startLoading();      //============> Problem
     this.loadProfile();
     this.signalrService.startConnection(this.ChatRoomId);
     this.loadChat(this.ChatRoomId);
@@ -103,6 +106,7 @@ export class MessagesComponent implements OnInit, OnChanges {
     this.signalrService.loadChat(chatRoomId).subscribe({
       next: (res) => {
         this.messages = res.data.messages;
+        this.loadingService.stopLoading();
       },
     });
   }

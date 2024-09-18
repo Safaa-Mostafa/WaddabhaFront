@@ -10,6 +10,7 @@ import { AuthServiceService } from '../Services/auth-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { handleValidationErrors } from '../Validations/Validation';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,7 +25,8 @@ export class ResetPasswordComponent {
   constructor(
     private formBuilder: FormBuilder,
     private service: AuthServiceService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,8 @@ export class ResetPasswordComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.loadingService.startLoading();
+
       this.service.resetPassword(this.form.value).subscribe({
         next: (res) => {
           Swal.fire({
@@ -47,6 +51,7 @@ export class ResetPasswordComponent {
             icon: 'success',
             confirmButtonText: 'موافق',
           });
+          this.loadingService.stopLoading();
           this.router.navigateByUrl('verify');
         },
         error: (err) => {

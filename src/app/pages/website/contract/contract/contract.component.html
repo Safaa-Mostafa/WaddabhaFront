@@ -17,7 +17,7 @@
 
     <!-- Center Section (Orders Table) -->
     <div class="flex-grow mx-8 p-10" dir="rtl">
-      @for(item of contracts ; track $index){
+      @for(item of filteredContracts ; track $index){
       <div class="bg-white rounded-lg shadow p-6 mb-4">
         <div class="inline-flex items-center justify-between">
           @if(this.user?.role == 'Seller'){
@@ -65,38 +65,35 @@
         <div class="space-y-2">
           <div class="flex items-center">
             <input
-              id="pending"
-              type="checkbox"
-              (click)="onFilterPending()"
-              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <label for="pending" class="ml-2 text-gray-700"
-              >بانتظار القبول أو الرفض</label
-            >
+            id="pending"
+            name="contractStatus"
+            type="radio"
+            (change)="onFilter('pending')"
+            class="form-radio h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+          <label for="pending" class="ml-2 text-gray-700">   قيد الانتظار</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            id="accepted"
+            name="contractStatus"
+            type="radio"
+            (change)="onFilter('accepted')"
+            class="form-radio h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+          <label for="accepted" class="ml-2 text-gray-700">مقبولة</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            id="rejected"
+            name="contractStatus"
+            type="radio"
+            (change)="onFilter('rejected')"
+            class="form-radio h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+          <label for="rejected" class="ml-2 text-gray-700">مرفوضة</label>
           </div>
-          <div class="flex items-center">
-            <input
-              id="in-progress"
-              type="checkbox"
-              (click)="onFilterAccept()"
-              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <label for="in-progress" class="ml-2 text-gray-700">مقبولة </label>
-          </div>
-          <div class="flex items-center">
-            <input
-              id="completed"
-              type="checkbox"
-              (click)="onFilterReject()"
-              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <label for="completed" class="ml-2 text-gray-700">مرفوضة</label>
-          </div>
-          <!-- <div class="flex items-center">
-                        <input id="delivered" type="checkbox"  (click)="onFilterEnd()"
-                         class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded">
-                        <label for="delivered" class="ml-2 text-gray-700">تم الانتهاء</label>
-                    </div> -->
+
         </div>
       </div>
     </div>

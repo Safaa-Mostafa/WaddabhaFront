@@ -10,8 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     router.navigate(['/login']);
     return false;
-};
-
+  }
 };
 export const authLoginGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthServiceService);

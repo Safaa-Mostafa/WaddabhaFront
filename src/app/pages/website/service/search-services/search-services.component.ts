@@ -3,6 +3,7 @@ import { Service } from '../models/service';
 import { ServiceService } from '../services/service.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-search-services',
@@ -14,9 +15,14 @@ import { CommonModule } from '@angular/common';
 export class SearchServicesComponent {
   services: Service[] = [];
   searchParam: string = '';
-  constructor(private service: ServiceService, private route: ActivatedRoute) {}
+  constructor(
+    private service: ServiceService,
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.route.queryParams.subscribe((params) => {
       const paramValue = params['name'];
       if (paramValue) {
@@ -29,6 +35,7 @@ export class SearchServicesComponent {
     this.service.searchServices(name).subscribe({
       next: (res) => {
         this.services = res.data;
+        this.loadingService.stopLoading();
       },
       error: (err) => {
         console.error(err);

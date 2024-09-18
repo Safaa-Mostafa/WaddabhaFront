@@ -3,33 +3,35 @@ import { Service } from '../models/service';
 import { ServiceService } from '../services/service.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-my-services',
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './my-services.component.html',
-  styleUrl: './my-services.component.css'
+  styleUrl: './my-services.component.css',
 })
 export class MyServicesComponent implements OnInit {
-
-  constructor(private servicesService: ServiceService) { }
+  constructor(
+    private servicesService: ServiceService,
+    private loadingService: LoadingService
+  ) {}
 
   services!: Service[];
   // statusEnglish = ["Pending", "Accepted", "Rejected"];
   // statusArray = ['انتظار', 'مقبول', 'مرفوض'];
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.loadServices();
   }
   loadServices(): void {
     this.servicesService.getMyServices().subscribe({
-      next: res => {
+      next: (res) => {
         this.services = res.data;
-        console.log(res.data);
-        console.log(res);
-        
-      }
+        this.loadingService.stopLoading();
+      },
     });
   }
 

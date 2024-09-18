@@ -6,6 +6,7 @@ import { AllContracts } from '../Models/all-contracts';
 import { User } from '../../auth/Models/user';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-contract',
@@ -15,7 +16,11 @@ import { DatePipe } from '@angular/common';
   styleUrl: './contract.component.css',
 })
 export class ContractComponent implements OnInit {
-  constructor(private allContracts: ContractService, private userService: UserService) { }
+  constructor(
+    private allContracts: ContractService,
+    private userService: UserService,
+    private loadingService: LoadingService
+  ) {}
 
   user: User | null = null;
   contracts!: AllContracts[];
@@ -23,6 +28,7 @@ export class ContractComponent implements OnInit {
   statusArray = ['انتظار', 'مقبول', 'مرفوض'];
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.loadContracts();
     this.loadUser();
   }
@@ -31,10 +37,11 @@ export class ContractComponent implements OnInit {
     this.allContracts.getAllContracts().subscribe({
       next: (res) => {
         this.contracts = res.data;
-        console.log(res.data);
-
+        // Set filteredContracts to be the same as contracts initially
+        this.filteredContracts = [...this.contracts];
+        this.loadingService.stopLoading();
       },
-      error: (err) => { },
+      error: (err) => {},
     });
   }
 
@@ -42,37 +49,57 @@ export class ContractComponent implements OnInit {
     this.user = this.userService.getStoredUserData();
   }
 
-  sortOrders(event: any) {
+  sortOrders(event: any): void {
     const sortType = event.target.value;
-    if (sortType == 'new') {
-      //     this.sortedOrders = this.contracts.sort((a, b) => );
+
+    if (sortType === 'new') {
+      // Sort by newest first (assuming there's a date property like 'createdAt')
+      this.filteredContracts = this.contracts.sort((a, b) => {
+        const dateA = new Date(a.startDate).getTime();
+        const dateB = new Date(b.startDate).getTime();
+        return dateA - dateB; // Newest first
+      });
     } else if (sortType === 'old') {
-      //     this.sortedOrders = this.contracts.sort((a, b) => //a.date.getTime() - b.date.getTime()//
-      //     );
+      // Sort by oldest first
+      this.filteredContracts = this.contracts.sort((a, b) => {
+        const dateA = new Date(a.startDate).getTime();
+        const dateB = new Date(b.startDate).getTime();
+        return dateB - dateA; // Oldest first
+      });
     }
   }
 
-  onFilterPending(): void {
-    this.filteredContracts = this.contracts.filter(
-      (contract) => contract.status === 0
-    );
+  onFilter(filterType: string): void {
+    console.log(filterType);
+
+    // Always filter from the original `this.contracts` list, not the modified filtered list.
+    switch (filterType) {
+      case 'pending':
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 0
+        );
+        console.log(this.filteredContracts);
+        break;
+
+      case 'accepted':
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 1
+        );
+        console.log(this.filteredContracts);
+        break;
+
+      case 'rejected':
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 2
+        );
+        console.log(this.filteredContracts);
+        break;
+
+      default:
+        // If no filter type is selected, reset to show all contracts
+        this.filteredContracts = [...this.contracts];
+        console.log(this.filteredContracts);
+        break;
+    }
   }
-
-  onFilterAccept(): void {
-    this.filteredContracts = this.contracts.filter(
-      (contract) => contract.status === 1
-    );
-  }
-
-  onFilterReject(): void {
-    this.filteredContracts = this.contracts.filter(
-      (contract) => contract.status === 2
-    );
-  }
-  // onFilterEnd(): void {
-  //   this.filteredContracts = this.contracts.filter(
-  //     (contract) => contract.status === 
-  //   );}
-
-
 }

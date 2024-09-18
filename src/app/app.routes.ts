@@ -44,7 +44,6 @@ export const routes: Routes = [
   { path: 'contracts', component: ContractComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit', component: EditServiceComponent },
-  { path: 'myServices', component: MyServicesComponent },
   {
     path: 'add-contract/:id',
     component: CreateContractComponent,
@@ -65,7 +64,7 @@ export const routes: Routes = [
       { path: 'services/:id', component: AllServicesComponent },
       { path: 'myservices', component: MyServicesComponent },
       { path: 'service-details/:id', component: ServiceDetailsComponent },
-      { path: 'edit/:id', component: EditServiceComponent},
+      { path: 'edit/:id', component: EditServiceComponent },
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
     ],
   },

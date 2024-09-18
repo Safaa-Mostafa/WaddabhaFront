@@ -6,13 +6,12 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.css'
+  styleUrl: './not-found.component.css',
 })
 export class NotFoundComponent {
   constructor(private router: Router) {}
 
   goToHome() {
-    this.router.navigate(['/layout']);
-  }
-
+    this.router.navigate(['/']);
+  }
 }
