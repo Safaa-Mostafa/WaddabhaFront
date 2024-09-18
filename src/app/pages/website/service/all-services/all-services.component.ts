@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoriesService } from '../../landing/categories/services/categories.service';
 import { Category, Service } from '../models/service';
+import { LoadingSpinnerComponent } from '../../../../shared/loading-spinner/loading-spinner.component';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-all-services',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LoadingSpinnerComponent],
   templateUrl: './all-services.component.html',
   styleUrls: ['./all-services.component.css'],
 })
@@ -18,10 +20,12 @@ export class AllServicesComponent implements OnInit {
   constructor(
     private service: ServiceService,
     private category: CategoriesService,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.activeRouter.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       this.loadCatgeory(id);
@@ -31,12 +35,12 @@ export class AllServicesComponent implements OnInit {
   loadServices(id: string) {
     this.service.getAllServices(id).subscribe({
       next: (res) => {
-        console.log(res);
         this.services = res.data; // Assuming `res.data` contains the array of services
-        console.log(this.services);
+        this.loadingService.stopLoading();
       },
       error: (err) => {
         console.error(err);
+        // this.loadingService.stopLoading();
       },
     });
   }

@@ -1,20 +1,19 @@
 <!-- Loading spinner -->
-<div *ngIf="loading$ | async" class="loading-container flex-content-center">
-  <mat-progress-spinner color="primary" mode="indeterminate">
-  </mat-progress-spinner>
-</div>
 <div class="flex-grow">
   @if(!isAuthenticated){
   <ng-container>
     <app-navbar></app-navbar>
   </ng-container>
-  } @if(isAuthenticated){
+  } @else if(isAuthenticated){
   <ng-container>
     <app-usernavbar></app-usernavbar>
   </ng-container>
-  }
+  } @if(isLoading) {
+  <app-loading-spinner></app-loading-spinner>
+  }@else {
 
   <router-outlet></router-outlet>
+  }
 </div>
 
 <app-footer> </app-footer>

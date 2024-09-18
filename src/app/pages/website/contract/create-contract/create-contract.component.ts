@@ -9,6 +9,7 @@ import { ContractService } from '../services/contract.service';
 import Swal from 'sweetalert2';
 import { ContractAddDTO } from '../Models/contract';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-create-contract',
@@ -24,7 +25,8 @@ export class CreateContractComponent implements OnInit {
     private formBuilder: FormBuilder,
     private contractService: ContractService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.form = this.formBuilder.group({
       price: [0, [Validators.required]],
@@ -38,9 +40,8 @@ export class CreateContractComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log('Form Values:', this.form.value);
-    console.log(this.form.valid); // Debug form values
     if (this.form.valid) {
+      this.loadingService.startLoading();
       const contract = this.form.value as ContractAddDTO;
       contract.serviceId = this.route.snapshot.paramMap.get('id') || '';
       this.contractService.addContract(contract).subscribe({
@@ -50,6 +51,7 @@ export class CreateContractComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'OK',
           });
+          this.loadingService.stopLoading();
           this.router.navigateByUrl('/contracts');
         },
         error: (err) => {

@@ -6,31 +6,36 @@ import { UserService } from '../../users/services/user.service';
 import { User } from '../../auth/Models/user';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-contract-details',
   standalone: true,
   imports: [DatePipe],
   templateUrl: './contract-details.component.html',
-  styleUrl: './contract-details.component.css'
+  styleUrl: './contract-details.component.css',
 })
 export class ContractDetailsComponent implements OnInit {
-
   contractDetails!: AllContracts;
   statusArray = ['انتظار', 'مقبول', 'مرفوض'];
   user!: User | null;
 
-  constructor(private contract: ContractService, private activeRouter: ActivatedRoute, private userService: UserService, private router: Router) {
-  }
+  constructor(
+    private contract: ContractService,
+    private activeRouter: ActivatedRoute,
+    private userService: UserService,
+    private router: Router,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.loadContract();
     this.loadUser();
   }
 
-
   loadContract(): void {
-    this.activeRouter.paramMap.subscribe(params => {
+    this.activeRouter.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       if (id) {
         this.loadContractDetails(id);
@@ -43,11 +48,13 @@ export class ContractDetailsComponent implements OnInit {
   }
 
   navigateToChatRoom(): void {
-    this.router.navigate(['/messages'], { state: { chatRoomId: this.contractDetails.chatRoomId } });
+    this.router.navigate(['/messages'], {
+      state: { chatRoomId: this.contractDetails.chatRoomId },
+    });
   }
 
   acceptContract(): void {
-    const confirm = window.confirm("هل أنت متأكد أنك تريد قبول هذا الطلب؟");
+    const confirm = window.confirm('هل أنت متأكد أنك تريد قبول هذا الطلب؟');
     if (confirm) {
       this.contract.acceptContract(this.contractDetails.id).subscribe({
         next: (res) => {
@@ -58,13 +65,13 @@ export class ContractDetailsComponent implements OnInit {
             confirmButtonText: 'موافق',
           });
           this.ngOnInit();
-        }
+        },
       });
     }
   }
 
   rejectContract(): void {
-    const confirm = window.confirm("هل أنت متأكد أنك تريد رفض هذا الطلب؟");
+    const confirm = window.confirm('هل أنت متأكد أنك تريد رفض هذا الطلب؟');
     if (confirm) {
       this.contract.rejectContract(this.contractDetails.id).subscribe({
         next: (res) => {
@@ -75,7 +82,7 @@ export class ContractDetailsComponent implements OnInit {
             confirmButtonText: 'موافق',
           });
           this.ngOnInit();
-        }
+        },
       });
     }
   }
@@ -84,11 +91,11 @@ export class ContractDetailsComponent implements OnInit {
     this.contract.getById(id).subscribe({
       next: (response) => {
         this.contractDetails = response.data;
-        console.log(response.data);
+        this.loadingService.stopLoading();
       },
       error: (err) => {
         console.error('Error fetching service details', err);
-      }
+      },
     });
   }
 }

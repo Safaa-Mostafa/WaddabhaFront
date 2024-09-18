@@ -11,6 +11,7 @@ import { CategoriesService } from '../../landing/categories/services/categories.
 import { Category } from '../../landing/categories/models/category';
 import { ServiceService } from '../services/service.service';
 import Swal from 'sweetalert2';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-new-service',
@@ -29,7 +30,8 @@ export class NewServiceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private serviceCategory: CategoriesService,
     private newService: ServiceService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.form = this.formBuilder.group({
       name: [
@@ -50,6 +52,7 @@ export class NewServiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.getCategory();
   }
 
@@ -57,6 +60,7 @@ export class NewServiceComponent implements OnInit {
     this.serviceCategory.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res.data;
+        this.loadingService.stopLoading();
       },
       error: (err) => {
         console.log(err);
@@ -88,6 +92,7 @@ export class NewServiceComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid && this.selectedFiles.length > 0) {
+      this.loadingService.startLoading();
       const formData = new FormData();
       formData.append('name', this.form.get('name')?.value);
       formData.append('categoryId', this.form.get('categoryId')?.value);
@@ -103,14 +108,14 @@ export class NewServiceComponent implements OnInit {
 
       this.newService.addService(formData).subscribe(
         (response) => {
-          console.log('Service added successfully:', response);
           Swal.fire({
             title: 'نجاح',
             text: 'تم ارسال طلب اضافة خدمة بنجاح',
             icon: 'success',
             confirmButtonText: 'موافق',
           });
-          this.router.navigateByUrl('/myservices');
+          this.loadingService.stopLoading();
+          this.router.navigateByUrl('/service/myservices');
         },
         (error) => {
           console.error('Error adding service:', error);
