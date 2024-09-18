@@ -1,19 +1,15 @@
-@if(!isAuthenticated){
-<ng-container>
+<div class="flex-grow">
+  @if(!isAuthenticated){
+  <ng-container>
     <app-navbar></app-navbar>
-</ng-container>
-}
-@if(isAuthenticated){
+  </ng-container>
+  } @if(isAuthenticated){
   <ng-container>
     <app-usernavbar></app-usernavbar>
   </ng-container>
-}
+  }
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>
 
-
-  <app-footer>
-
-  </app-footer>
-
-
+<app-footer> </app-footer>
