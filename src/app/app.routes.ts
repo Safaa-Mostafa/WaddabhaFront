@@ -22,26 +22,26 @@ import { EditUserComponent } from './pages/website/users/edit-user/edit-user.com
 
 export const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginUserComponent, canActivate: [authLoginGuard] },
-  { path: 'signup', component: RegisterUserComponent, canActivate: [authLoginGuard] },
-  { path: 'reset_password', component: ResetPasswordComponent, canActivate: [authLoginGuard] },
-  { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
-  { path: 'services/:id', component: AllServicesComponent },
+  { path: 'login', component: LoginUserComponent },
+  { path: 'signup', component: RegisterUserComponent},
+  { path: 'reset_password', component: ResetPasswordComponent},
+  { path: 'verify', component: VerifyComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'edit', component: EditServiceComponent },
-  { path: 'myServices', component: MyServicesComponent },
+  
   { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
   { path: 'user-edit/:id', component: EditUserComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'contractdetails/:id', component: ContractDetailsComponent, canActivate: [authGuard] },
-
+  
   {
     path: 'service',
     children: [
-      { path: 'service-details/:id', component: ServiceDetailsComponent, canActivate: [authGuard] },
-
+      { path: 'services/:id', component: AllServicesComponent },
+      { path: 'myservices', component: MyServicesComponent },
+      { path: 'service-details/:id', component: ServiceDetailsComponent },
+      { path: 'edit/:id', component: EditServiceComponent},
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
 
     ]

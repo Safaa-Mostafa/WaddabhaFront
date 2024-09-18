@@ -27,6 +27,8 @@ export class MyServicesComponent implements OnInit {
       next: res => {
         this.services = res.data;
         console.log(res.data);
+        console.log(res);
+        
       }
     });
   }
