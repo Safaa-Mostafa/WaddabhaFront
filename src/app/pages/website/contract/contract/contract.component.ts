@@ -6,6 +6,7 @@ import { AllContracts } from '../Models/all-contracts';
 import { User } from '../../auth/Models/user';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-contract',
@@ -15,14 +16,19 @@ import { DatePipe } from '@angular/common';
   styleUrl: './contract.component.css',
 })
 export class ContractComponent implements OnInit {
-  constructor(private allContracts: ContractService, private userService: UserService) {}
+  constructor(
+    private allContracts: ContractService,
+    private userService: UserService,
+    private loadingService: LoadingService
+  ) {}
 
   user: User | null = null;
   contracts!: AllContracts[];
-  filteredContracts: AllContracts[] = [] ;
+  filteredContracts: AllContracts[] = [];
   statusArray = ['انتظار', 'مقبول', 'مرفوض'];
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     this.loadContracts();
     this.loadUser();
   }
@@ -33,7 +39,7 @@ export class ContractComponent implements OnInit {
         this.contracts = res.data;
         // Set filteredContracts to be the same as contracts initially
         this.filteredContracts = [...this.contracts];
-        console.log(res.data);
+        this.loadingService.stopLoading();
       },
       error: (err) => {},
     });
@@ -69,17 +75,23 @@ export class ContractComponent implements OnInit {
     // Always filter from the original `this.contracts` list, not the modified filtered list.
     switch (filterType) {
       case 'pending':
-        this.filteredContracts = this.contracts.filter(contract => contract.status === 0);
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 0
+        );
         console.log(this.filteredContracts);
         break;
 
       case 'accepted':
-        this.filteredContracts = this.contracts.filter(contract => contract.status === 1);
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 1
+        );
         console.log(this.filteredContracts);
         break;
 
       case 'rejected':
-        this.filteredContracts = this.contracts.filter(contract => contract.status === 2);
+        this.filteredContracts = this.contracts.filter(
+          (contract) => contract.status === 2
+        );
         console.log(this.filteredContracts);
         break;
 
@@ -90,5 +102,4 @@ export class ContractComponent implements OnInit {
         break;
     }
   }
-
 }

@@ -15,6 +15,7 @@ import { AuthServiceService } from '../Services/auth-service.service';
 import { UserService } from '../../users/services/user.service';
 import { handleValidationErrors } from '../Validations/Validation';
 import { log } from 'node:console';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-login-user',
@@ -29,7 +30,8 @@ export class LoginUserComponent {
     private formBuilder: FormBuilder,
     private service: AuthServiceService,
     private router: Router,
-    private userService:UserService
+    private userService: UserService,
+    private loadingService: LoadingService
   ) {}
 
   form!: FormGroup;
@@ -44,6 +46,8 @@ export class LoginUserComponent {
   }
   onSubmit() {
     if (this.form.valid) {
+      this.loadingService.startLoading();
+
       this.service.Login(this.form.value).subscribe({
         next: (res) => {
           this.service.setToken(res.data.token);
@@ -54,13 +58,15 @@ export class LoginUserComponent {
             icon: 'success',
             confirmButtonText: 'موافق',
           });
+          this.loadingService.stopLoading();
+
           this.router.navigateByUrl('');
         },
         error: (err) => {
-       console.log(err.error);
+          console.log(err.error);
           Swal.fire({
-            title: 'حصل خطأ',
-            text: `rkfjnkrt`,
+            title: 'خطأ',
+            text: `خطأ في عنوان البريد أو كلمة المرور`,
             icon: 'error',
             confirmButtonText: 'موافق',
           });

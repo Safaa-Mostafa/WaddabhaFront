@@ -6,14 +6,14 @@ import { User } from '../../auth/Models/user';
 import { AuthServiceService } from '../../auth/Services/auth-service.service';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
-
+//import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
   imports: [],
   templateUrl: './edit-user.component.html',
-  styleUrl: './edit-user.component.css'
+  styleUrl: './edit-user.component.css',
 })
 export class EditUserComponent {
   form!: FormGroup;
@@ -25,15 +25,15 @@ export class EditUserComponent {
     private service: AuthServiceService,
     private router: Router,
     private userService: UserService,
-    private route: ActivatedRoute 
-  ) {}
+    private route: ActivatedRoute
+  ) //private loadingService: LoadingService
+  {}
 
   ngOnInit(): void {
     this.initializeForm();
     this.loadUserData();
-     this.route.paramMap.subscribe(params => {
-      this.userId = params.get('id') || "";
-      console.log(this.userId); 
+    this.route.paramMap.subscribe((params) => {
+      this.userId = params.get('id') || '';
     });
   }
 
@@ -83,6 +83,8 @@ export class EditUserComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
+      //this.loadingService.startLoading();
+
       const updatedUser = this.form.value;
       // this.userService.updateUser(updatedUser).subscribe({
       //   next: () => {
@@ -104,6 +106,7 @@ export class EditUserComponent {
       //     });
       //   }
       // });
+      //this.loadingService.stopLoading();
     } else {
       Swal.fire({
         title: 'تحقق من المعلومات',

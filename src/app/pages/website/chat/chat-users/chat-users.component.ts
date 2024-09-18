@@ -5,6 +5,7 @@ import { ChatRoom } from '../../../../shared/chat-box/models/chat-room';
 import { UserService } from '../../users/services/user.service';
 import { User } from '../../auth/Models/user';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-user-list',
@@ -21,10 +22,12 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private signalrService: SignalrService,
-    public userService: UserService
+    public userService: UserService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     // Add logic here to update user statuses if needed
     this.loadChatRooms();
   }
@@ -37,7 +40,7 @@ export class UserListComponent implements OnInit {
     this.signalrService.loadChatRooms().subscribe({
       next: (res) => {
         this.chatRooms = res.data;
-        console.log(res.data);
+        this.loadingService.stopLoading();
       },
     });
   }

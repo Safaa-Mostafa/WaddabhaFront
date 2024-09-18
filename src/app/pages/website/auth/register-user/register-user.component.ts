@@ -15,6 +15,7 @@ import {
   handleValidationErrors,
 } from '../Validations/Validation';
 import { UserService } from '../../users/services/user.service';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-register-user',
@@ -33,7 +34,8 @@ export class RegisterUserComponent implements OnInit {
     private fb: FormBuilder,
     private service: AuthServiceService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private loadingService: LoadingService
   ) {}
   ngOnInit(): void {
     this.initializeForm();
@@ -45,7 +47,7 @@ export class RegisterUserComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.maxLength(10),
+          Validators.maxLength(16),
         ],
       ],
       fname: [
@@ -112,6 +114,8 @@ export class RegisterUserComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.loadingService.startLoading();
+
       const formData = new FormData();
       formData.append('role', this.form.get('role')?.value);
       formData.append('email', this.form.get('email')?.value);
@@ -124,6 +128,7 @@ export class RegisterUserComponent implements OnInit {
         formData.append('image', imageFile);
       }
       this.registerUser(formData);
+      this.loadingService.stopLoading();
     } else {
       Swal.fire({
         title: 'تحقق من المعلومات',

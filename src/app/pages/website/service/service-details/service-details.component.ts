@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Image } from '../models/service';
 import { User } from '../../auth/Models/user';
 import { UserService } from '../../users/services/user.service';
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-service-details',
@@ -23,10 +24,12 @@ export class ServiceDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private serviceService: ServiceService,
     private activeRouter: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.startLoading();
     // Get the service ID from the URL and fetch service details
     this.activeRouter.paramMap.subscribe((params) => {
       const id: any = params.get('id');
@@ -46,10 +49,9 @@ export class ServiceDetailsComponent implements OnInit, OnDestroy {
           // Extract image URLs from response and set the first image
           this.images = this.service.images;
           this.currentImage = '';
-          console.log('Images loaded:', this.images);
-          console.log('Current Image:', this.currentImage);
           //this.startAutoSwitch();
           this.nextImage();
+          this.loadingService.stopLoading();
         } else {
           console.log('No images available');
         }
