@@ -74,9 +74,10 @@ ngOnInit(): void {
   }
 
   onFileChange(event: any) {
+    this.imageValidErr = ''; // Reset error message before handling new file
     const file = event.target.files[0];
-    if(file.type == 'image/png' || file.type == 'image/jpg'||file.type == 'image/jpeg'){
-    if (file) {
+    const validExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+    if (file && validExtensions.includes(file.type)) {
       this.form.patchValue({
         image: file
       });
@@ -86,11 +87,12 @@ ngOnInit(): void {
         this.imagePreview = e.target.result;
       };
       reader.readAsDataURL(file);
-    }}
-    else{
-   this.imageValidErr = "file extension must jpg or png and jpeg";
+    } else {
+      this.imageValidErr = 'يجب أن يكون امتداد الملف jpg, png, أو jpeg';
     }
   }
+
+
 
 
 
