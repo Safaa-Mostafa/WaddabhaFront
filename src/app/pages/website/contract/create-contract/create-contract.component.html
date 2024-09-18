@@ -1,81 +1,147 @@
-<div class="container mx-auto p-4 text-center flex flex-col items-center" dir="rtl">
+<div
+  class="container mx-auto p-4 text-center flex flex-col items-center"
+  dir="rtl"
+>
   <!-- Centered, Bold, and Larger Title -->
   <h2 class="text-4xl font-bold text-gray-800 mb-6">إضافة عقد جديد</h2>
 
   <!-- Centered Form with Reduced Width -->
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md"
+  >
     <!-- Price -->
     <div class="mb-4">
-      <label for="price" class="block text-sm font-medium text-gray-700 text-right">السعر</label>
+      <label
+        for="price"
+        class="block text-sm font-medium text-gray-700 text-right"
+        >السعر (بالجنيه المصري)</label
+      >
       <input
         id="price"
         formControlName="price"
         type="number"
         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
       />
-      <div *ngIf="form.controls['price'].invalid && form.controls['price'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['price'].errors?.['required']">السعر مطلوب.</div>
+      <div
+        *ngIf="form.controls['price'].invalid && form.controls['price'].touched"
+        class="text-red-500 text-sm text-right"
+      >
+        <div *ngIf="form.controls['price'].errors?.['required']">
+          السعر مطلوب.
+        </div>
       </div>
     </div>
 
     <!-- Start Date -->
     <div class="mb-6">
-      <label for="startDate" class="block text-sm font-medium text-gray-700 text-right">تاريخ البدء</label>
+      <label
+        for="startDate"
+        class="block text-sm font-medium text-gray-700 text-right"
+        >تاريخ البدء</label
+      >
       <input
         id="startDate"
         formControlName="startDate"
         type="date"
         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
       />
-      <div *ngIf="form.controls['startDate'].invalid && form.controls['startDate'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['startDate'].errors?.['required']">تاريخ البدء مطلوب.</div>
+      <div
+        *ngIf="
+          form.controls['startDate'].invalid &&
+          form.controls['startDate'].touched
+        "
+        class="text-red-500 text-sm text-right"
+      >
+        <div *ngIf="form.controls['startDate'].errors?.['required']">
+          تاريخ البدء مطلوب.
+        </div>
       </div>
     </div>
 
     <!-- End Date -->
     <div class="mb-6">
-      <label for="endDate" class="block text-sm font-medium text-gray-700 text-right">تاريخ الانتهاء</label>
+      <label
+        for="endDate"
+        class="block text-sm font-medium text-gray-700 text-right"
+        >تاريخ الانتهاء</label
+      >
       <input
         id="endDate"
         formControlName="endDate"
         type="date"
         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
       />
-      <div *ngIf="form.controls['endDate'].invalid && form.controls['endDate'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['endDate'].errors?.['required']">تاريخ الانتهاء مطلوب.</div>
+      <div
+        *ngIf="
+          form.controls['endDate'].invalid && form.controls['endDate'].touched
+        "
+        class="text-red-500 text-sm text-right"
+      >
+        <div *ngIf="form.controls['endDate'].errors?.['required']">
+          تاريخ الانتهاء مطلوب.
+        </div>
       </div>
     </div>
 
     <!-- Work Location -->
     <div class="mb-4">
-      <label for="workLocation" class="block text-sm font-medium text-gray-700 text-right">موقع العمل</label>
+      <label
+        for="workLocation"
+        class="block text-sm font-medium text-gray-700 text-right"
+        >موقع العمل</label
+      >
       <input
         id="workLocation"
         formControlName="workLocation"
         type="text"
         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
       />
-      <div *ngIf="form.controls['workLocation'].invalid && form.controls['workLocation'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['workLocation'].errors?.['required']">موقع العمل مطلوب.</div>
-        <div *ngIf="form.controls['workLocation'].errors?.['minlength']">يجب أن يحتوي موقع العمل على 5 أحرف على الأقل.</div>
+      <div
+        *ngIf="
+          form.controls['workLocation'].invalid &&
+          form.controls['workLocation'].touched
+        "
+        class="text-red-500 text-sm text-right"
+      >
+        <div *ngIf="form.controls['workLocation'].errors?.['required']">
+          موقع العمل مطلوب.
+        </div>
+        <div *ngIf="form.controls['workLocation'].errors?.['minlength']">
+          يجب أن يحتوي موقع العمل على 5 أحرف على الأقل.
+        </div>
       </div>
     </div>
 
     <!-- Description -->
     <div class="mb-4">
-      <label for="description" class="block text-sm font-medium text-gray-700 text-right">الوصف</label>
+      <label
+        for="description"
+        class="block text-sm font-medium text-gray-700 text-right"
+        >الوصف</label
+      >
       <textarea
         id="description"
         formControlName="description"
         rows="3"
         class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm text-right"
       ></textarea>
-      <div *ngIf="form.controls['description'].invalid && form.controls['description'].touched" class="text-red-500 text-sm text-right">
-        <div *ngIf="form.controls['description'].errors?.['required']">الوصف مطلوب.</div>
-        <div *ngIf="form.controls['description'].errors?.['minlength']">يجب أن يحتوي الوصف على 50 حرفًا على الأقل.</div>
+      <div
+        *ngIf="
+          form.controls['description'].invalid &&
+          form.controls['description'].touched
+        "
+        class="text-red-500 text-sm text-right"
+      >
+        <div *ngIf="form.controls['description'].errors?.['required']">
+          الوصف مطلوب.
+        </div>
+        <div *ngIf="form.controls['description'].errors?.['minlength']">
+          يجب أن يحتوي الوصف على 50 حرفًا على الأقل.
+        </div>
       </div>
     </div>
- 
 
     <!-- Submit Button -->
     <div class="mt-6">
