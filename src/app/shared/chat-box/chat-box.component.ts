@@ -61,7 +61,7 @@ export class MessagesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.loadingService.startLoading();
+    // this.loadingService.startLoading();      //============> Problem
     this.loadProfile();
     this.signalrService.startConnection(this.ChatRoomId);
     this.loadChat(this.ChatRoomId);
