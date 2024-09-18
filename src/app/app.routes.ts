@@ -62,12 +62,10 @@ export const routes: Routes = [
   {
     path: 'service',
     children: [
-      {
-        path: 'service-details/:id',
-        component: ServiceDetailsComponent,
-        canActivate: [authGuard],
-      },
-
+      { path: 'services/:id', component: AllServicesComponent },
+      { path: 'myservices', component: MyServicesComponent },
+      { path: 'service-details/:id', component: ServiceDetailsComponent },
+      { path: 'edit/:id', component: EditServiceComponent},
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
     ],
   },
