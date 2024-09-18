@@ -27,7 +27,7 @@ export class ChatsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadingService.startLoading();
+    // this.loadingService.startLoading();
     this.loadUser();
   }
 
@@ -39,7 +39,7 @@ export class ChatsPageComponent implements OnInit {
     this.userService.getProfile().subscribe({
       next: (res) => {
         this.user = res.data;
-        this.loadingService.stopLoading();
+        // this.loadingService.stopLoading();
       },
     });
   }
