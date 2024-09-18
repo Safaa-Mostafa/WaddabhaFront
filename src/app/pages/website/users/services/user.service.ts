@@ -26,11 +26,17 @@ export class UserService {
     ).subscribe();
   }
 
-  getStoredUserData(): User | null {
+  getStoredUserData(): any {
     const userData = this.CookieService.get('userData');
     console.log(userData);
-    
+
     return userData ? JSON.parse(userData) : null;
+  }
+  update(obj:any): Observable<any> {
+    return this.http.put(`https://localhost:7116/api/Auth/update`,obj);
+  }
+  profile(): Observable<any> {
+    return this.http.get(`https://localhost:7116/api/Users/me`);
   }
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error.error);
