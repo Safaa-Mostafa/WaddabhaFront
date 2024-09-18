@@ -9,24 +9,16 @@ import {
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-<<<<<<< Safaa
 import { editUser } from '../../auth/Models/editUser';
 import { CommonModule } from '@angular/common';
-=======
-import { ActivatedRoute } from '@angular/router';
-//import { LoadingService } from '../../../../shared/services/loading/loading.service';
->>>>>>> main
+import { LoadingService } from '../../../../shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './edit-user.component.html',
-<<<<<<< Safaa
-  styleUrls: ['./edit-user.component.css'],
-=======
   styleUrl: './edit-user.component.css',
->>>>>>> main
 })
 export class EditUserComponent implements OnInit {
   userInfo!: editUser;
@@ -37,24 +29,13 @@ export class EditUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-<<<<<<< Safaa
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
-=======
-    private route: ActivatedRoute
-  ) //private loadingService: LoadingService
-  {}
->>>>>>> main
 
   ngOnInit(): void {
     this.initializeForm();
     this.loadUserData();
-<<<<<<< Safaa
-=======
-    this.route.paramMap.subscribe((params) => {
-      this.userId = params.get('id') || '';
-    });
->>>>>>> main
   }
 
   // Initialize the form with default values
@@ -101,7 +82,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-<<<<<<< Safaa
+      this.loadingService.startLoading();
       const formData = new FormData();
       formData.append('fname', this.form.get('fname')?.value);
       formData.append('lname', this.form.get('lname')?.value);
@@ -111,8 +92,8 @@ export class EditUserComponent implements OnInit {
       this.userService.update(formData).subscribe({
         next: (res: any) => {
           Swal.fire({
-            title: 'Updated Successfully!',
-            text: 'User Data Updated Successfully.',
+            title: 'نجاح',
+            text: 'تم التحديث بنجاح',
             icon: 'success',
             confirmButtonText: 'OK',
             timer: 3000,
@@ -120,44 +101,19 @@ export class EditUserComponent implements OnInit {
             showCloseButton: true,
           });
           this.userService.saveData();
+          this.loadingService.stopLoading();
           this.router.navigateByUrl('/profile');
         },
         error: (err: any) => {
           Swal.fire({
-            title: 'Oops!',
-            text: 'Something went wrong. Please try again later.',
+            title: 'خطأ',
+            text: 'حدث خطأ',
             icon: 'error',
             confirmButtonText: 'OK',
             showCloseButton: true,
           });
         },
       });
-=======
-      //this.loadingService.startLoading();
-
-      const updatedUser = this.form.value;
-      // this.userService.updateUser(updatedUser).subscribe({
-      //   next: () => {
-      //     Swal.fire({
-      //       title: 'تم التحديث بنجاح',
-      //       text: 'تم حفظ التعديلات بنجاح.',
-      //       icon: 'success',
-      //       confirmButtonText: 'موافق',
-      //     }).then(() => {
-      //       this.router.navigateByUrl('');
-      //     });
-      //   },
-      //   error: (err) => {
-      //     Swal.fire({
-      //       title: 'حصل خطأ',
-      //       text: 'تعذر حفظ التعديلات.',
-      //       icon: 'error',
-      //       confirmButtonText: 'موافق',
-      //     });
-      //   }
-      // });
-      //this.loadingService.stopLoading();
->>>>>>> main
     } else {
       Swal.fire({
         title: 'تحقق من المعلومات',

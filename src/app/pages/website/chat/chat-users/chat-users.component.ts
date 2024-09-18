@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadingService.startLoading();
+    // this.loadingService.startLoading();
     // Add logic here to update user statuses if needed
     this.loadChatRooms();
   }
@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit {
     this.signalrService.loadChatRooms().subscribe({
       next: (res) => {
         this.chatRooms = res.data;
-        this.loadingService.stopLoading();
+        // this.loadingService.stopLoading();
       },
     });
   }
