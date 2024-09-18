@@ -7,7 +7,7 @@ body {
 
 .hero-section {
   /* src\assets\Background3.jpg */
-  background-image: url('/assets/Background3.jpg');
+  background-image: url("/assets/Background3.jpg");
   background-size: cover;
   background-position: center;
   height: 70vh;
@@ -58,14 +58,13 @@ body {
   background-color: #e57f0b;
   color: white;
 
-
   border: none;
   cursor: pointer;
   border-radius: 0;
 }
 
 .search-bar button:hover {
-  background-color: #218838;
+  background-color: #c56e0b;
 }
 
 .tags {

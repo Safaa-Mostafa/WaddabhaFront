@@ -51,10 +51,33 @@
                   <button
                     [routerLink]="['/service/edit', service.id]"
                     class="bg-white text-black border border-black py-2 px-4 rounded"
-                  >
-                    تعديل الخدمة
+                                              تعديل الخدمة
                   </button>
                 </ng-container>
+                <p>{{ service.category.name }}</p>
+
+                <div
+                  class="flex justify-between items-center rtl:flex-row-reverse"
+                >
+                  <div class="flex items-center">
+                    <ng-container
+                      *ngFor="let star of getStarArray(service.rating)"
+                    >
+                      <span *ngIf="star === 'full'" class="text-yellow-500"
+                        >★</span
+                      >
+                      <span *ngIf="star === 'half'" class="text-yellow-500"
+                        >☆</span
+                      >
+                      <span *ngIf="star === 'empty'" class="text-gray-400"
+                        >☆</span
+                      >
+                    </ng-container>
+                  </div>
+                  <span class="text-gray-600"
+                    >تبدأ من {{ service.initialPrice }} ج.م.</span
+                  >
+
               </div>
               <div class="flex justify-between items-center rtl:flex-row-reverse">
                 <div class="flex items-center">

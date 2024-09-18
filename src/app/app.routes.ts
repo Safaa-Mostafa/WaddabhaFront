@@ -19,22 +19,46 @@ import { ContractDetailsComponent } from './pages/website/contract/contract-deta
 import { MyServicesComponent } from './pages/website/service/my-services/my-services.component';
 import { EditServiceComponent } from './pages/website/service/edit-service/edit-service.component';
 import { EditUserComponent } from './pages/website/users/edit-user/edit-user.component';
+import { SearchServicesComponent } from './pages/website/service/search-services/search-services.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginUserComponent },
-  { path: 'signup', component: RegisterUserComponent},
-  { path: 'reset_password', component: ResetPasswordComponent},
-  { path: 'verify', component: VerifyComponent },
+  {
+    path: 'login',
+    component: LoginUserComponent,
+    canActivate: [authLoginGuard],
+  },
+  {
+    path: 'signup',
+    component: RegisterUserComponent,
+    canActivate: [authLoginGuard],
+  },
+  {
+    path: 'reset_password',
+    component: ResetPasswordComponent,
+    canActivate: [authLoginGuard],
+  },
+  { path: 'verify', component: VerifyComponent, canActivate: [authLoginGuard] },
+  { path: 'services/:id', component: AllServicesComponent },
+  { path: 'services', component: SearchServicesComponent },
   { path: 'contracts', component: ContractComponent },
   { path: 'profile', component: ProfileComponent },
-  
-  { path: 'add-contract/:id', component: CreateContractComponent, canActivate: [authGuard] },
+  { path: 'edit', component: EditServiceComponent },
+  { path: 'myServices', component: MyServicesComponent },
+  {
+    path: 'add-contract/:id',
+    component: CreateContractComponent,
+    canActivate: [authGuard],
+  },
   { path: 'user-edit/:id', component: EditUserComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
-  { path: 'contractdetails/:id', component: ContractDetailsComponent, canActivate: [authGuard] },
-  
+  {
+    path: 'contractdetails/:id',
+    component: ContractDetailsComponent,
+    canActivate: [authGuard],
+  },
+
   {
     path: 'service',
     children: [
@@ -43,9 +67,8 @@ export const routes: Routes = [
       { path: 'service-details/:id', component: ServiceDetailsComponent },
       { path: 'edit/:id', component: EditServiceComponent},
       { path: 'new', component: NewServiceComponent, canActivate: [authGuard] },
-
-    ]
+    ],
   },
   { path: 'messages', component: ChatsPageComponent, canActivate: [authGuard] },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
 ];

@@ -1,14 +1,15 @@
-
 <!-- Hero Section -->
 <div class="hero-section">
   <div class="hero-content">
-      <h1>ما الخدمة التي تبحث عنها؟</h1>
-      <p>أنجز أعمالك بسهولة وأمان بأسعار بسيطة </p>
-      <div class="search-bar">
-          <input type="text" placeholder= " ">
-          <button>بحث</button>
+    <h1>ما الخدمة التي تبحث عنها؟</h1>
+    <p>أنجز أعمالك بسهولة وأمان بأسعار بسيطة</p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="search-bar" dir="rtl">
+        <input type="text" formControlName="name" placeholder="اسم الخدمة" />
+        <button type="submit">بحث</button>
       </div>
-      <!-- <div class="tags">
+    </form>
+    <!-- <div class="tags">
           <div class="tag">كلمات شائعة</div>
           <div class="tag">استشارات تسويقية</div>
           <div class="tag">هوية بصرية</div>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import necessary Angular modules
-import { SignalrService } from '../../../../signal-r.service';
+import { SignalrService } from '../../../../shared/services/signal-r/signal-r.service';
 import { ChatRoom } from '../../../../shared/chat-box/models/chat-room';
 import { UserService } from '../../users/services/user.service';
 import { User } from '../../auth/Models/user';
@@ -11,7 +11,7 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
   standalone: true,
   imports: [CommonModule, ChatRoomComponent], // Import necessary Angular modules here
   templateUrl: './chat-users.component.html',
-  styleUrls: ['./chat-users.component.css']
+  styleUrls: ['./chat-users.component.css'],
 })
 export class UserListComponent implements OnInit {
   chatRooms!: ChatRoom[];
@@ -19,7 +19,10 @@ export class UserListComponent implements OnInit {
   @Input() chatRoomId!: string;
   @Output() selectRoom = new EventEmitter<string>();
 
-  constructor(private signalrService: SignalrService, public userService: UserService) { }
+  constructor(
+    private signalrService: SignalrService,
+    public userService: UserService
+  ) {}
 
   ngOnInit(): void {
     // Add logic here to update user statuses if needed
@@ -32,9 +35,10 @@ export class UserListComponent implements OnInit {
 
   loadChatRooms(): void {
     this.signalrService.loadChatRooms().subscribe({
-      next: res => {
+      next: (res) => {
         this.chatRooms = res.data;
-      }
+        console.log(res.data);
+      },
     });
   }
 }
