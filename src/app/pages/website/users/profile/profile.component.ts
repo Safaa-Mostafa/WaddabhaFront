@@ -19,16 +19,13 @@ export class ProfileComponent implements OnInit {
   constructor( private router: Router, private userServcie: UserService){}
 
   ngOnInit() {
+    this.userServcie.profile().subscribe({
+      next:(res)=>{
+this.user =res.data;
+      },error:(err)=>{
 
-    this.user = this.userServcie.getStoredUserData();
-    console.log(this.user);
+      }
+    })
   }
-  goToEdit() {
-    if (this.user && this.user) {
-      this.router.navigate(['/user-edit', this.user.id]);
-    } else {
-      console.error('User ID not found!');
-    }
-  }
-  
+
 }

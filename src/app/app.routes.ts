@@ -49,7 +49,7 @@ export const routes: Routes = [
     component: CreateContractComponent,
     canActivate: [authGuard],
   },
-  { path: 'user-edit/:id', component: EditUserComponent },
+  { path: 'user-edit', component: EditUserComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
   {

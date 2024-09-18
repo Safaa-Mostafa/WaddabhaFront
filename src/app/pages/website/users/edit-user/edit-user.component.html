@@ -1,103 +1,96 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100" dir="rtl">
-    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-      <h2 class="text-center text-lg font-semibold mb-4">المعلومات الشخصية</h2>
-  
-      <!-- Profile Picture -->
-      <div class="flex justify-center mb-3">
-        <div class="bg-gray-300 w-16 h-16 rounded-full flex justify-center items-center">
-          <i class="fas fa-camera text-gray-500"></i>
+<div class="bg-gray-100 flex h-screen items-start justify-center px-4 sm:px-6 lg:px-2">
+  <div class="w-full max-w-2xl space-y-4 mt-3">
+    <div class="bg-[#ffffff] shadow-md p-2 mb-2 flex flex-col items-center">
+      <h2 class="text-center text-3xl font-bold text-gray-900 fw-medium" style="font-size: 24px; line-height: 1.6em;">
+        تعديل بيانات الحساب
+      </h2>
+
+      <div class="w-full max-w-3xl space-y-4">
+        <div class="bg-[#ffffff] pb-4 flex flex-col items-center">
+          <!-- Form -->
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full">
+            <div class="flex flex-wrap -mx-3">
+              <div class="w-full px-3">
+                <div class="mb-2">
+                  <div class="flex justify-center mb-2">
+                    <div class="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300">
+                      <!-- Profile Image -->
+                      <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile Image" class="absolute inset-0 object-cover w-full h-full" />
+
+                      <!-- Overlay and Plus Icon -->
+                      <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                        <i class="fa fa-plus text-white text-3xl"></i>
+                      </div>
+
+                      <!-- Input for Image -->
+                      <input type="file" name="image" id="image" required accept="image/*" (change)="onFileChange($event)"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    </div>
+                  </div>
+
+                  <div *ngIf="imageValidErr" class="mt-2 text-sm text-red-600 text-start">
+                    {{ imageValidErr }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Last Name -->
+              <div class="w-full lg:w-1/2 px-3">
+                <div class="mb-4">
+                  <label for="lname" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700': form.get('lname')?.invalid && form.get('lname')?.dirty}">
+                    <span>*</span> اسم العائلة
+                  </label>
+                  <input formControlName="lname" type="text" name="lname" id="lname"
+                    placeholder="أكتب اسم العائلة هنا باللغة العربية" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    dir="rtl" />
+
+                  <!-- Error Messages -->
+                  <div *ngIf="form.get('lname')?.hasError('minlength') && form.get('lname')?.dirty" class="mt-2 text-sm text-red-600 text-end">
+                    اسم العائلة يجب أن يكون طوله 2 أحرف على الأقل
+                  </div>
+                  <div *ngIf="form.get('lname')?.hasError('pattern') && form.get('lname')?.dirty" class="mt-2 text-sm text-red-600 text-end">
+                    اسم العائلة يجب أن يكون باللغة العربية فقط
+                  </div>
+                </div>
+              </div>
+
+              <!-- First Name -->
+              <div class="w-full lg:w-1/2 px-3">
+                <div class="mb-4">
+                  <label for="fname" class="block text-right text-xs font-medium text-gray-700 py-2"
+                    [ngClass]="{'text-red-700': form.get('fname')?.invalid && form.get('fname')?.dirty}">
+                    <span>*</span> الاسم
+                  </label>
+                  <input type="text" formControlName="fname" name="fname" id="fname" dir="rtl"
+                    placeholder="أكتب اسمك باللغة العربية" required
+                    class="w-full border border-gray-300 bg-gray-50 py-2 px-4 text-xs text-gray-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+
+                  <!-- Error Messages -->
+                  <div *ngIf="form.get('fname')?.hasError('minlength') && form.get('fname')?.dirty" class="mt-2 text-sm text-red-600 text-end">
+                    الاسم يجب أن يكون طوله 2 أحرف على الأقل
+                  </div>
+                  <div *ngIf="form.get('fname')?.hasError('pattern') && form.get('fname')?.dirty" class="mt-2 text-sm text-red-600 text-end">
+                    الاسم يجب أن يكون باللغة العربية فقط
+                  </div>
+                </div>
+              </div>
+
+              <!-- CAPTCHA -->
+              <div class="w-full px-3">
+                <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="form.invalid"
+              class="w-full bg-[#2caae2] py-1 px-4 text-xs font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:text-gray-700">
+              تعديل بياناتك
+            </button>
+          </form>
         </div>
       </div>
-  
-      <!-- Form Fields -->
-      <form>
-        <!-- Name Fields -->
-        <div class="flex space-x-2 space-x-reverse mb-3">
-          <div class="flex-1">
-            <label class="block text-xs font-medium mb-1 text-right">الاسم *</label>
-            <input
-              type="text"
-              class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm"
-              placeholder="Heba"
-            />
-          </div>
-          <div class="flex-1">
-            <label class="block text-xs font-medium mb-1 text-right">اسم العائلة *</label>
-            <input
-              type="text"
-              class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm"
-              placeholder="Shahin"
-            />
-          </div>
-        </div>
-  
-        <!-- Country and Language Fields -->
-        <div class="mb-3">
-          <label class="block text-xs font-medium mb-1 text-right">المحافظة *</label>
-          <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-            <option value="مصر">الشرقية</option>
-          </select>
-        </div>
-  
-        <div class="mb-3">
-          <label class="block text-xs font-medium mb-1 text-right">اللغة *</label>
-          <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-            <option value="العربية">العربية</option>
-          </select>
-        </div>
-  
-        <!-- Date of Birth -->
-        <div class="mb-3">
-          <label class="block text-xs font-medium mb-1 text-right">تاريخ الميلاد *</label>
-          <div class="flex space-x-2 space-x-reverse">
-            <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-              <option>16</option>
-            </select>
-            <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-              <option>10</option>
-            </select>
-            <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-              <option>1999</option>
-            </select>
-          </div>
-        </div>
-  
-        <!-- Gender -->
-        <div class="mb-3">
-          <label class="block text-xs font-medium mb-1 text-right">الجنس *</label>
-          <select class="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-            <option value="أنثى">أنثى</option>
-          </select>
-        </div>
-  
-        <!-- Phone Number -->
-        <div class="mb-3">
-          <label class="block text-xs font-medium mb-1 text-right">رقم الجوال *</label>
-          <div class="flex">
-            <select class="px-2 py-1 border border-gray-300 rounded-l focus:outline-none focus:ring focus:ring-blue-200 text-sm">
-              <option value="+20">+20</option>
-            </select>
-            <input
-              type="text"
-              class="w-full px-2 py-1 border border-gray-300 rounded-r focus:outline-none focus:ring focus:ring-blue-200 text-sm"
-              placeholder="رقم الجوال"
-            />
-          </div>
-          <p class="text-red-500 text-xs mt-1">لم يتم التأكيد</p>
-        </div>
-  
-       
-  
-        <!-- Submit Button -->
-        <div class="mt-4">
-          <button
-            type="submit"
-            class="w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600 text-sm"
-          >
-            حفظ التعديلات
-          </button>
-        </div>
-      </form>
     </div>
   </div>
-  
+</div>
