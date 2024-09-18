@@ -8,7 +8,7 @@ import {
 import { ContractService } from '../services/contract.service';
 import Swal from 'sweetalert2';
 import { ContractAddDTO } from '../Models/contract';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-contract',
@@ -23,25 +23,26 @@ export class CreateContractComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private contractService: ContractService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.form = this.formBuilder.group({
       price: [0, [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       workLocation: ['', [Validators.required, Validators.minLength(5)]],
-      description: ['', [Validators.required, Validators.minLength(5)]]
+      description: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
     console.log('Form Values:', this.form.value);
     console.log(this.form.valid); // Debug form values
     if (this.form.valid) {
       const contract = this.form.value as ContractAddDTO;
-      contract.serviceId = this.route.snapshot.paramMap.get('id') || "";
+      contract.serviceId = this.route.snapshot.paramMap.get('id') || '';
       this.contractService.addContract(contract).subscribe({
         next: (res) => {
           Swal.fire({
@@ -49,6 +50,7 @@ export class CreateContractComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'OK',
           });
+          this.router.navigateByUrl('/contracts');
         },
         error: (err) => {
           console.error('Error:', err); // Debug error response

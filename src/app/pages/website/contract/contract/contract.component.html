@@ -46,7 +46,7 @@
             <i class="fa-solid fa-calendar-days"></i>
             {{ item.endDate | date : "shortDate" }}
           </span>
-          <span> ${{ item.price }} </span>
+          <span> {{ item.price }} ج.م. </span>
           <span>
             <i class="fa-solid fa-tag"></i>
             {{ statusArray[item.status] }}

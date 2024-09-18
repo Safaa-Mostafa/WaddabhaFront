@@ -10,22 +10,23 @@ import { Category, Service } from '../models/service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './all-services.component.html',
-  styleUrls: ['./all-services.component.css']
+  styleUrls: ['./all-services.component.css'],
 })
 export class AllServicesComponent implements OnInit {
   services: Service[] = [];
   cate!: Category;
-  constructor(private service: ServiceService, private category: CategoriesService, private activeRouter: ActivatedRoute) { }
+  constructor(
+    private service: ServiceService,
+    private category: CategoriesService,
+    private activeRouter: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.activeRouter.paramMap.subscribe(params => {
+    this.activeRouter.paramMap.subscribe((params) => {
       const id: any = params.get('id');
-      // const id = 'asb';
       this.loadCatgeory(id);
       this.loadServices(id);
     });
-
-
   }
   loadServices(id: string) {
     this.service.getAllServices(id).subscribe({
@@ -36,16 +37,17 @@ export class AllServicesComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
   loadCatgeory(id: string) {
     this.category.getById(id).subscribe({
       next: (res) => {
         this.cate = res.data;
-      }, error: (err) => {
+      },
+      error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
