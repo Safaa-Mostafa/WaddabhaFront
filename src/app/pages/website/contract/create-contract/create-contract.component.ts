@@ -10,11 +10,12 @@ import Swal from 'sweetalert2';
 import { ContractAddDTO } from '../Models/contract';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../../../shared/services/loading/loading.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-contract',
   standalone: true,
-  imports: [ReactiveFormsModule], // Import ReactiveFormsModule here
+  imports: [ReactiveFormsModule,CommonModule], // Import ReactiveFormsModule here
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'], // Corrected to 'styleUrls'
 })
